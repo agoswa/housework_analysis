@@ -2,6 +2,7 @@
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 dat
 
+
 library(tidyverse)
 library(psych)
 
