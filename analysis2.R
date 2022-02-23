@@ -1,3 +1,4 @@
+#R script group 6
 
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 dat
@@ -95,7 +96,6 @@ dat$grbs_19<-recode(dat$grbs_19, "Strongly disagree"=1, "Somewhat disagree"=2, "
                    "Somewhat agree"=4, "Strongly agree"=5)
 dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
                    "Somewhat agree"=4, "Strongly agree"=5)
-
 
 dat$housework_fair
 dat[148:162] <- lapply(dat[148:162], as.numeric)
