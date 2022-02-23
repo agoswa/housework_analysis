@@ -1,5 +1,6 @@
 <<<<<<< HEAD
-#R script group 6
+
+#group 6 project
 =======
 library(tidyverse)
 library(psych)
