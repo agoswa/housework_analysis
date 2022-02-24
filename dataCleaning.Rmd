@@ -6,7 +6,7 @@ output: html_document
 ---
 
 
-This basically just has all that carlotta did just in a markdown file and with housework_satisfied included and na's converted to zero's. We can do something different with them later but i just did that for now. 
+This basically just has all that Carlotta did just in a markdown file and with housework_satisfied included and na's converted to zero's. We can do something different with them later but i just did that for now. 
 
 ```{r}
 library(tidyverse)
@@ -134,7 +134,6 @@ dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "
 dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1, "Somewhat dissatisfied" = 2, "Neither satisfied nor dissatisfied" = 3, "Somewhat satisfied" = 4, "Very satisfied" = 5)
 ```
 
-## the na's dont seem to have a pattern to me, i dont understand why we cant just recode the na's to be 0 instead of separating the data or removing the row's. But im also confused like why would someone put not applicable to food preparation?
 
 ```{r}
 ###### recoding the na's to be 0
