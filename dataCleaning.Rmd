@@ -1,0 +1,151 @@
+---
+title: "dataCleaning"
+author: "Margaret Bassney"
+date: "2/24/2022"
+output: html_document
+---
+
+
+This basically just has all that carlotta did just in a markdown file and with housework_satisfied included and na's converted to zero's. We can do something different with them later but i just did that for now. 
+
+```{r}
+library(tidyverse)
+library(psych)
+```
+
+
+```{r}
+dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+```
+
+```{r}
+dat
+```
+
+```{r}
+######### grabbing only the variables that we need.
+dat<-dat%>%
+  select(starts_with("housework_"), starts_with("grbs_"), religion)
+  
+```
+
+
+```{r}
+######### recoding housework to be numbers 
+dat$housework_1<-recode(dat$housework_1, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_2<-recode(dat$housework_2, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_3<-recode(dat$housework_3, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_4<-recode(dat$housework_4, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_5<-recode(dat$housework_5, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_6<-recode(dat$housework_6, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_7<-recode(dat$housework_7, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_8<-recode(dat$housework_8, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_9<-recode(dat$housework_9, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_10<-recode(dat$housework_10, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_11<-recode(dat$housework_11, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_12<-recode(dat$housework_12, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_13<-recode(dat$housework_13, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+dat$housework_14<-recode(dat$housework_14, "Mostly or always my partner(0-20% me)"=20, 
+                        "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
+                        "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
+```
+
+```{r}
+
+############## recode housework fairness
+dat$housework_fair<-recode(dat$housework_fair, "Fair to both you and your partner"=3, "Slightly unfair to you"=4, 
+                           "Very fair to me"=1, "Pretty much fair to me"=2, "Very unfair to you"=5)
+
+```
+
+```{r}
+########### recode gender role beleifs 
+dat$grbs_1<-recode(dat$grbs_1, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_2<-recode(dat$grbs_2, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_3<-recode(dat$grbs_3, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_4<-recode(dat$grbs_4, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_5<-recode(dat$grbs_5, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_6<-recode(dat$grbs_6, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_7<-recode(dat$grbs_7, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_8<-recode(dat$grbs_8, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_9<-recode(dat$grbs_9, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_10<-recode(dat$grbs_10, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_11<-recode(dat$grbs_11, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_12<-recode(dat$grbs_12, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_13<-recode(dat$grbs_13, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_14<-recode(dat$grbs_14, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_15<-recode(dat$grbs_15, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_16<-recode(dat$grbs_16, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_17<-recode(dat$grbs_17, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_18<-recode(dat$grbs_18, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_19<-recode(dat$grbs_19, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
+                   "Somewhat agree"=4, "Strongly agree"=5)
+```
+
+
+```{r}
+######## recoding housework_satisfied
+dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1, "Somewhat dissatisfied" = 2, "Neither satisfied nor dissatisfied" = 3, "Somewhat satisfied" = 4, "Very satisfied" = 5)
+```
+
+## the na's dont seem to have a pattern to me, i dont understand why we cant just recode the na's to be 0 instead of separating the data or removing the row's. But im also confused like why would someone put not applicable to food preparation?
+
+```{r}
+###### recoding the na's to be 0
+dat[is.na(dat)]<- 0
+```
+
+
+
+
+
+
+
+
+
