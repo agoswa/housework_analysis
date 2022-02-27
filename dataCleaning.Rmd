@@ -21,15 +21,17 @@ dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```{r}
 dat
 ```
+I just added DyadID and partnum to the table. (Nice code by the way! Love it)
 
 ```{r}
 ######### grabbing only the variables that we need.
 dat<-dat%>%
-  select(starts_with("housework_"), starts_with("grbs_"), religion)
+  select(dyadID, partnum, starts_with("housework_"), starts_with("grbs_"), religion)
+head(dat)
   
 ```
 
-
+We could think about recoding them to 1 - 5 > lets talk about that 
 ```{r}
 ######### recoding housework to be numbers 
 dat$housework_1<-recode(dat$housework_1, "Mostly or always my partner(0-20% me)"=20, 
@@ -138,9 +140,19 @@ dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1
 ```{r}
 ###### recoding the na's to be 0
 dat[is.na(dat)]<- 0
+head(dat)
 ```
 
 
+```{r}
+###### data as numerical values, not correct yet
+dat[148:162] <- lapply(dat[148:162], as.numeric)
+dat$religion<- as.factor(dat$religion)
+
+corr.test(select(dat, housework_1, housework_2, housework_3, housework_4, 
+                 housework_5, housework_6, housework_7, housework_8, housework_9, 
+                 housework_10, housework_11, housework_12, housework_13, housework_14))$r
+```
 
 
 
