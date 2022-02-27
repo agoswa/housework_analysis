@@ -140,6 +140,8 @@ dat$avg_housework = rowMeans(dat[,c(3:16)])
 
 # adding an average grbs column
 dat$avg_grbs = rowMeans(dat[,c(19:38)])
+
+head(dat)
 ```
 
 ```{r}
@@ -151,16 +153,43 @@ head(overall_data)
 ```
 
 ```{r}
-# data as numerical values, not correct yet
-dat[148:162] <- lapply(dat[148:162], as.numeric)
-dat$religion<- as.factor(dat$religion)
-
+# Correlation housework
 corr.test(select(dat, housework_1, housework_2, housework_3, housework_4, 
                  housework_5, housework_6, housework_7, housework_8, housework_9, 
                  housework_10, housework_11, housework_12, housework_13, housework_14))$r
 ```
+We can see that there are negative correlations. > type of chore= male/female 
+5=Take out garbage, recycling
+6=Outdoor work (yard work, rake, mow, shovel snow, garden)  
+10=Upkeep of car including repairs, washing and vacuuming  
+11=Small repairs around the house
+
+
+```{r}
+# Correlation devided by housework type
+corr.test(select(dat, housework_1, housework_2, housework_3, housework_4, 
+                 housework_7, housework_8, housework_9, 
+                 housework_12, housework_13, housework_14))$r
+corr.test(select(dat, housework_5, housework_6, 
+                 housework_10, housework_11))$r
+```
+
+
+```{r}
+# average devided by housework type
+dat
+dat$avg_housework_female = rowMeans(dat[,c(3:6, 9:11, 14:16)])
+dat$avg_housework_male = rowMeans(dat[,c(7:8, 12:13)])
+dat
+```
 
 
 
-
-
+```{r}
+# Correlation grbs
+dat
+corr.test(select(dat, grbs_1, grbs_2,grbs_3,grbs_4,grbs_5,grbs_6,grbs_7,grbs_8,
+                 grbs_9, grbs_10, grbs_11, grbs_12, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17, grbs_18, grbs_19, grbs_20))$r
+```
+We should check for reversed items!!
