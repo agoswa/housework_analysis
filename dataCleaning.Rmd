@@ -146,6 +146,8 @@ dat$avg_grbs = rowMeans(dat[,c(19:38)])
 # overall dataset with means
 overall_data <- dat %>%
   select(dyadID, avg_housework, avg_grbs, housework_fair, housework_satisfied, religion)
+
+head(overall_data)
 ```
 
 ```{r}
