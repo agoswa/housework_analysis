@@ -9,31 +9,25 @@ output: html_document
 This basically just has all that Carlotta did just in a markdown file and with housework_satisfied included and na's converted to zero's. We can do something different with them later but i just did that for now. 
 
 ```{r}
+# import libraries
 library(tidyverse)
 library(psych)
 ```
 
-
 ```{r}
+# import dataset
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
 ```{r}
-dat
-```
-I just added DyadID and partnum to the table. (Nice code by the way! Love it)
-
-```{r}
-######### grabbing only the variables that we need.
-dat<-dat%>%
+# selecting the variables we need
+dat <- dat %>%
   select(dyadID, partnum, starts_with("housework_"), starts_with("grbs_"), religion)
 head(dat)
-  
 ```
 
-We could think about recoding them to 1 - 5 > lets talk about that 
 ```{r}
-######### recoding housework to be numbers 
+# re-coding housework to be numbers 
 dat$housework_1<-recode(dat$housework_1, "Mostly or always my partner(0-20% me)"=20, 
                         "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
                         "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
@@ -79,15 +73,14 @@ dat$housework_14<-recode(dat$housework_14, "Mostly or always my partner(0-20% me
 ```
 
 ```{r}
-
-############## recode housework fairness
+# re-coding housework fairness
 dat$housework_fair<-recode(dat$housework_fair, "Fair to both you and your partner"=3, "Slightly unfair to you"=4, 
                            "Very fair to me"=1, "Pretty much fair to me"=2, "Very unfair to you"=5)
 
 ```
 
 ```{r}
-########### recode gender role beleifs 
+# re-coding gender role beliefs 
 dat$grbs_1<-recode(dat$grbs_1, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
                    "Somewhat agree"=4, "Strongly agree"=5)
 dat$grbs_2<-recode(dat$grbs_2, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
@@ -130,22 +123,33 @@ dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "
                    "Somewhat agree"=4, "Strongly agree"=5)
 ```
 
-
 ```{r}
-######## recoding housework_satisfied
+# re-coding housework_satisfied
 dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1, "Somewhat dissatisfied" = 2, "Neither satisfied nor dissatisfied" = 3, "Somewhat satisfied" = 4, "Very satisfied" = 5)
 ```
 
-
 ```{r}
-###### recoding the na's to be 0
+# re-coding the NA's to be 0's
 dat[is.na(dat)]<- 0
 head(dat)
 ```
 
+```{r}
+# adding an average housework column
+dat$avg_housework = rowMeans(dat[,c(3:16)])
+
+# adding an average grbs column
+dat$avg_grbs = rowMeans(dat[,c(19:38)])
+```
 
 ```{r}
-###### data as numerical values, not correct yet
+# overall dataset with means
+overall_data <- dat %>%
+  select(dyadID, avg_housework, avg_grbs, housework_fair, housework_satisfied, religion)
+```
+
+```{r}
+# data as numerical values, not correct yet
 dat[148:162] <- lapply(dat[148:162], as.numeric)
 dat$religion<- as.factor(dat$religion)
 
@@ -153,8 +157,6 @@ corr.test(select(dat, housework_1, housework_2, housework_3, housework_4,
                  housework_5, housework_6, housework_7, housework_8, housework_9, 
                  housework_10, housework_11, housework_12, housework_13, housework_14))$r
 ```
-
-
 
 
 
