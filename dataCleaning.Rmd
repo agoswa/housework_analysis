@@ -140,9 +140,11 @@ na.rm=false
 ```
 
 ```{r}
-# adding an average housework column
-dat
-dat$avg_housework = rowMeans(dat[,c(5:18)])
+# adding an average housework column, is it na.rm=FALSE or TRUE?
+# we can't use these ~ still wrong, reversed etc.
+head(dat)
+dat$avg_housework = rowMeans(dat[,c(5:18)], na.rm=FALSE)
+head(dat)
 
 # adding an average grbs column
 dat$avg_grbs = rowMeans(dat[,c(21:40)])
@@ -184,9 +186,15 @@ corr.test(select(dat, housework_5, housework_6,
 ```{r}
 # average devided by housework type
 dat
-dat$avg_housework_female = rowMeans(dat[,c(3:6, 9:11, 14:16)])
+dat$avg_housework_female = rowMeans(dat[(housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14)], na.rm=TRUE)
+
+#I tried some stuff, it didnt really work though!
+housework_female = c(dat$housework_1, dat$housework_2, dat$housework_3, dat$housework_4, dat$housework_7, dat$housework_8, dat$housework_9, dat$housework_12, dat$housework_13, dat$housework_14)
+dat %>% mutate(avg_housework_f = rowMeans(select(., housework_female)))
+
 dat$avg_housework_male = rowMeans(dat[,c(7:8, 12:13)])
 dat
+?rowMeans
 ```
 
 
