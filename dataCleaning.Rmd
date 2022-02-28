@@ -17,12 +17,13 @@ library(psych)
 ```{r}
 # import dataset
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+head(dat)
 ```
 
 ```{r}
 # selecting the variables we need
 dat <- dat %>%
-  select(dyadID, partnum, starts_with("housework_"), starts_with("grbs_"), religion)
+  select(dyadID, partnum, gender, religion, starts_with("housework_"), starts_with("grbs_"))
 head(dat)
 ```
 
@@ -136,10 +137,11 @@ head(dat)
 
 ```{r}
 # adding an average housework column
-dat$avg_housework = rowMeans(dat[,c(3:16)])
+dat
+dat$avg_housework = rowMeans(dat[,c(5:18)])
 
 # adding an average grbs column
-dat$avg_grbs = rowMeans(dat[,c(19:38)])
+dat$avg_grbs = rowMeans(dat[,c(21:40)])
 
 head(dat)
 ```
@@ -147,7 +149,7 @@ head(dat)
 ```{r}
 # overall dataset with means
 overall_data <- dat %>%
-  select(dyadID, avg_housework, avg_grbs, housework_fair, housework_satisfied, religion)
+  select(dyadID, gender, religion, avg_housework, avg_grbs, housework_fair, housework_satisfied)
 
 head(overall_data)
 ```
@@ -192,4 +194,5 @@ corr.test(select(dat, grbs_1, grbs_2,grbs_3,grbs_4,grbs_5,grbs_6,grbs_7,grbs_8,
                  grbs_9, grbs_10, grbs_11, grbs_12, grbs_13, grbs_14, grbs_15, 
                  grbs_16, grbs_17, grbs_18, grbs_19, grbs_20))$r
 ```
-We should check for reversed items!!
+We should check for reversed items!! 2y 3y 7 10 12 17
+
