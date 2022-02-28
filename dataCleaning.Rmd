@@ -19,6 +19,7 @@ library(psych)
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 head(dat)
 ```
+age ethnicity household income relationship length working from home (working from home), heterosexual income race, interracial 
 
 ```{r}
 # selecting the variables we need
@@ -129,10 +130,13 @@ dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "
 dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1, "Somewhat dissatisfied" = 2, "Neither satisfied nor dissatisfied" = 3, "Somewhat satisfied" = 4, "Very satisfied" = 5)
 ```
 
+
+na.rm=false 
+
 ```{r}
 # re-coding the NA's to be 0's
-dat[is.na(dat)]<- 0
-head(dat)
+#dat[is.na(dat)]<- 0
+#head(dat)
 ```
 
 ```{r}
@@ -195,4 +199,5 @@ corr.test(select(dat, grbs_1, grbs_2,grbs_3,grbs_4,grbs_5,grbs_6,grbs_7,grbs_8,
                  grbs_16, grbs_17, grbs_18, grbs_19, grbs_20))$r
 ```
 We should check for reversed items!! 2y 3y 7 10 12 17
+
 
