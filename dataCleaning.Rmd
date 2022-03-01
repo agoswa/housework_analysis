@@ -207,7 +207,7 @@ colMeans(avg_housework_female)
 
 #I tried some stuff, it didnt really work though!
 #housework_female = c(dat$housework_1, dat$housework_2, dat$housework_3, dat$housework_4, dat$housework_7, dat$housework_8, dat$housework_9, dat$housework_12, dat$housework_13, dat$housework_14)
-#dat %>% mutate(avg_housework_f = rowMeans(select(., housework_female)))
+#dat %>% mutate(avg_housework_f = rowMeans(select(., housework_female))
 
 #dat$avg_housework_male = rowMeans(dat[,c(7:8, 12:13)])
 ```
