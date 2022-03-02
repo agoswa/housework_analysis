@@ -155,16 +155,13 @@ head(dat)
 # adding an average grbs column
 dat$avg_grbs = rowMeans(dat[,c(21:40)])
 
-head(dat)
-```
-
-```{r}
 # overall dataset with means
 overall_data <- dat %>%
   select(dyadID, gender, religion, avg_housework, avg_grbs, housework_fair, housework_satisfied)
 
 head(overall_data)
 ```
+
 
 ```{r}
 # Correlation housework
@@ -181,7 +178,7 @@ We can see that there are negative correlations. > type of chore= male/female
 
 
 ```{r}
-# Correlation devided by housework type
+# Correlation divided by housework type
 corr.test(select(dat, housework_1, housework_2, housework_3, housework_4, 
                  housework_7, housework_8, housework_9, 
                  housework_12, housework_13, housework_14))$r
@@ -189,10 +186,8 @@ corr.test(select(dat, housework_5, housework_6,
                  housework_10, housework_11))$r
 ```
 
-
 ```{r}
-# average of each housework_type, for all females
-
+# Average of each housework_type, for all females
 avg_housework_female <- dat %>%
   filter(gender == "Woman") %>%
   select(housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
@@ -200,21 +195,31 @@ avg_housework_female <- dat %>%
   na.omit()
 
 colMeans(avg_housework_female)
-
-# average divided by housework type
-
-#dat$avg_housework_female = rowMeans(dat[(housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14)], na.rm=TRUE)
-
-#I tried some stuff, it didnt really work though!
-#housework_female = c(dat$housework_1, dat$housework_2, dat$housework_3, dat$housework_4, dat$housework_7, dat$housework_8, dat$housework_9, dat$housework_12, dat$housework_13, dat$housework_14)
-#dat %>% mutate(avg_housework_f = rowMeans(select(., housework_female))
-
-#dat$avg_housework_male = rowMeans(dat[,c(7:8, 12:13)])
 ```
 
 
 ```{r}
-# average of each housework_type, for all men
+# Average divided by housework type
+#dat$avg_housework_female = rowMeans(dat[(housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14)], na.rm=TRUE)
+
+#I tried some stuff, it didnt really work though!
+housework_female = c(dat$housework_1, dat$housework_2, dat$housework_3, dat$housework_4, dat$housework_7, dat$housework_8, dat$housework_9, dat$housework_12, dat$housework_13, dat$housework_14)
+
+dat %>% 
+  na.omit() %>%
+  mutate(avg_housework_f = rowMeans(select(., housework_female)), na.rm=FALSE)
+
+newdata$avg_housework_male = rowMeans(dat[,c(7:8, 12:13)], na.rm=FALSE)
+```
+
+```{r}
+# Correlation for women - housework
+corr.test(select(avg_housework_female, housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
+         housework_9, housework_12, housework_13, housework_14))$r
+```
+
+```{r}
+# Average of each housework_type, for all men
 
 avg_housework_man <- dat %>%
   filter(gender == "Man") %>%
@@ -225,6 +230,11 @@ avg_housework_man <- dat %>%
 colMeans(avg_housework_man)
 ```
 
+```{r}
+# Correlation  for men - housework
+corr.test(select(avg_housework_man, housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
+         housework_9, housework_12, housework_13, housework_14))$r
+```
 
 ```{r}
 # Correlation grbs
