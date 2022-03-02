@@ -182,5 +182,26 @@ corr.test(select(dat, grbs_1, grbs_2,grbs_3,grbs_4,grbs_5,grbs_6,grbs_7,grbs_8,
 We should check for reversed items!! 2y 3y 7 10 12 17
 
 
+# Reverse score GRBS
+
+# reverse score anything
+max + min for a scale and subtract the original score from that.
+
+```{r}
+dat_reverse <- dat %>% mutate(grbs_2 = (1 + 5) - grbs_2,
+                              grbs_3 = (1 + 5) - grbs_3,
+                              grbs_7 = (1 + 5) - grbs_7,
+                              grbs_10 = (1 + 5) - grbs_10,
+                              grbs_17 = (1 + 5) - grbs_17)
+```
+
+
+```{r}
+# Correlation grbs
+dat_reverse
+corr.test(select(dat_reverse, grbs_1, grbs_2,grbs_3,grbs_4,grbs_5,grbs_6,grbs_7,grbs_8,
+                 grbs_9, grbs_10, grbs_11, grbs_12, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17, grbs_18, grbs_19, grbs_20))$r
+```
 
 
