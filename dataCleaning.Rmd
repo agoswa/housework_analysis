@@ -202,13 +202,6 @@ colMeans(avg_housework_female)
 # Average divided by housework type
 #dat$avg_housework_female = rowMeans(dat[(housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14)], na.rm=TRUE)
 
-# example of using column names
-bhs1 <- bhs1 %>%
-          select(bhs1_1:bhs1_20) %>% #can replace with 'nm1'
-          rowMeans(., na.rm = TRUE) %>%
-          bind_cols(bhs1, meanTest = .)
-
-
 #I tried some stuff, it didnt really work though!
 housework_female = c(dat$housework_1, dat$housework_2, dat$housework_3, dat$housework_4, dat$housework_7, dat$housework_8, dat$housework_9, dat$housework_12, dat$housework_13, dat$housework_14)
 
