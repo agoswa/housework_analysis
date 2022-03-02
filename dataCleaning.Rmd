@@ -21,6 +21,9 @@ head(dat)
 ```
 age ethnicity household income relationship length working from home (working from home), heterosexual income race, interracial 
 
+variable names 
+birthday, sexualor, race, relation_length, indinc, wfh 
+
 ```{r}
 # selecting the variables we need
 dat <- dat %>%
