@@ -188,13 +188,10 @@ corr.test(select(dat, housework_5, housework_6,
 
 ```{r}
 # Average of each housework_type, for all females
-avg_housework_female <- dat %>%
-  filter(gender == "Woman") %>%
-  select(housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
-         housework_9, housework_12, housework_13, housework_14)  %>%
-  na.omit()
+dat <- dat %>%
+  mutate(avg_housework_female = rowMeans(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
+         housework_9, housework_12, housework_13, housework_14),na.rm = TRUE))
 
-colMeans(avg_housework_female)
 ```
 
 
@@ -203,13 +200,13 @@ colMeans(avg_housework_female)
 #dat$avg_housework_female = rowMeans(dat[(housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14)], na.rm=TRUE)
 
 #I tried some stuff, it didnt really work though!
-housework_female = c(dat$housework_1, dat$housework_2, dat$housework_3, dat$housework_4, dat$housework_7, dat$housework_8, dat$housework_9, dat$housework_12, dat$housework_13, dat$housework_14)
-
-dat %>% 
-  na.omit() %>%
-  mutate(avg_housework_f = rowMeans(select(., housework_female)), na.rm=FALSE)
-
-newdata$avg_housework_male = rowMeans(dat[,c(7:8, 12:13)], na.rm=FALSE)
+# housework_female = c(dat$housework_1, dat$housework_2, dat$housework_3, dat$housework_4, dat$housework_7, dat$housework_8, dat$housework_9, dat$housework_12, dat$housework_13, dat$housework_14)
+# 
+# dat %>% 
+#   na.omit() %>%
+#   mutate(avg_housework_f = rowMeans(select(., housework_female)), na.rm=FALSE)
+# 
+# newdata$avg_housework_male = rowMeans(dat[,c(7:8, 12:13)], na.rm=FALSE)
 ```
 
 ```{r}
@@ -244,5 +241,7 @@ corr.test(select(dat, grbs_1, grbs_2,grbs_3,grbs_4,grbs_5,grbs_6,grbs_7,grbs_8,
                  grbs_16, grbs_17, grbs_18, grbs_19, grbs_20))$r
 ```
 We should check for reversed items!! 2y 3y 7 10 12 17
+
+
 
 
