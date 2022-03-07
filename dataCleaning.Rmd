@@ -39,12 +39,15 @@ dat<-filter(dat, sexualor=="Heterosexual")
 
 
 #Recode Gender Man=0, Woman=1
-dat$gender<-recode(dat$gender, "Male"=0, "Woman"=1)
+dat$gender<-recode(dat$gender,"Man"=0, "Woman"=1)
+head(dat)
 
 #Recode Work From Home Yes=0, No=1
 dat$wfh<-recode(dat$wfh, "Yes"=0, "No"=1)
 
 #rename birthday > age 
+names(dat)[names(dat) == "birthday"] <- "age"
+head(dat)
 
 #make partnum shorter > just 1 or 2 
 
