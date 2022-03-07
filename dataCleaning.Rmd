@@ -50,7 +50,9 @@ names(dat)[names(dat) == "birthday"] <- "age"
 head(dat)
 
 #make partnum shorter > just 1 or 2 
-
+dat <- dat %>%
+  mutate(partnum = (sub("qual2599-0604TeleCommute_", "", partnum)))
+head(dat)
 ```
 
 ```{r}
