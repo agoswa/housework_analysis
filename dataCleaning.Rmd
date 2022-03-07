@@ -30,7 +30,7 @@ dat <- dat %>%
   select(dyadID, partnum, gender, religion, birthday, sexualor, race, relation_length, RecordedDate, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
 head(dat)
 ```
-Renaming/recoding/cleaning 
+#Renaming/recoding/cleaning 
 ```{r}
 #selecting heterosexual couples only
 dat<-filter(dat, sexualor=="Heterosexual")
@@ -102,13 +102,6 @@ dat$housework_14<-recode(dat$housework_14, "Mostly or always my partner(0-20% me
 ```
 
 ```{r}
-# re-coding housework fairness
-dat$housework_fair<-recode(dat$housework_fair, "Fair to both you and your partner"=3, "Slightly unfair to you"=4, 
-                           "Very fair to me"=1, "Pretty much fair to me"=2, "Very unfair to you"=5)
-
-```
-
-```{r}
 # re-coding gender role beliefs 
 dat$grbs_1<-recode(dat$grbs_1, "Strongly disagree"=1, "Somewhat disagree"=2, "Neither agree nor disagree"=3, 
                    "Somewhat agree"=4, "Strongly agree"=5)
@@ -157,36 +150,16 @@ dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "
 dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1, "Somewhat dissatisfied" = 2, "Neither satisfied nor dissatisfied" = 3, "Somewhat satisfied" = 4, "Very satisfied" = 5)
 ```
 
-
 ```{r}
-head(dat)
+# re-coding housework fairness
+dat$housework_fair<-recode(dat$housework_fair, "Fair to both you and your partner"=3, "Slightly unfair to you"=4, 
+                           "Very fair to me"=1, "Pretty much fair to me"=2, "Very unfair to you"=5)
+
 ```
 
 
-```{r}
-# re-coding the NA's to be 0's
-#dat[is.na(dat)]<- 0
-#head(dat)
-```
-
-```{r}
-# adding an average housework column, is it na.rm=FALSE or TRUE?
-# we can't use these ~ still wrong, reversed etc.
-head(dat)
-dat$avg_housework = rowMeans(dat[,c(5:18)], na.rm=FALSE)
-head(dat)
-
-# adding an average grbs column
-dat$avg_grbs = rowMeans(dat[,c(21:40)])
-
-# overall dataset with means
-overall_data <- dat %>%
-  select(dyadID, gender, religion, avg_housework, avg_grbs, housework_fair, housework_satisfied)
-
-head(overall_data)
-```
-
-
+#HOUSEWORK 
+##Correlation matrices
 ```{r}
 # Correlation housework
 corr.test(select(dat, housework_1, housework_2, housework_3, housework_4, 
@@ -210,6 +183,7 @@ corr.test(select(dat, housework_5, housework_6,
                  housework_10, housework_11))$r
 ```
 
+##Average of housework devided by type of housework 
 ```{r}
 # Average of each housework_type
 dat <- dat %>%
@@ -220,12 +194,12 @@ dat <- dat %>%
   mutate(avg_housework_male = rowMeans(select(dat, housework_5, housework_6, housework_10, housework_11),na.rm = TRUE))
 
 head(dat)
+#check whether avg is calculated with missing values subtracted 
+#report how averages are calculated (remove missing values)
 ```
 
 
-
-
-GENDER ROLE BELIEFS 
+#GENDER ROLE BELIEFS 
 ```{r}
 # Correlation grbs
 dat
@@ -260,3 +234,12 @@ corr.test(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grb
 ```
 
 
+
+
+```{r}
+# overall dataset with means
+overall_data <- dat %>%
+  select(dyadID, gender, religion, avg_housework, avg_grbs, housework_fair, housework_satisfied)
+
+head(overall_data)
+```
