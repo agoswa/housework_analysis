@@ -233,13 +233,21 @@ corr.test(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grb
                  grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))$r
 ```
 
+```{r}
+# average grbs
+dat_reverse <- dat_reverse %>%
+  mutate(avg_grbs = rowMeans(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
+                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20),na.rm = TRUE))
+head(dat_reverse)
+```
 
 
-
+#Create new dataset 
 ```{r}
 # overall dataset with means
-overall_data <- dat %>%
-  select(dyadID, gender, religion, avg_housework, avg_grbs, housework_fair, housework_satisfied)
+overall_data <- dat_reverse %>%
+  select(dyadID, gender, religion, avg_housework_male, avg_housework_female, avg_grbs, housework_fair, housework_satisfied)
 
 head(overall_data)
 ```
