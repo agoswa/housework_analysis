@@ -169,8 +169,6 @@ dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1
 ```
 
 
-na.rm=false 
-
 ```{r}
 # re-coding the NA's to be 0's
 #dat[is.na(dat)]<- 0
