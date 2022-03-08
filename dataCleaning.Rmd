@@ -30,10 +30,11 @@ head(dat)
 
 ```{r}
 #calculate relationship length
-dat %>%
-  select(RecordedDate, relation_length) %>%
-  mutate(endRelDate = sub(" .*", "", RecordedDate)) %>%
-  rename(startRelDate = relation_length) #%>%
+#right now the "select" deletes all the other variables that we need which is why I put this in # for now
+#dat %>%
+  #select(RecordedDate, relation_length) %>%
+  #mutate(endRelDate = sub(" .*", "", RecordedDate)) %>%
+  #rename(startRelDate = relation_length) #%>%
   #mutate(duration = difftime(endRelDate, startRelDate))
 
 
@@ -46,7 +47,8 @@ dat %>%
 
 # Renaming/recoding/cleaning 
 ```{r}
-select(dyadID, partnum, gender, religion, birthday, sexualor, race, relation_length, RecordedDate, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
+dat %>%
+  select(dyadID, partnum, gender, religion, birthday, sexualor, race, relation_length, RecordedDate, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
 head(dat)
 ```
 
@@ -70,7 +72,7 @@ head(dat)
 
 #make partnum shorter > just 1 or 2 
 dat <- dat %>%
-  mutate(partnum = (sub("qual2599-0604TeleCommute_", "", partnum)))
+  mutate(partnum = (sub("qual2599-0604TeleCommute_p", "", partnum)))
 head(dat)
 ```
 
@@ -273,8 +275,57 @@ head(dat_reverse)
 ```{r}
 # overall dataset with means
 overall_data <- dat_reverse %>%
-  select(dyadID, gender, religion, avg_housework_male, avg_housework_female, avg_grbs, housework_fair, housework_satisfied)
+  select(dyadID, partnum, gender, religion, avg_housework_male, avg_housework_female, avg_grbs, housework_fair, housework_satisfied)
 
+show(overall_data$partnum)
+```
+
+```{r}
+#people that are "alone": 1213424, 29196654, 29457967, 29679706, 31455950, 31822775, 33696006
+#other critical ones we should exclude/check: 33728504, 29675494 & 29725200 (the other way around)
+#wrong partnums: 737834
+#maybe we should take the gender variable and create a new partnum variable so it is the same 
+
+#removing the ones that have no partner 
+remove<-c(13, 132, 173, 222, 267, 274, 331)
+overall_data_clean<-overall_data[-remove,]
+
+#create partnum with gender var
+overall_data_clean$partnum2 <- overall_data_clean$gender
+head(overall_data_clean)
+overall_data_clean$partnum2<-recode(overall_data_clean$partnum2, "0"=2, "1"=1)
+overall_data_clean
+```
+
+
+#Dyadic structure 
+
+```{r}
+library(tidyverse)
+library(nlme)
+library(mosaic)
 head(overall_data)
+tempA <- overall_data %>%
+  mutate(genderE = gender, partnum2 = 1,
+          gender = ifelse (gender == 0, "A", "P")) %>%
+   gather(variable, value, avg_housework_male:genderE) %>%
+   unite(var_ap, variable, gender) %>%
+   spread(var_ap, value)
+head(tempA)
+
+#problem: Each row of output must be identified by a unique combination of keys. Keys are shared for 24 rows:
+#we should look for weird things in the data 
+
+tempB <- overall_data %>%
+   mutate(genderE = gender, partnum = 2,
+          gender = ifelse(gender == "Man", "P", "A")) %>%
+   gather(variable, value, Religion:housework_satisfied)%>%
+   unite(var_ap, variable, gender) %>%
+   spread(var_ap, value)
+ overall_data_pair <- bind_rows(tempA, tempB) %>%
+   arrange(dyadID)
+#
+ rm(tempA, tempB)
+ head(overall_data_pair)
 ```
 
