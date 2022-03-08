@@ -280,6 +280,7 @@ overall_data <- dat_reverse %>%
 show(overall_data$partnum)
 ```
 
+#preparing the dataset... 
 ```{r}
 #people that are "alone": 1213424, 29196654, 29457967, 29679706, 31455950, 31822775, 33696006
 #other critical ones we should exclude/check: 33728504, 29675494 & 29725200 (the other way around)
@@ -290,7 +291,7 @@ show(overall_data$partnum)
 remove<-c(13, 132, 173, 222, 267, 274, 331)
 overall_data_clean<-overall_data[-remove,]
 
-#create partnum with gender var
+#create another partnum var with gender 
 overall_data_clean$partnum2 <- overall_data_clean$gender
 head(overall_data_clean)
 overall_data_clean$partnum2<-recode(overall_data_clean$partnum2, "0"=2, "1"=1)
