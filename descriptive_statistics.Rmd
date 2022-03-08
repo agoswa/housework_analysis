@@ -11,7 +11,7 @@ author:
     affiliation   : "2"
     
    - name          : "Anushree Goswami"
-    affiliation   : "2"
+    affiliation   : "3"
 
 
 affiliation:
@@ -51,6 +51,23 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Method
 ## Measures
+
+- Scale used to measure each variable you intend to use
+- Give the original variable name from the original dataset 
+
+Variables:
+Partner number (partnum) - 1 or 2
+Gender (gender) - 0 or 1
+Religion - text
+Average Housework male - 0 to 100
+Average housework female - 0 to 100
+Average GRBS - 0 to 100
+Housework Fair - 0 to 5
+Housework Satisfied - 0 to 5 
+Partner number 2 (partnum 2) - 1 or 
+Relationship Length 
+
+
 
 
 # Results
