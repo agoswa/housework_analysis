@@ -46,7 +46,13 @@ dat %>%
 ```
 
 
-Renaming/recoding/cleaning 
+# Renaming/recoding/cleaning 
+```{r}
+select(dyadID, partnum, gender, religion, birthday, sexualor, race, relation_length, RecordedDate, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
+head(dat)
+```
+# Renaming/recoding/cleaning 
+
 ```{r}
 #selecting heterosexual couples only
 dat<-filter(dat, sexualor=="Heterosexual")
@@ -55,15 +61,20 @@ dat<-filter(dat, sexualor=="Heterosexual")
 
 
 #Recode Gender Man=0, Woman=1
-dat$gender<-recode(dat$gender, "Male"=0, "Woman"=1)
+dat$gender<-recode(dat$gender,"Man"=0, "Woman"=1)
+head(dat)
 
 #Recode Work From Home Yes=0, No=1
 dat$wfh<-recode(dat$wfh, "Yes"=0, "No"=1)
 
 #rename birthday > age 
+names(dat)[names(dat) == "birthday"] <- "age"
+head(dat)
 
 #make partnum shorter > just 1 or 2 
-
+dat <- dat %>%
+  mutate(partnum = (sub("qual2599-0604TeleCommute_", "", partnum)))
+head(dat)
 ```
 
 ```{r}
@@ -110,13 +121,6 @@ dat$housework_13<-recode(dat$housework_13, "Mostly or always my partner(0-20% me
 dat$housework_14<-recode(dat$housework_14, "Mostly or always my partner(0-20% me)"=20, 
                         "More likely my partner(20-40% me)"=40, "Shared about equally(40-60% me)"=60, 
                         "More likely me(60-80% me)"=80, "Mostly or always me(80-100% me)"=100)
-```
-
-```{r}
-# re-coding housework fairness
-dat$housework_fair<-recode(dat$housework_fair, "Fair to both you and your partner"=3, "Slightly unfair to you"=4, 
-                           "Very fair to me"=1, "Pretty much fair to me"=2, "Very unfair to you"=5)
-
 ```
 
 ```{r}
@@ -168,14 +172,15 @@ dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "
 dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1, "Somewhat dissatisfied" = 2, "Neither satisfied nor dissatisfied" = 3, "Somewhat satisfied" = 4, "Very satisfied" = 5)
 ```
 
-
 ```{r}
-# re-coding the NA's to be 0's
-#dat[is.na(dat)]<- 0
-#head(dat)
+# re-coding housework fairness
+dat$housework_fair<-recode(dat$housework_fair, "Fair to both you and your partner"=3, "Slightly unfair to you"=4, 
+                           "Very fair to me"=1, "Pretty much fair to me"=2, "Very unfair to you"=5)
 ```
 
 
+#HOUSEWORK 
+##Correlation matrices
 ```{r}
 # Correlation housework
 corr.test(select(dat, housework_1, housework_2, housework_3, housework_4, 
@@ -200,13 +205,31 @@ corr.test(select(dat, housework_5, housework_6,
                  housework_10, housework_11))$r
 ```
 
+##Average of housework devided by type of housework 
 ```{r}
 # Average of each housework_type
+
 dat %>%
   mutate(avg_housework_female = rowMeans(select(dat, housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
          housework_9, housework_12, housework_13, housework_14),na.rm = TRUE))
 
 ```
+
+```{r}
+dat <- dat %>%
+  mutate(avg_housework_female = rowMeans(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
+         housework_9, housework_12, housework_13, housework_14),na.rm = TRUE))
+
+dat <- dat %>%
+  mutate(avg_housework_male = rowMeans(select(dat, housework_5, housework_6, housework_10, housework_11),na.rm = TRUE))
+
+head(dat)
+#check whether avg is calculated with missing values subtracted 
+#report how averages are calculated (remove missing values)
+```
+
+
+#GENDER ROLE BELIEFS 
 
 ```{r}
 # Correlation grbs
@@ -241,4 +264,23 @@ corr.test(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grb
                  grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))$r
 ```
 
+```{r}
+# average grbs
+dat_reverse <- dat_reverse %>%
+  mutate(avg_grbs = rowMeans(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
+                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20),na.rm = TRUE))
+head(dat_reverse)
+```
+
+
+
+#Create new dataset 
+```{r}
+# overall dataset with means
+overall_data <- dat_reverse %>%
+  select(dyadID, gender, religion, avg_housework_male, avg_housework_female, avg_grbs, housework_fair, housework_satisfied)
+
+head(overall_data)
+```
 
