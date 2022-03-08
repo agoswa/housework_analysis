@@ -27,9 +27,25 @@ birthday, sexualor, race, relation_length, indinc, wfh
 ```{r}
 # selecting the variables we need
 dat <- dat %>%
-  select(dyadID, partnum, gender, religion, birthday, sexualor, race, relation_length, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
+  select(dyadID, partnum, gender, religion, birthday, sexualor, race, RecordedDate, relation_length, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
 head(dat)
 ```
+
+```{r}
+dat %>%
+  select(RecordedDate, relation_length) %>%
+  mutate(endRelDate = sub(" .*", "", RecordedDate)) %>%
+  rename(startRelDate = relation_length) #%>%
+  #mutate(duration = difftime(endRelDate, startRelDate))
+
+
+#duration = difftime(dat$endRelDate, dat$startRelDate)
+#duration = data.frame(dat$endRelDate, dat$startRelDate)
+#dat$date_diff  <- as.Date(as.character(dat$endRelDate)) - as.Date(as.character(dat$startRelDate))
+#dat$date_diff <- as.data.frame(dat$endRelDate - dat$startRelDate)
+```
+
+
 Renaming/recoding/cleaning 
 ```{r}
 #selecting heterosexual couples only
