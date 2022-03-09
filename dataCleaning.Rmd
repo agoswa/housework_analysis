@@ -299,8 +299,3 @@ tempB <- overall_data_clean %>%
  head(overall_data_pair)
 ```
 
-#DESCRIPTIVE STATISTICS 
-```{r}
-
-```
-
