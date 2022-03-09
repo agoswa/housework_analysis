@@ -234,7 +234,7 @@ head(dat_reverse)
 overall_data <- dat_reverse %>%
   select(dyadID, gender, religion, avg_housework_male, avg_housework_female, avg_grbs, housework_fair, housework_satisfied)
 
-show(overall_data$partnum)
+show(overall_data)
 ```
 
 #preparing the dataset... 
@@ -297,5 +297,10 @@ tempB <- overall_data_clean %>%
 #
  rm(tempA, tempB)
  head(overall_data_pair)
+```
+
+#DESCRIPTIVE STATISTICS 
+```{r}
+
 ```
 
