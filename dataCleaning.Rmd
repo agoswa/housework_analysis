@@ -15,22 +15,19 @@ library(lubridate)
 ```{r}
 # import dataset
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+
 head(dat)
 ```
-age ethnicity household income relationship length working from home (working from home), heterosexual income race, interracial 
-
-variable names 
-birthday, sexualor, race, relation_length, indinc, wfh 
 
 ```{r}
 # selecting the variables we need
 dat <- dat %>%
   select(dyadID, partnum, gender, religion, birthday, sexualor, race, RecordedDate, relation_length, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
+
 head(dat)
 ```
 
 # Renaming/recoding/cleaning 
-
 ```{r}
 # selecting heterosexual couples only
 dat<-filter(dat, sexualor=="Heterosexual")
@@ -44,14 +41,12 @@ dat <- dat %>%
 
 # Recode Gender Man=0, Woman=1
 dat$gender<-recode(dat$gender,"Man"=0, "Woman"=1)
-head(dat)
 
 # Recode Work From Home Yes=0, No=1
 dat$wfh<-recode(dat$wfh, "Yes"=0, "No"=1)
 
 # rename birthday > age 
 names(dat)[names(dat) == "birthday"] <- "age"
-head(dat)
 
 # make partnum shorter > just 1 or 2 
 dat <- dat %>%
@@ -189,32 +184,14 @@ corr.test(select(dat, housework_5, housework_6,
 ##Average of housework devided by type of housework 
 ```{r}
 # Average of each housework_type
-
 dat %>%
-  mutate(avg_housework_female = rowMeans(select(dat, housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
-         housework_9, housework_12, housework_13, housework_14),na.rm = TRUE))
-
-```
-
-```{r}
-dat <- dat %>%
-  mutate(avg_housework_female = rowMeans(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, 
-         housework_9, housework_12, housework_13, housework_14),na.rm = TRUE))
-
-dat <- dat %>%
+  mutate(avg_housework_female = rowMeans(select(dat, housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14),na.rm = TRUE)) %>%
   mutate(avg_housework_male = rowMeans(select(dat, housework_5, housework_6, housework_10, housework_11),na.rm = TRUE))
-
-head(dat)
-#check whether avg is calculated with missing values subtracted 
-#report how averages are calculated (remove missing values)
 ```
-
 
 #GENDER ROLE BELIEFS 
-
 ```{r}
 # Correlation grbs
-dat
 corr.test(select(dat, grbs_1, grbs_2,grbs_3,grbs_4,grbs_5,grbs_6,grbs_7,grbs_8,
                  grbs_9, grbs_10, grbs_11, grbs_12, grbs_13, grbs_14, grbs_15, 
                  grbs_16, grbs_17, grbs_18, grbs_19, grbs_20))$r
@@ -239,7 +216,6 @@ dat_reverse <- dat %>% mutate(grbs_2.r = (1 + 5) - grbs_2,
 
 ```{r}
 # Correlation grbs
-dat_reverse
 corr.test(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
                  grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
                  grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))$r
@@ -323,10 +299,5 @@ tempB <- overall_data_clean %>%
 #
  rm(tempA, tempB)
  head(overall_data_pair)
-```
-
-#DESCRIPTIVE STATISTICS 
-```{r}
-
 ```
 
