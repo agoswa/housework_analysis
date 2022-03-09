@@ -54,7 +54,9 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 - Scale used to measure each variable you intend to use
 - Give the original variable name from the original dataset 
+**partnum** Indicates the partner number. Each person was either partner 1 or partner 2.
 
+**gender** Indicates the gender of the partner.
 Variables:
 Partner number (partnum) - 1 or 2
 Gender (gender) - 0 or 1
