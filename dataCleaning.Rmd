@@ -15,6 +15,8 @@ library(lubridate)
 ```{r}
 # import dataset
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+
+head(dat)
 ```
 
 ```{r}
@@ -252,7 +254,7 @@ overall_data_clean<-overall_data[-remove,]
 overall_data_clean$partnum2 <- overall_data_clean$gender
 head(overall_data_clean)
 overall_data_clean$partnum2<-recode(overall_data_clean$partnum2, "0"=2, "1"=1)
-view(overall_data_clean)
+head(overall_data)
 
 overall_data_small <- overall_data_clean %>%
   select(dyadID, gender, avg_housework_female)
