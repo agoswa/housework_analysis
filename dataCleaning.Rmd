@@ -286,7 +286,6 @@ show(overall_data$partnum)
 #other critical ones we should exclude/check: 33728504, 29675494 & 29725200 (the other way around)
 #wrong partnums: 737834
 #maybe we should take the gender variable and create a new partnum variable so it is the same 
-view(overall_data)
 
 #removing the ones that have no partner (first half), #even though we already tried to remove same-sex couples, there were still some in the dataset (second half from102)
 remove<-c(13, 132, 173, 222, 267, 274, 331, 102, 103, 165, 166, 188, 189, 291, 292, 313, 314, 319,320, 329,330)
