@@ -54,9 +54,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 - Scale used to measure each variable you intend to use
 - Give the original variable name from the original dataset 
-**partnum** Indicates the partner number. Each person was either partner 1 or partner 2.
 
-**gender** Indicates the gender of the partner.
 Variables:
 Partner number (partnum) - 1 or 2
 Gender (gender) - 0 or 1
@@ -74,6 +72,24 @@ Relationship Length
 
 # Results
 ## Participant Demographics
+
+age, gender, relationship length, wfh
+
+t tests 
+
+```{r}
+
+tapply(dat$age, dat$gender, summary)
+summary(dat$sexualor)
+
+
+summary(overall_data$gender)
+tapply(overall_data$avg_housework_female, overall_data$gender, summary)
+tapply(overall_data$avg_housework_male, overall_data$gender, summary)
+tapply(overall_data$avg_grbs, overall_data$gender, summary)
+tapply(overall_data$housework_fair, overall_data$gender, summary)
+tapply(overall_data$housework_satisfied, overall_data$gender, summary)
+```
 
 
 

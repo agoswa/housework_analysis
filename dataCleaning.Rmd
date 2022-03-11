@@ -52,6 +52,11 @@ names(dat)[names(dat) == "birthday"] <- "age"
 dat <- dat %>%
   mutate(partnum = (sub("qual2599-0604TeleCommute_p", "", partnum)))
 head(dat)
+
+
+#removing some of the participants 
+remove<-c(13, 132, 173, 222, 267, 274, 331, 102, 103, 165, 166, 188, 189, 291, 292, 313, 314, 319,320, 329,330)
+dat<-dat[-remove,]
 ```
 
 ```{r}
@@ -184,9 +189,12 @@ corr.test(select(dat, housework_5, housework_6,
 ##Average of housework devided by type of housework 
 ```{r}
 # Average of each housework_type
-dat %>%
-  mutate(avg_housework_female = rowMeans(select(dat, housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14),na.rm = TRUE)) %>%
+dat <- dat %>%
+  mutate(avg_housework_female = rowMeans(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14),na.rm = TRUE))
+
+dat <- dat %>%
   mutate(avg_housework_male = rowMeans(select(dat, housework_5, housework_6, housework_10, housework_11),na.rm = TRUE))
+head(dat)
 ```
 
 #GENDER ROLE BELIEFS 
@@ -247,8 +255,8 @@ show(overall_data)
 #maybe we should take the gender variable and create a new partnum variable so it is the same 
 
 #removing the ones that have no partner (first half), #even though we already tried to remove same-sex couples, there were still some in the dataset (second half from102)
-remove<-c(13, 132, 173, 222, 267, 274, 331, 102, 103, 165, 166, 188, 189, 291, 292, 313, 314, 319,320, 329,330)
-overall_data_clean<-overall_data[-remove,]
+#remove<-c(13, 132, 173, 222, 267, 274, 331, 102, 103, 165, 166, 188, 189, 291, 292, 313, 314, 319,320, 329,330)
+#overall_data_clean<-overall_data[-remove,]
 
 #create another partnum var with gender 
 overall_data_clean$partnum2 <- overall_data_clean$gender
