@@ -68,6 +68,13 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 # Method
 ## Measures
 
+```{r}
+dat_reverse <- read.csv("dat_reverse.csv")
+dat_predyad <- read.csv("predyaddata.csv")
+dat_dyad <- read.csv("dyadic.csv")
+```
+
+
 ```{r include = FALSE}
 a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
                  housework_7, housework_8, housework_9, 
