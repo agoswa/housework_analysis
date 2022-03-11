@@ -2,15 +2,15 @@
 title             : "Method Section: Measures and Descriptive Statistics Write-up"
 shorttitle        : "housework analysis"
 
-author: 
+author:
   - name          : "Carlotta Reinhardt"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
 
   - name          : "Margaret Bassney"
     affiliation   : "2"
-    
-   - name          : "Anushree Goswami"
+
+   - name         : "Anushree Goswami"
     affiliation   : "3"
 
 
@@ -74,6 +74,8 @@ Average Housework male - 0 to 100
 Average housework female - 0 to 100
 
 **Gender Role Beleifs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
+
+
 Average GRBS - 0 to 100
 
 **Housework Fair** - 0 to 5
