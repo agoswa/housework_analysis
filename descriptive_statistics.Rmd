@@ -2,16 +2,21 @@
 title             : "Method Section: Measures and Descriptive Statistics Write-up"
 shorttitle        : "housework analysis"
 
-author:
+author: 
   - name          : "Carlotta Reinhardt"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
+    address       :
+    email         :
+    role:
 
   - name          : "Margaret Bassney"
-    affiliation   : "2"
-
-   - name         : "Anushree Goswami"
-    affiliation   : "3"
+    affiliation   : "1,2"
+    role:
+      
+  - name          : "Anushree Goswami"
+    affiliation   : "1,2,3"
+    role:    
 
 
 affiliation:
@@ -22,11 +27,21 @@ affiliation:
   - id            : "3"
     institution   : "Smith College"
 
+   
+
+authornote: 
+
+abstract: 
+  
+keywords          : "keywords"
+wordcount         : "X"
+
 bibliography      : ["r-references.bib"]
+
 
 floatsintext      : no
 figurelist        : no
-tablelist         : no
+tablelist         : yes
 footnotelist      : no
 linenumbers       : yes
 mask              : no
@@ -39,6 +54,7 @@ output            : papaja::apa6_pdf
 
 ```{r setup, include = FALSE}
 library("papaja")
+library(tidyverse)
 r_refs("r-references.bib")
 ```
 
@@ -52,15 +68,34 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 # Method
 ## Measures
 
+
+- Scale used to measure each variable you intend to use
+- Give the original variable name from the original data set 
+
+Variables:
+**Partner number** (partnum) - 1 or 2
+**Gender** (gender) - 0 or 1
+**Religion** - text
+```{r, include = FALSE}
+
+dat_reverse <- read.csv("dat_reverse.csv")
+dat_predyad <- read.csv("predyaddata.csv")
+dat_dyad <- read.csv("dyadic.csv")
+```
+
+
 ```{r include = FALSE}
 a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
                  housework_7, housework_8, housework_9, 
                  housework_12, housework_13, housework_14))
+d<-a$total$raw_alpha
 ```
-```{r include = FALSE}
+```{r, include = FALSE}
 b <- alpha(select(dat,housework_5, housework_6, 
                  housework_10, housework_11))
+c<-b$total$raw_alpha
 ```
+
 - Scale used to measure each variable you intend to use
 - Give the original variable name from the original dataset 
 
@@ -77,6 +112,20 @@ Average housework female - 0 to 100
 
 **grbs** Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) which was developed by Paula S. Kerr and Ronald R.Holden (1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
 
+**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r d` for female tasks and `r c` for male tasks.
+Average Housework male - 0 to 100
+Average housework female - 0 to 100
+
+
+```{r, include = FALSE}
+e <- alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
+                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
+f<-e$total$raw_alpha
+```
+
+**Gender Role Beleifs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r f`. 
+
 **housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
 
 **housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
@@ -90,8 +139,6 @@ Average housework female - 0 to 100
 
 # Results
 ## Participant Demographics
-
-t tests 
 
 ```{r}
 
@@ -135,3 +182,31 @@ Include:
 
 ::: {#refs custom-style="Bibliography"}
 :::
+
+
+
+```{r}
+descriptive_stats <- dat %>% group_by(gender) %>%
+  summarize(
+    Mean = mean(avg_housework_female)
+    , Median = median(avg_housework_female)
+    , SD = sd(avg_housework_female)
+    , Min = min(avg_housework_female)
+    , Max = max(avg_housework_female))
+descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
+apa_table(
+  descriptive_stats
+  , caption = "Descriptive statistics of typically female tasks by Gender"
+  , note = "This table was created with apa_table()."
+  , escape = TRUE)
+
+```
+
+
+
+
+
+
+
+
+
