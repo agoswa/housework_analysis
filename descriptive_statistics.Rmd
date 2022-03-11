@@ -70,7 +70,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 
 - Scale used to measure each variable you intend to use
-- Give the original variable name from the original dataset 
+- Give the original variable name from the original data set 
 
 Variables:
 **Partner number** (partnum) - 1 or 2
@@ -123,8 +123,8 @@ t tests
 
 tapply(dat$age, dat$gender, summary)
 summary(dat$sexualor)
-#dat_women
-#dat_men
+dat_women
+dat_men
 
 head(subset(dat, select = 'religion'))
 count(dat, 'religion')
@@ -173,6 +173,10 @@ apa_table(
   , escape = TRUE)
 
 ```
+
+
+
+
 
 
 
