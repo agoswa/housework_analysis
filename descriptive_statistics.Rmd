@@ -68,17 +68,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 # Method
 ## Measures
 
-```{r include = FALSE}
-a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
-                 housework_7, housework_8, housework_9, 
-                 housework_12, housework_13, housework_14))
-d<-a$raw_alpha
-```
-```{r}
-b <- alpha(select(dat,housework_5, housework_6, 
-                 housework_10, housework_11))
-c<-b$raw_alpha
-```
+
 - Scale used to measure each variable you intend to use
 - Give the original variable name from the original dataset 
 
@@ -86,12 +76,30 @@ Variables:
 **Partner number** (partnum) - 1 or 2
 **Gender** (gender) - 0 or 1
 **Religion** - text
-
+```{r, include = FALSE}
+a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
+                 housework_7, housework_8, housework_9, 
+                 housework_12, housework_13, housework_14))
+d<-a$total$raw_alpha
+```
+```{r, include = FALSE}
+b <- alpha(select(dat,housework_5, housework_6, 
+                 housework_10, housework_11))
+c<-b$total$raw_alpha
+```
 **who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r d` for female tasks and `r c` for male tasks.
 Average Housework male - 0 to 100
 Average housework female - 0 to 100
 
-**Gender Role Beleifs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
+
+```{r, include = FALSE}
+e <- alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
+                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
+f<-e$total$raw_alpha
+```
+
+**Gender Role Beleifs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r f`. 
 
 
 Average GRBS - 0 to 100
@@ -115,8 +123,8 @@ t tests
 
 tapply(dat$age, dat$gender, summary)
 summary(dat$sexualor)
-dat_women
-dat_men
+#dat_women
+#dat_men
 
 head(subset(dat, select = 'religion'))
 count(dat, 'religion')
