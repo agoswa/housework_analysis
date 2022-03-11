@@ -236,6 +236,7 @@ dat_reverse <- dat_reverse %>%
                  grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
                  grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20),na.rm = TRUE))
 head(dat_reverse)
+write.csv(dat_reverse, "dat_reverse.csv")
 ```
 
 #Create new dataset 
@@ -269,7 +270,8 @@ overall_data_small <- overall_data_clean %>%
 
 
 #this would be the code to get the csv file to upload to the shiny app 
-write.csv(overall_data_clean2,"predyaddata.csv")
+write.csv(overall_data_clean,"predyaddata.csv")
+
 ```
 
 
@@ -307,5 +309,7 @@ tempB <- overall_data_clean %>%
 #
  rm(tempA, tempB)
  head(overall_data_pair)
+  write.csv(overall_data_pair,"dyadic.csv")
+
 ```
 
