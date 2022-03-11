@@ -2,16 +2,21 @@
 title             : "Method Section: Measures and Descriptive Statistics Write-up"
 shorttitle        : "housework analysis"
 
-author:
+author: 
   - name          : "Carlotta Reinhardt"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
+    address       :
+    email         :
+    role:
 
   - name          : "Margaret Bassney"
-    affiliation   : "2"
-
-   - name         : "Anushree Goswami"
-    affiliation   : "3"
+    affiliation   : "1,2"
+    role:
+      
+  - name          : "Anushree Goswami"
+    affiliation   : "1,2,3"
+    role:    
 
 
 affiliation:
@@ -22,11 +27,21 @@ affiliation:
   - id            : "3"
     institution   : "Smith College"
 
+   
+
+authornote: 
+
+abstract: 
+  
+keywords          : "keywords"
+wordcount         : "X"
+
 bibliography      : ["r-references.bib"]
+
 
 floatsintext      : no
 figurelist        : no
-tablelist         : no
+tablelist         : yes
 footnotelist      : no
 linenumbers       : yes
 mask              : no
@@ -39,7 +54,7 @@ output            : papaja::apa6_pdf
 
 ```{r setup, include = FALSE}
 library("papaja")
-library(dplyr)
+library(tidyverse)
 r_refs("r-references.bib")
 ```
 
@@ -57,10 +72,12 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
                  housework_7, housework_8, housework_9, 
                  housework_12, housework_13, housework_14))
+d<-a$raw_alpha
 ```
-```{r include = FALSE}
+```{r}
 b <- alpha(select(dat,housework_5, housework_6, 
                  housework_10, housework_11))
+c<-b$raw_alpha
 ```
 - Scale used to measure each variable you intend to use
 - Give the original variable name from the original dataset 
@@ -70,7 +87,7 @@ Variables:
 **Gender** (gender) - 0 or 1
 **Religion** - text
 
-**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r a$raw_alpha` for female tasks and `r b$raw_alpha` for male tasks.
+**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r d` for female tasks and `r c` for male tasks.
 Average Housework male - 0 to 100
 Average housework female - 0 to 100
 
@@ -119,9 +136,6 @@ tapply(overall_data$housework_satisfied, overall_data$gender, summary)
 
 
 
-\newpage
-# Tables 
-
 ```{r}
 descriptive_stats <- dat %>% group_by(gender) %>%
   summarize(
@@ -130,7 +144,7 @@ descriptive_stats <- dat %>% group_by(gender) %>%
     , SD = sd(avg_housework_female)
     , Min = min(avg_housework_female)
     , Max = max(avg_housework_female))
-
+descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
 apa_table(
   descriptive_stats
   , caption = "Descriptive statistics of typically female tasks by Gender"
