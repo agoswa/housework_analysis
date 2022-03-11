@@ -59,9 +59,14 @@ Variables:
 Partner number (partnum) - 1 or 2
 Gender (gender) - 0 or 1
 Religion - text
+
+who does what? developed by Cowan and Cowan in 1992. This scale measures who performs which chores and household activities.
 Average Housework male - 0 to 100
 Average housework female - 0 to 100
+
+Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996)
 Average GRBS - 0 to 100
+
 Housework Fair - 0 to 5
 Housework Satisfied - 0 to 5 
 Partner number 2 (partnum 2) - 1 or 
