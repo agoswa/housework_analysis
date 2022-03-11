@@ -81,7 +81,20 @@ t tests
 
 tapply(dat$age, dat$gender, summary)
 summary(dat$sexualor)
+dat_women
+dat_men
 
+head(subset(dat, select = 'religion'))
+count(dat, 'religion')
+(cTab <- table(dat$gender, dat$religion))
+
+tapply(dat$relation_yrs, dat$gender, summary)
+#weird - relationship length differs in men and women... 
+
+table(dat$race)
+
+tapply(dat$indinc, dat$gender, summary)
+tapply(dat$wfh, dat$gender, summary)
 
 summary(overall_data$gender)
 tapply(overall_data$avg_housework_female, overall_data$gender, summary)
