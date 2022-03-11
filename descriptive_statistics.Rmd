@@ -68,7 +68,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 # Method
 ## Measures
 
-<<<<<<< HEAD
+
 
 - Scale used to measure each variable you intend to use
 - Give the original variable name from the original data set 
@@ -77,17 +77,15 @@ Variables:
 **Partner number** (partnum) - 1 or 2
 **Gender** (gender) - 0 or 1
 **Religion** - text
-```{r, include = FALSE}
-=======
-```{r}
-dat_reverse <- read.csv("dat_reverse.csv")
-dat_predyad <- read.csv("predyaddata.csv")
-dat_dyad <- read.csv("dyadic.csv")
-```
+# ```{r, include = FALSE}
+# dat_reverse <- read.csv("dat_reverse.csv")
+# dat_predyad <- read.csv("predyaddata.csv")
+# dat_dyad <- read.csv("dyadic.csv")
+# ```
 
 
 ```{r include = FALSE}
->>>>>>> 11ead118887665e4b4a673a083394eb05b2c34ff
+
 a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
                  housework_7, housework_8, housework_9, 
                  housework_12, housework_13, housework_14))
@@ -134,8 +132,8 @@ t tests
 
 tapply(dat$age, dat$gender, summary)
 summary(dat$sexualor)
-dat_women
-dat_men
+# dat_women
+# dat_men
 
 head(subset(dat, select = 'religion'))
 count(dat, 'religion')
@@ -168,7 +166,7 @@ tapply(overall_data$housework_satisfied, overall_data$gender, summary)
 
 
 
-```{r}
+```{r, include=FALSE}
 descriptive_stats <- dat %>% group_by(gender) %>%
   summarize(
     Mean = mean(avg_housework_female)
