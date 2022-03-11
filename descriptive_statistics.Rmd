@@ -39,6 +39,7 @@ output            : papaja::apa6_pdf
 
 ```{r setup, include = FALSE}
 library("papaja")
+library(dplyr)
 r_refs("r-references.bib")
 ```
 
@@ -115,3 +116,30 @@ tapply(overall_data$housework_satisfied, overall_data$gender, summary)
 
 ::: {#refs custom-style="Bibliography"}
 :::
+
+
+
+\newpage
+# Tables 
+
+```{r}
+descriptive_stats <- dat %>% group_by(gender) %>%
+  summarize(
+    Mean = mean(avg_housework_female)
+    , Median = median(avg_housework_female)
+    , SD = sd(avg_housework_female)
+    , Min = min(avg_housework_female)
+    , Max = max(avg_housework_female))
+
+apa_table(
+  descriptive_stats
+  , caption = "Descriptive statistics of typically female tasks by Gender"
+  , note = "This table was created with apa_table()."
+  , escape = TRUE)
+
+```
+
+
+
+
+
