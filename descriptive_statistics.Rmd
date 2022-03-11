@@ -52,6 +52,15 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 # Method
 ## Measures
 
+```{r include = FALSE}
+a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
+                 housework_7, housework_8, housework_9, 
+                 housework_12, housework_13, housework_14))
+```
+```{r include = FALSE}
+b <- alpha(select(dat,housework_5, housework_6, 
+                 housework_10, housework_11))
+```
 - Scale used to measure each variable you intend to use
 - Give the original variable name from the original dataset 
 
@@ -60,7 +69,7 @@ Variables:
 **Gender** (gender) - 0 or 1
 **Religion** - text
 
-**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. 
+**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r a$raw_alpha` for female tasks and `r b$raw_alpha` for male tasks.
 Average Housework male - 0 to 100
 Average housework female - 0 to 100
 
