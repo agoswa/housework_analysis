@@ -76,13 +76,11 @@ dat_dyad <- read.csv("dyadic.csv")
 
 
 ```{r include = FALSE}
-a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
-                 housework_7, housework_8, housework_9, 
-                 housework_12, housework_13, housework_14))
+a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
 d<-a$raw_alpha
 ```
 ```{r}
-b <- alpha(select(dat,housework_5, housework_6, 
+b <- alpha(select(dat_reverse,housework_5, housework_6, 
                  housework_10, housework_11))
 c<-b$raw_alpha
 ```
@@ -114,22 +112,26 @@ Average GRBS - 0 to 100
 # Results
 ## Participant Demographics
 
+In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`r male` couples will be included in the analysis  
+
 age, gender, relationship length, wfh
 
 t tests 
 
 ```{r}
 
-tapply(dat$age, dat$gender, summary)
-summary(dat$sexualor)
-dat_women
-dat_men
+tapply(dat_reverse$age, dat_reverse$gender, summary)
+summary(dat_reverse$sexualor)
+#dat_women
+#dat_men
+male<-count(dat_reverse$gender==0)
 
-head(subset(dat, select = 'religion'))
-count(dat, 'religion')
-(cTab <- table(dat$gender, dat$religion))
 
-tapply(dat$relation_yrs, dat$gender, summary)
+head(subset(dat_reverse, select = 'religion'))
+count(dat_reverse, 'religion')
+(cTab <- table(dat_reverse$gender, dat_reverse$religion))
+
+tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 #weird - relationship length differs in men and women... 
 
 table(dat$race)

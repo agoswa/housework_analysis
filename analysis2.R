@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 
-#group 6 project CHANGE
+#group 6 project 
 =======
 library(tidyverse)
 library(psych)
