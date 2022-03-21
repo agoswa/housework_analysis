@@ -78,6 +78,9 @@ racial groups
 
 ## Measures
 
+Variables:
+**partnum** Indicates Partner number 1
+
 
 
 
@@ -106,37 +109,6 @@ d<-a$total$raw_alpha
 
 ```{r, include = FALSE}
 
-dat_reverse <- read.csv("dat_reverse.csv")
-dat_predyad <- read.csv("predyaddata.csv")
-dat_dyad <- read.csv("dyadic.csv")
-```
-
-
-```{r include = FALSE}
-#a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-#d<-a$raw_alpha
-
-```
-```{r, include = FALSE}
-#b <- alpha(select(dat_reverse,housework_5, housework_6, 
-
-#a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14))
-#d<-a$total$raw_alpha
-```
-
-```{r, include = FALSE}
-#b <- alpha(select(dat,housework_5, housework_6, 
-#>>>>>>> 6160435d542799c97b79826ffbb53712353a524f
-#                 housework_10, housework_11))
-#c<-b$total$raw_alpha
-```
-
-- Scale used to measure each variable you intend to use
-- Give the original variable name from the original dataset 
-
-Variables:
-**partnum** Indicates Partner number 1
-
 **gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
 
 **religion** Describes the religion that the individual associates with the most. Examples include "Christianity", "Islam", and "Atheist".
@@ -147,9 +119,70 @@ Average housework female - 0 to 100
 
 **grbs** Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) which was developed by Paula S. Kerr and Ronald R.Holden (1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
 
-**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r d` for female tasks and `r c` for male tasks.
+**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include "Make beds or change bed linens" and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r d` for female tasks and `r c` for male tasks.
 Average Housework male - 0 to 100
 Average housework female - 0 to 100
+
+**relation_length** The date when both people first got together in mm/dd/yyyy which signifies the start of their relationship.
+
+**relationship length** Measures the length of the couples' relationship in years. We calculated this value by subtracting the relation_length from the date the survey was filled out.
+
+**Gender Role Beliefs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r f`. 
+
+**housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
+
+**housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
+
+
+**partnum2** Indicates Partner number 2
+
+
+
+```{r, include = FALSE}
+dat_reverse <- read.csv("dat_reverse.csv")
+dat_predyad <- read.csv("predyaddata.csv")
+dat_dyad <- read.csv("dyadic.csv")
+```
+
+
+```{r include = FALSE}
+a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
+d<-a$raw_alpha
+```
+
+```{r}
+b <- alpha(select(dat_reverse,housework_5, housework_6, 
+
+a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
+                 housework_7, housework_8, housework_9, 
+                 housework_12, housework_13, housework_14))
+d<-a$total$raw_alpha
+```
+
+```{r, include = FALSE}
+b <- alpha(select(dat,housework_5, housework_6, 
+                 housework_10, housework_11))
+c<-b$total$raw_alpha
+
+#a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
+#d<-a$raw_alpha
+
+```
+
+```{r, include = FALSE}
+#b <- alpha(select(dat_reverse,housework_5, housework_6, 
+
+#a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14))
+#d<-a$total$raw_alpha
+```
+
+```{r, include = FALSE}
+#b <- alpha(select(dat,housework_5, housework_6, 
+
+#                 housework_10, housework_11))
+#c<-b$total$raw_alpha
+```
+
 
 
 ```{r, include = FALSE}
@@ -159,23 +192,24 @@ e <- alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,gr
 f<-e$total$raw_alpha
 ```
 
-**Gender Role Beliefs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r f`. 
 
-**housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
 
-**housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
 
-**partnum2** Indicates Partner number 2
 
-**relation_length** The date when both people first got together in mm/dd/yyyy which signifies the start of their relationship.
+In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`r male` couples will be included in the analysis  
+
+
 
 
 
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
 
+
 age, gender, relationship length, wfh
 
 ######Average GRBS - 0 to 100
+
+
 
 
 # Results
