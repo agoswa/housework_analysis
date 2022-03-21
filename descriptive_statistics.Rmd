@@ -81,6 +81,34 @@ racial groups
 Variables:
 **partnum** Indicates Partner number 1
 
+
+
+
+
+- Scale used to measure each variable you intend to use
+- Give the original variable name from the original data set 
+
+Variables:
+**Partner number** (partnum) - 1 or 2
+**Gender** (gender) - 0 or 1
+**Religion** - text
+
+# ```{r, include = FALSE}
+# dat_reverse <- read.csv("dat_reverse.csv")
+# dat_predyad <- read.csv("predyaddata.csv")
+# dat_dyad <- read.csv("dyadic.csv")
+# ```
+
+
+```{r include = FALSE}
+
+a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
+                 housework_7, housework_8, housework_9, 
+                 housework_12, housework_13, housework_14))
+d<-a$total$raw_alpha
+
+```{r, include = FALSE}
+
 **gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
 
 **religion** Describes the religion that the individual associates with the most. Examples include "Christianity", "Islam", and "Atheist".
@@ -104,6 +132,7 @@ Average housework female - 0 to 100
 **housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
 
 **housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
+
 
 **partnum2** Indicates Partner number 2
 
@@ -137,6 +166,7 @@ c<-b$total$raw_alpha
 
 #a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
 #d<-a$raw_alpha
+
 ```
 
 ```{r, include = FALSE}
@@ -168,12 +198,19 @@ f<-e$total$raw_alpha
 
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`r male` couples will be included in the analysis  
 
+
+
+
+
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
 
 
 age, gender, relationship length, wfh
 
 ######Average GRBS - 0 to 100
+
+
+
 
 # Results
 ## Participant Demographics
@@ -199,6 +236,12 @@ summary(dat_reverse$sexualor)
 #dat_men
 n <- count(dat_reverse)/2
 n
+
+
+tapply(dat$age, dat$gender, summary)
+summary(dat$sexualor)
+# dat_women
+# dat_men
 
 
 
@@ -244,7 +287,7 @@ t.test(x, y, paired = TRUE, alternative = "two.sided")
 
 
 
-```{r}
+```{r, include=FALSE}
 descriptive_stats <- dat %>% group_by(gender) %>%
   summarize(
     Mean = mean(avg_housework_female)
