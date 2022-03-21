@@ -242,17 +242,19 @@ tapply(overall_data$housework_fair, overall_data$gender, summary)
 tapply(overall_data$housework_satisfied, overall_data$gender, summary)
 ```
 
+```{r}
+View(dat_reverse)
+```
 
 Include:
 1. sample size (number of individuals and dyads)
 2. % of gender
 3. % of racial groups
 4. income range, work from home?
-5. t-tests
+
 
 
 # T-tests
-
 1. Average housework female and average housework male
 ```{r}
 t.test(overall_data$avg_housework_female, overall_data$avg_housework_male, paired = TRUE, alternative = "two.sided")
