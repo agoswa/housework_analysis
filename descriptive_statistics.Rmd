@@ -92,13 +92,33 @@ dat_predyad <- read.csv("predyaddata.csv")
 dat_dyad <- read.csv("dyadic.csv")
 ```
 
+```{r include = FALSE}
+a <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
+d <- a$raw_alpha
+```
+
+
+```{r, include = FALSE}
+b <- psych::alpha(select(dat_reverse,housework_5, housework_6, 
+                housework_10, housework_11))
+c <- b$total$raw_alpha
+```
+
+
+
+```{r, include = FALSE}
+e <- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
+                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
+f <- e$total$raw_alpha
+```
 
 
 **gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
 
 **religion** Describes the religion that the individual associates with the most. Examples include "Christianity", "Islam", and "Atheist".
 
-**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r a$raw_alpha` for female tasks and `r b$raw_alpha` for male tasks.
+**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r d` for female tasks and `r c` for male tasks.
 Average Housework male - 0 to 100
 Average housework female - 0 to 100
 
@@ -122,61 +142,6 @@ Average housework female - 0 to 100
 **partnum2** Indicates Partner number 2
 
 
-```{r include = FALSE}
-a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-d <- a$raw_alpha
-```
-
-```{r}
-b <- alpha(select(dat_reverse, housework_5, housework_6))
-
-a <- alpha(select(dat, housework_1, housework_2, housework_3, housework_4, 
-                 housework_7, housework_8, housework_9, housework_12, housework_13, housework_14))
-
-d <- a$total$raw_alpha
-```
-
-```{r, include = FALSE}
-b <- alpha(select(dat,housework_5, housework_6, housework_10, housework_11))
-
-c<-b$total$raw_alpha
-
-#a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-#d<-a$raw_alpha
-
-```
-
-```{r, include = FALSE}
-#b <- alpha(select(dat_reverse,housework_5, housework_6, 
-
-#a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14))
-#d<-a$total$raw_alpha
-```
-
-```{r, include = FALSE}
-#b <- alpha(select(dat,housework_5, housework_6, 
-
-#                 housework_10, housework_11))
-#c<-b$total$raw_alpha
-```
-
-
-
-```{r, include = FALSE}
-e <- alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
-                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
-                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
-f<-e$total$raw_alpha
-```
-
-
-
-
-
-In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`r male` couples will be included in the analysis  
-
-
-
 
 
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
@@ -185,8 +150,6 @@ In our analysis, we excluded all non-heterosexual couples and participants that 
 age, gender, relationship length, wfh
 
 ######Average GRBS - 0 to 100
-
-
 
 
 # Results
@@ -204,8 +167,12 @@ womensd <- sdage[2]
 mensd <- sdage[1]
 
 rangeage <-tapply(dat_reverse$age, dat_reverse$gender, range)
+
 womenrange <- rangeage[2]
 menrange <- rangeage[1]
+
+womenrange
+menrange
 #how do I show them individually?
 
 summary(dat_reverse$sexualor)
@@ -215,8 +182,8 @@ n <- count(dat_reverse)/2
 n
 
 
-tapply(dat$age, dat$gender, summary)
-summary(dat$sexualor)
+tapply(dat_reverse$age, dat_reverse$gender, summary)
+summary(dat_reverse$sexualor)
 # dat_women
 # dat_men
 
@@ -232,17 +199,17 @@ count(dat_reverse, 'race')
 tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 #weird - relationship length differs in men and women... 
 
-table(dat$race)
+table(dat_reverse$race)
 
-tapply(dat$indinc, dat$gender, summary)
-tapply(dat$wfh, dat$gender, summary)
+tapply(dat_reverse$indinc, dat_reverse$gender, summary)
+tapply(dat_reverse$wfh, dat_reverse$gender, summary)
 
-summary(overall_data$gender)
-tapply(overall_data$avg_housework_female, overall_data$gender, summary)
-tapply(overall_data$avg_housework_male, overall_data$gender, summary)
-tapply(overall_data$avg_grbs, overall_data$gender, summary)
-tapply(overall_data$housework_fair, overall_data$gender, summary)
-tapply(overall_data$housework_satisfied, overall_data$gender, summary)
+summary(dat_predyad$gender)
+tapply(dat_predyad$avg_housework_female, dat_predyad$gender, summary)
+tapply(dat_predyad$avg_housework_male, dat_predyad$gender, summary)
+tapply(dat_predyad$avg_grbs, dat_predyad$gender, summary)
+tapply(dat_predyad$housework_fair, dat_predyad$gender, summary)
+tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 ```
 
 
@@ -296,7 +263,7 @@ Since the p-value is much smaller than 0.05, we fail to reject the null hypothes
 
 
 ```{r, include=FALSE}
-descriptive_stats <- dat %>% group_by(gender) %>%
+descriptive_stats <- dat_reverse %>% group_by(gender) %>%
   summarize(
     Mean = mean(avg_housework_female)
     , Median = median(avg_housework_female)
@@ -314,7 +281,15 @@ apa_table(
 
 
 
+```{r, include=FALSE}
+descriptive_stats_t_tests <- as.data.frame(womenmean,menmean)
+apa_table(
+  descriptive_stats_t_tests
+  , caption = "Descriptive statistics of typically female tasks by Gender"
+  , note = "This table was created with apa_table()."
+  , escape = TRUE)
 
+```
 
 
 
