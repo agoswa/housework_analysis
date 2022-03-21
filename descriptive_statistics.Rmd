@@ -67,15 +67,11 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Method
 ## Participants 
-Originally, `n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrange`) and `menmean` (SD = `mensd`, range = `menrange`) years old, respectively. 
-The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). 
+Originally, `n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrangelow`-`womenrangehigh`) and `menmean` (SD = `mensd`, range = `menrangelow`-`menrangehigh`) years old, respectively. 
 
+The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). The average income was `menincmean` USD (SD = `menincsd`) for men and `womenincmean` USD (SD = `womenincsd`) for women. `Wpercnohome` % of the women and `Mpercnohome` % of the men were not working from home, although it must be noted that `MpercnohomeNA` % of the men and `WpercnohomeNA` % of the women did not answer the question.
 
-Income 
-
-Work from home 
-
-racial groups 
+`Christian` % of the sample identified as Christian, `Athiest` % as Athiest, `Agnostic` % as Agnostic, `Judaism` % as Jewish, `Hinduism` % as Hindu and `Islam` % as Muslim. `other_comb` % identified had a religious orientation apart from the mentioned ones and `noanswer` % prefered not to answer this question. 
 
 ## Measures
 
@@ -148,7 +144,7 @@ In our analysis, we excluded all non-heterosexual couples and participants that 
 # Results
 ## Participant Demographics
 
-```{r}
+```{r, include = FALSE}
 #dataset complete and cleaned
 head(dat)
 n2 <- count(dat)
@@ -156,6 +152,9 @@ n2
 
 n <- count(dat_reverse)/2
 n
+
+n_indiv <-count(dat_reverse)
+n_indiv
 ```
 
 ```{r}
@@ -186,17 +185,8 @@ menrangelow
 menrangehigh <- menrange[2]
 menrangehigh
 ```
-Originally, `n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrangelow`-`womenrangehigh`) and `menmean` (SD = `mensd`, range = `menrangelow`-`menrangehigh`) years old, respectively. 
-<<<<<<< HEAD
-The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). The average income was `menincmean` USD (SD = `menincsd`) for men and `womenincmean` USD (SD = `womenincsd`) for women. 
-=======
-The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). The average income was `menincmean` USD (SD = `menincsd`) for men and `womenincmean` USD (SD = `womenincsd`) for women.   
 
->>>>>>> b3fc07c137d72f496f9da10649e590f1a3356fcf
-
-
-
-```{r}
+```{r, include = FALSE}
 #relationship length
 lengthmean <- round(mean(dat_reverse$relation_yrs, na.rm = TRUE),2)
 lengthsd <- round(sd(dat_reverse$relation_yrs, na.rm = TRUE),2)
@@ -205,7 +195,7 @@ lengthrangelow <- round(lengthrange[1],2)
 lengthrangehigh <- round(lengthrange[2],2)
 ``` 
 
-```{r}
+```{r, include = FALSE}
 #income
 meninc <- range(dat_reverse_m$indinc, na.rm=TRUE)
 meninclow <- meninc[1]
@@ -229,7 +219,7 @@ womenincmean <- mean(dat_reverse_w$indinc, na.rm=TRUE)
 womenincsd <- sd(dat_reverse_w$indinc, na.rm=TRUE)
 ```
 
-```{r}
+```{r, include = FALSE}
 #work from home 
 dat_reverse_m$wfh
 Mwfhyes <- subset(dat_reverse_m, wfh==1)
@@ -239,6 +229,7 @@ Mwfhno <- count(Mwfhno)
 ntotal <- count(dat_reverse_m)
 MwfhNA <- ntotal - (Mwfhyes + Mwfhno)
 Mpercnohome <-round((Mwfhno/ntotal),2)
+MpercnohomeNA <-round((MwfhNA/ntotal),2)
 
 Wwfhyes <- subset(dat_reverse_w, wfh==1)
 Wwfhyes <-count(Wwfhyes)
@@ -246,23 +237,27 @@ Wwfhno <- subset(dat_reverse_w, wfh==0)
 Wwfhno <- count(Wwfhno)
 Wntotal <- count(dat_reverse_m)
 WwfhNA <- Wntotal - (Wwfhno + Wwfhyes)
+Wpercnohome <-round((Wwfhno/Wntotal),2)
+WpercnohomeNA <-round((WwfhNA/Wntotal),2)
 ```
 
-```{r}
+```{r, include = FALSE}
 #religion
 dat_reverse
 Christian <-count(subset(dat_reverse, religion=="Christianity"))
-Christian
+Christian <-Christian/n_indiv
 Athiest <-count(subset(dat_reverse, religion=="Athiest"))
-Athiest
+Athiest <-Athiest/n_indiv
 Agnostic <-count(subset(dat_reverse, religion=="Agnostic"))
-Agnostic
+Agnostic<-Agnostic/n_indiv
 Judaism <-count(subset(dat_reverse, religion=="Judaism"))
-Judaism
+Judaism<-Judaism/n_indiv
 Hinduism <-count(subset(dat_reverse, religion=="Hinduism"))
-Hinduism
+Hinduism<-Hinduism/n_indiv
 Islam <-count(subset(dat_reverse, religion=="Islam"))
-Islam
+Islam<-Hinduism/n_indiv
+
+#other
 Other <-count(subset(dat_reverse, religion=="Other"))
 Other
 Agnostic_Other <-count(subset(dat_reverse, religion=="Agnostic,Other"))
@@ -271,14 +266,11 @@ Christianity_Agnostic <-count(subset(dat_reverse, religion=="Agnostic,Other"))
 Christianity_Agnostic
 Christianity_Athiest <-count(subset(dat_reverse, religion=="Christianity,Athiest"))
 Christianity_Athiest
+other_comb <- Agnostic_Other+Christianity_Agnostic+Christianity_Athiest+Other
+other_comb<-other_comb/n_indiv
+
 noanswer <-count(subset(dat_reverse, religion=="Prefer not to answer"))
-noanswer
-
-tapply(dat_reverse$age, dat_reverse$gender, summary)
-summary(dat_reverse$sexualor)
-# dat_women
-# dat_men
-
+noanswer<-noanswer/n_indiv
 
 
 count(dat_reverse, 'religion')
@@ -291,21 +283,22 @@ tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 #weird - relationship length differs in men and women... 
 ```
 
-```{r}
+
+```{r, include = FALSE}
 #race
-table(dat$race)
+#table(dat$race)
 
 ```
 
-```{r}
+```{r, include = FALSE}
 tapply(dat$indinc, dat$gender, summary)
 tapply(dat$wfh, dat$gender, summary)
-summary(overall_data$gender)
-tapply(overall_data$avg_housework_female, overall_data$gender, summary)
-tapply(overall_data$avg_housework_male, overall_data$gender, summary)
-tapply(overall_data$avg_grbs, overall_data$gender, summary)
-tapply(overall_data$housework_fair, overall_data$gender, summary)
-tapply(overall_data$housework_satisfied, overall_data$gender, summary)
+summary(dat_reverse$gender)
+tapply(dat_reverse$avg_housework_female, dat_reverse$gender, summary)
+tapply(dat_reverse$avg_housework_male, dat_reverse$gender, summary)
+tapply(dat_reverse$avg_grbs, dat_reverse$gender, summary)
+tapply(dat_reverse$housework_fair, dat_reverse$gender, summary)
+tapply(dat_reverse$housework_satisfied, dat_reverse$gender, summary)
 
 table(dat_reverse$race)
 
@@ -326,28 +319,28 @@ tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 # T-tests
 1. Average housework female and average housework male
 ```{r}
-t.test(overall_data$avg_housework_female, overall_data$avg_housework_male, paired = TRUE, alternative = "two.sided")
+t.test(dat_reverse$avg_housework_female, dat_reverse$avg_housework_male, paired = TRUE, alternative = "two.sided")
 ```
 
 Since the p-value is 0.83 which is greater than 0.05, we can reject the null hypothesis. This means that there is sufficient evidence in the data to say that there is a true difference in both the means.
 
 2. Housework satisfaction and gender
 ```{r}
-t.test(overall_data$housework_satisfied, overall_data$gender, paired = TRUE, alternative = "two.sided")
+t.test(dat_reverse$housework_satisfied, dat_reverse$gender, paired = TRUE, alternative = "two.sided")
 ```
 
 Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
 
 3. Gender role beliefs and gender
 ```{r}
-t.test(overall_data$avg_grbs, overall_data$gender, paired = TRUE, alternative = "two.sided")
+t.test(dat_reverse$avg_grbs, dat_reverse$gender, paired = TRUE, alternative = "two.sided")
 ```
 
 Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
 
 4. Housework fairness and relationship length
 ```{r}
-t.test(overall_data$housework_fair,dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
+t.test(dat_reverse$housework_fair,dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
 ```
 
 Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
@@ -363,31 +356,31 @@ Since the p-value is much smaller than 0.05, we fail to reject the null hypothes
 
 
 ```{r, include=FALSE}
-descriptive_stats <- dat_reverse %>% group_by(gender) %>%
-  summarize(
-    Mean = mean(avg_housework_female)
-    , Median = median(avg_housework_female)
-    , SD = sd(avg_housework_female)
-    , Min = min(avg_housework_female)
-    , Max = max(avg_housework_female))
-descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
-apa_table(
-  descriptive_stats
-  , caption = "Descriptive statistics of typically female tasks by Gender"
-  , note = "This table was created with apa_table()."
-  , escape = TRUE)
+#descriptive_stats <- dat_reverse %>% group_by(gender) %>%
+#  summarize(
+#    Mean = mean(avg_housework_female)
+#    , Median = median(avg_housework_female)
+#    , SD = sd(avg_housework_female)
+#    , Min = min(avg_housework_female)
+#    , Max = max(avg_housework_female))
+#descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
+#apa_table(
+#  descriptive_stats
+#  , caption = "Descriptive statistics of typically female tasks by Gender"
+#  , note = "This table was created with apa_table()."
+#  , escape = TRUE)
 
 ```
 
 
 
 ```{r, include=FALSE}
-descriptive_stats_t_tests <- as.data.frame(womenmean,menmean)
-apa_table(
-  descriptive_stats_t_tests
-  , caption = "Descriptive statistics of typically female tasks by Gender"
-  , note = "This table was created with apa_table()."
-  , escape = TRUE)
+#descriptive_stats_t_tests <- as.data.frame(womenmean,menmean)
+#apa_table(
+#  descriptive_stats_t_tests
+#  , caption = "Descriptive statistics of typically female tasks by Gender"
+#  , note = "This table was created with apa_table()."
+#  , escape = TRUE)
 
 ```
 
