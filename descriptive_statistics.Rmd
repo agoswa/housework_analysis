@@ -81,33 +81,18 @@ racial groups
 Variables:
 **partnum** Indicates Partner number 1
 
-
-
-
-
-- Scale used to measure each variable you intend to use
-- Give the original variable name from the original data set 
-
 Variables:
 **Partner number** (partnum) - 1 or 2
 **Gender** (gender) - 0 or 1
 **Religion** - text
 
-# ```{r, include = FALSE}
-# dat_reverse <- read.csv("dat_reverse.csv")
-# dat_predyad <- read.csv("predyaddata.csv")
-# dat_dyad <- read.csv("dyadic.csv")
-# ```
-
-
-```{r include = FALSE}
-
-a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
-                 housework_7, housework_8, housework_9, 
-                 housework_12, housework_13, housework_14))
-d<-a$total$raw_alpha
-
 ```{r, include = FALSE}
+dat_reverse <- read.csv("dat_reverse.csv")
+dat_predyad <- read.csv("predyaddata.csv")
+dat_dyad <- read.csv("dyadic.csv")
+```
+
+
 
 **gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
 
@@ -137,26 +122,18 @@ Average housework female - 0 to 100
 **partnum2** Indicates Partner number 2
 
 
-
-```{r, include = FALSE}
-dat_reverse <- read.csv("dat_reverse.csv")
-dat_predyad <- read.csv("predyaddata.csv")
-dat_dyad <- read.csv("dyadic.csv")
-```
-
-
 ```{r include = FALSE}
 a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-d<-a$raw_alpha
+d <- a$raw_alpha
 ```
 
 ```{r}
 b <- alpha(select(dat_reverse,housework_5, housework_6, 
 
 a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
-                 housework_7, housework_8, housework_9, 
-                 housework_12, housework_13, housework_14))
-d<-a$total$raw_alpha
+                 housework_7, housework_8, housework_9, housework_12, housework_13, housework_14))
+
+d <-a$total$raw_alpha
 ```
 
 ```{r, include = FALSE}
@@ -273,10 +250,37 @@ Include:
 4. income range, work from home?
 5. t-tests
 
-T-tests:
+
+# T-tests
+
+1. Average housework female and average housework male
 ```{r}
-t.test(x, y, paired = TRUE, alternative = "two.sided")
+t.test(overall_data$avg_housework_female, overall_data$avg_housework_male, paired = TRUE, alternative = "two.sided")
 ```
+
+Since the p-value is 0.83 which is greater than 0.05, we can reject the null hypothesis. This means that there is sufficient evidence in the data to say that there is a true difference in both the means.
+
+2. Housework satisfaction and gender
+```{r}
+t.test(overall_data$housework_satisfied, overall_data$gender, paired = TRUE, alternative = "two.sided")
+```
+
+Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
+
+3. Gender role beliefs and gender
+```{r}
+t.test(overall_data$avg_grbs, overall_data$gender, paired = TRUE, alternative = "two.sided")
+```
+
+Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
+
+4. Housework fairness and relationship length
+```{r}
+t.test(overall_data$housework_fair,dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
+```
+
+Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
+
 
 \newpage
 
