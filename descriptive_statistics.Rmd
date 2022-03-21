@@ -129,7 +129,6 @@ Average housework female - 0 to 100
 
 **partnum2** Indicates Partner number 2
 
-
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
 
 
