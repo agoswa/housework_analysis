@@ -66,6 +66,16 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 
 # Method
+## Participants 
+Originally, -- couples living in the United States of America between the ages of -- and --.  In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrange`) and `menmean` (SD = `mensd`, range = `menrange`) years old, respectively. 
+The relationship length differed between 
+
+Income 
+
+Work from home 
+
+racial groups 
+
 ## Measures
 
 
@@ -102,6 +112,24 @@ d<-a$total$raw_alpha
 b <- alpha(select(dat,housework_5, housework_6, 
                  housework_10, housework_11))
 c<-b$total$raw_alpha
+
+#a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
+#d<-a$raw_alpha
+```
+
+```{r, include = FALSE}
+#b <- alpha(select(dat_reverse,housework_5, housework_6, 
+
+#a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9, housework_12, housework_13, housework_14))
+#d<-a$total$raw_alpha
+```
+
+```{r, include = FALSE}
+#b <- alpha(select(dat,housework_5, housework_6, 
+
+#                 housework_10, housework_11))
+#c<-b$total$raw_alpha
+>>>>>>> 7a4d51c27bb29f3a8e373fe200b09f4a901fa836
 ```
 
 - Scale used to measure each variable you intend to use
@@ -132,7 +160,7 @@ e <- alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,gr
 f<-e$total$raw_alpha
 ```
 
-**Gender Role Beleifs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r f`. 
+**Gender Role Beliefs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r f`. 
 
 **housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
 
@@ -143,7 +171,11 @@ f<-e$total$raw_alpha
 **relation_length** The date when both people first got together in mm/dd/yyyy which signifies the start of their relationship.
 
 
+
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`r male` couples will be included in the analysis  
+
+In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
+
 
 age, gender, relationship length, wfh
 
@@ -153,12 +185,27 @@ age, gender, relationship length, wfh
 ## Participant Demographics
 
 ```{r}
+#age 
+mean(dat_reverse$age)
+meanage<-tapply(dat_reverse$age, dat_reverse$gender, mean)
+womenmean <- meanage[2]
+menmean <- meanage[1]
 
-tapply(dat_reverse$age, dat_reverse$gender, summary)
+sdage<-tapply(dat_reverse$age, dat_reverse$gender, sd)
+womensd <- sdage[2]
+mensd <- sdage[1]
+
+rangeage <-tapply(dat_reverse$age, dat_reverse$gender, range)
+womenrange <- rangeage[2]
+menrange <- rangeage[1]
+#how do I show them individually?
+
 summary(dat_reverse$sexualor)
 #dat_women
 #dat_men
-male<-count(dat_reverse$gender==0)
+n <- count(dat_reverse)/2
+n
+
 
 
 head(subset(dat_reverse, select = 'religion'))
