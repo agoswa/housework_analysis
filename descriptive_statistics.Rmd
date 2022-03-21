@@ -76,8 +76,8 @@ Variables:
 **Partner number** (partnum) - 1 or 2
 **Gender** (gender) - 0 or 1
 **Religion** - text
-```{r, include = FALSE}
 
+```{r, include = FALSE}
 dat_reverse <- read.csv("dat_reverse.csv")
 dat_predyad <- read.csv("predyaddata.csv")
 dat_dyad <- read.csv("dyadic.csv")
@@ -85,21 +85,21 @@ dat_dyad <- read.csv("dyadic.csv")
 
 
 ```{r include = FALSE}
-<<<<<<< HEAD
 a <- alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
 d<-a$raw_alpha
 ```
+
 ```{r}
 b <- alpha(select(dat_reverse,housework_5, housework_6, 
-=======
+
 a <- alpha(select(dat,housework_1, housework_2, housework_3, housework_4, 
                  housework_7, housework_8, housework_9, 
                  housework_12, housework_13, housework_14))
 d<-a$total$raw_alpha
 ```
+
 ```{r, include = FALSE}
 b <- alpha(select(dat,housework_5, housework_6, 
->>>>>>> 6160435d542799c97b79826ffbb53712353a524f
                  housework_10, housework_11))
 c<-b$total$raw_alpha
 ```
@@ -143,13 +143,11 @@ f<-e$total$raw_alpha
 **relation_length** The date when both people first got together in mm/dd/yyyy which signifies the start of their relationship.
 
 
-<<<<<<< HEAD
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`r male` couples will be included in the analysis  
 
 age, gender, relationship length, wfh
-=======
+
 ######Average GRBS - 0 to 100
->>>>>>> 6160435d542799c97b79826ffbb53712353a524f
 
 # Results
 ## Participant Demographics
