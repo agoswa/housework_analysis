@@ -89,45 +89,24 @@ dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```{r include = FALSE}
 
 calc_alpha_ft <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-female_tasks_alpha<-a$raw_alpha
-
-a <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-d <- a$raw_alpha
-
+female_tasks_alpha<-calc_alpha_ft$raw_alpha
 ```
 
 ```{r, include = FALSE}
 
 calc_alpha_mt<- psych::alpha(select(dat_reverse,housework_5, housework_6,  housework_10, housework_11))
-male_tasks_alpha<-b$total$raw_alpha
-
-
-#b <- alpha(select(dat,housework_5, housework_6, 
-#                 housework_10, housework_11))
-#c<-b$total$raw_alpha
-
-b <- psych::alpha(select(dat_reverse,housework_5, housework_6, 
-                housework_10, housework_11))
-
-c<-b$total$raw_alpha
-
+male_tasks_alpha<-calc_alpha_mt$total$raw_alpha
 
 ```
 
-
-c <- b$total$raw_alpha
-
-c<-b$total$raw_alpha
-```
 
 ```{r, include = FALSE}
 calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
                  grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
                  grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
 
-grb_alpha<-e$total$raw_alpha
+grb_alpha<-calc_grb_alpha$total$raw_alpha
 
-f <- e$total$raw_alpha
 
 ```
 
