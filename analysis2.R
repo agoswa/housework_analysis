@@ -1,21 +1,20 @@
-<<<<<<< HEAD
 
-#group 6 project CHANGE
-=======
+
+#group 6 project 
+
 library(tidyverse)
 library(psych)
 library(dplyr)
->>>>>>> a2806318623c80a8d41932649cef839985101a4a
+
 
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 dat
 
-<<<<<<< HEAD
+
 
 library(tidyverse)
 library(psych)
-=======
->>>>>>> a2806318623c80a8d41932649cef839985101a4a
+
 
 dat <- data.frame(dat)
 
