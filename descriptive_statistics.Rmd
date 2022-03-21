@@ -79,21 +79,6 @@ racial groups
 
 ## Measures
 
-Variables:
-**partnum** Indicates Partner number 1
-
-
-
-
-
-- Scale used to measure each variable you intend to use
-- Give the original variable name from the original data set 
-
-Variables:
-**Partner number** (partnum) - 1 or 2
-**Gender** (gender) - 0 or 1
-**Religion** - text
-
 ```{r, include = FALSE}
 dat_reverse <- read.csv("dat_reverse.csv")
 dat_predyad <- read.csv("predyaddata.csv")
@@ -101,12 +86,10 @@ dat_dyad <- read.csv("dyadic.csv")
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
-
 ```{r include = FALSE}
 a <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-d<-a$raw_alpha
+d <- a$raw_alpha
 ```
-
 
 ```{r, include = FALSE}
 
@@ -115,20 +98,20 @@ d<-a$raw_alpha
 #c<-b$total$raw_alpha
 
 b <- psych::alpha(select(dat_reverse,housework_5, housework_6, 
-
                 housework_10, housework_11))
+
+c <- b$total$raw_alpha
+
 c<-b$total$raw_alpha
-
 ```
-
-
 
 ```{r, include = FALSE}
 e <- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
                  grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
                  grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
-f<-e$total$raw_alpha
+f <- e$total$raw_alpha
 ```
+
 
 **gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
 
@@ -154,32 +137,12 @@ Average housework female - 0 to 100
 
 **housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
 
-
 **partnum2** Indicates Partner number 2
-
-
-
-
-
-
-
-
-
-
-In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N= couples will be included in the analysis  
-
-
-
-
 
 In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
 
 
-age, gender, relationship length, wfh
-
 ######Average GRBS - 0 to 100
-
-
 
 
 # Results
@@ -224,7 +187,12 @@ menrangehigh <- menrange[2]
 menrangehigh
 ```
 Originally, `n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrangelow`-`womenrangehigh`) and `menmean` (SD = `mensd`, range = `menrangelow`-`menrangehigh`) years old, respectively. 
+<<<<<<< HEAD
 The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). The average income was `menincmean` USD (SD = `menincsd`) for men and `womenincmean` USD (SD = `womenincsd`) for women. 
+=======
+The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). The average income was `menincmean` USD (SD = `menincsd`) for men and `womenincmean` USD (SD = `womenincsd`) for women.   
+
+>>>>>>> b3fc07c137d72f496f9da10649e590f1a3356fcf
 
 
 
@@ -316,6 +284,9 @@ summary(dat_reverse$sexualor)
 count(dat_reverse, 'religion')
 (cTab <- table(dat_reverse$gender, dat_reverse$religion))
 
+head(subset(dat_reverse, select = 'race'))
+count(dat_reverse, 'race')
+
 tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 #weird - relationship length differs in men and women... 
 ```
@@ -350,12 +321,36 @@ tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 ```
 
 
-Include:
-1. sample size (number of individuals and dyads)
-2. % of gender
-3. % of racial groups
-4. income range, work from home?
-5. t-tests
+
+
+# T-tests
+1. Average housework female and average housework male
+```{r}
+t.test(overall_data$avg_housework_female, overall_data$avg_housework_male, paired = TRUE, alternative = "two.sided")
+```
+
+Since the p-value is 0.83 which is greater than 0.05, we can reject the null hypothesis. This means that there is sufficient evidence in the data to say that there is a true difference in both the means.
+
+2. Housework satisfaction and gender
+```{r}
+t.test(overall_data$housework_satisfied, overall_data$gender, paired = TRUE, alternative = "two.sided")
+```
+
+Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
+
+3. Gender role beliefs and gender
+```{r}
+t.test(overall_data$avg_grbs, overall_data$gender, paired = TRUE, alternative = "two.sided")
+```
+
+Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
+
+4. Housework fairness and relationship length
+```{r}
+t.test(overall_data$housework_fair,dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
+```
+
+Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
 
 
 \newpage
