@@ -230,6 +230,10 @@ Include:
 4. income range, work from home?
 5. t-tests
 
+T-tests:
+```{r}
+t.test(x, y, paired = TRUE, alternative = "two.sided")
+```
 
 \newpage
 
