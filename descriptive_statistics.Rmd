@@ -67,8 +67,9 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Method
 ## Participants 
-Originally, -- couples living in the United States of America between the ages of -- and --.  In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrange`) and `menmean` (SD = `mensd`, range = `menrange`) years old, respectively. 
-The relationship length differed between 
+Originally, `n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrange`) and `menmean` (SD = `mensd`, range = `menrange`) years old, respectively. 
+The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). 
+
 
 Income 
 
@@ -97,6 +98,7 @@ Variables:
 dat_reverse <- read.csv("dat_reverse.csv")
 dat_predyad <- read.csv("predyaddata.csv")
 dat_dyad <- read.csv("dyadic.csv")
+dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
 
@@ -107,8 +109,21 @@ female_tasks_alpha<-a$raw_alpha
 
 
 ```{r, include = FALSE}
+
 calc_alpha_mt<- psych::alpha(select(dat_reverse,housework_5, housework_6,  housework_10, housework_11))
 male_tasks_alpha<-b$total$raw_alpha
+
+
+#b <- alpha(select(dat,housework_5, housework_6, 
+#                 housework_10, housework_11))
+#c<-b$total$raw_alpha
+
+b <- psych::alpha(select(dat_reverse,housework_5, housework_6, 
+
+                housework_10, housework_11))
+c<-b$total$raw_alpha
+
+
 ```
 
 
@@ -172,6 +187,20 @@ age, gender, relationship length, wfh
 ## Participant Demographics
 
 ```{r}
+#dataset complete and cleaned
+head(dat)
+n2 <- count(dat)
+n2
+
+n <- count(dat_reverse)/2
+n
+```
+
+```{r}
+#create women and men dataset 
+dat_reverse_w <- subset(dat_reverse, gender==0)
+dat_reverse_m <- subset(dat_reverse, gender==1)
+
 #age 
 mean(dat_reverse$age)
 meanage<-tapply(dat_reverse$age, dat_reverse$gender, mean)
@@ -182,6 +211,22 @@ sdage<-tapply(dat_reverse$age, dat_reverse$gender, sd)
 womensd <- sdage[2]
 mensd <- sdage[1]
 
+
+womenrange <- range(dat_reverse_w$age)
+womenrangelow <- womenrange[1]
+womenrangelow
+womenrangehigh <- womenrange[2]
+womenrangehigh
+
+menrange <- range(dat_reverse_m$age)
+menrangelow <- menrange[1]
+menrangelow
+menrangehigh <- menrange[2]
+menrangehigh
+```
+Originally, `n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrangelow`-`womenrangehigh`) and `menmean` (SD = `mensd`, range = `menrangelow`-`menrangehigh`) years old, respectively. 
+The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). The average income was `menincmean` USD (SD = `menincsd`) for men and `womenincmean` USD (SD = `womenincsd`) for women.   
+
 rangeage <-tapply(dat_reverse$age, dat_reverse$gender, range)
 
 womenrange <- rangeage[2]
@@ -191,12 +236,87 @@ womenrange
 menrange
 #how do I show them individually?
 
-summary(dat_reverse$sexualor)
-#dat_women
-#dat_men
-n <- count(dat_reverse)/2
-n
 
+
+
+
+```{r}
+#relationship length
+lengthmean <- round(mean(dat_reverse$relation_yrs, na.rm = TRUE),2)
+lengthsd <- round(sd(dat_reverse$relation_yrs, na.rm = TRUE),2)
+lengthrange <- range(dat_reverse$relation_yrs, na.rm = TRUE)
+lengthrangelow <- round(lengthrange[1],2)
+lengthrangehigh <- round(lengthrange[2],2)
+``` 
+
+```{r}
+#income
+meninc <- range(dat_reverse_m$indinc, na.rm=TRUE)
+meninclow <- meninc[1]
+meninclow
+meninchigh <- meninc[2]
+meninchigh
+
+menincmean <- mean(dat_reverse_m$indinc, na.rm=TRUE)
+
+menincsd <- sd(dat_reverse_m$indinc, na.rm=TRUE)
+
+
+womeninc <- range(dat_reverse_w$indinc, na.rm=TRUE)
+womeninclow <- womeninc[1]
+womeninclow
+womeninchigh <- womeninc[2]
+womeninchigh
+
+womenincmean <- mean(dat_reverse_w$indinc, na.rm=TRUE)
+
+womenincsd <- sd(dat_reverse_w$indinc, na.rm=TRUE)
+```
+
+```{r}
+#work from home 
+dat_reverse_m$wfh
+Mwfhyes <- subset(dat_reverse_m, wfh==1)
+Mwfhyes <-count(Mwfhyes)
+Mwfhno <- subset(dat_reverse_m, wfh==0)
+Mwfhno <- count(Mwfhno)
+ntotal <- count(dat_reverse_m)
+MwfhNA <- ntotal - (Mwfhyes + Mwfhno)
+Mpercnohome <-round((Mwfhno/ntotal),2)
+
+Wwfhyes <- subset(dat_reverse_w, wfh==1)
+Wwfhyes <-count(Wwfhyes)
+Wwfhno <- subset(dat_reverse_w, wfh==0)
+Wwfhno <- count(Wwfhno)
+Wntotal <- count(dat_reverse_m)
+WwfhNA <- Wntotal - (Wwfhno + Wwfhyes)
+```
+
+```{r}
+#religion
+dat_reverse
+Christian <-count(subset(dat_reverse, religion=="Christianity"))
+Christian
+Athiest <-count(subset(dat_reverse, religion=="Athiest"))
+Athiest
+Agnostic <-count(subset(dat_reverse, religion=="Agnostic"))
+Agnostic
+Judaism <-count(subset(dat_reverse, religion=="Judaism"))
+Judaism
+Hinduism <-count(subset(dat_reverse, religion=="Hinduism"))
+Hinduism
+Islam <-count(subset(dat_reverse, religion=="Islam"))
+Islam
+Other <-count(subset(dat_reverse, religion=="Other"))
+Other
+Agnostic_Other <-count(subset(dat_reverse, religion=="Agnostic,Other"))
+Agnostic_Other
+Christianity_Agnostic <-count(subset(dat_reverse, religion=="Agnostic,Other"))
+Christianity_Agnostic
+Christianity_Athiest <-count(subset(dat_reverse, religion=="Christianity,Athiest"))
+Christianity_Athiest
+noanswer <-count(subset(dat_reverse, religion=="Prefer not to answer"))
+noanswer
 
 tapply(dat_reverse$age, dat_reverse$gender, summary)
 summary(dat_reverse$sexualor)
@@ -205,12 +325,28 @@ summary(dat_reverse$sexualor)
 
 
 
-head(subset(dat_reverse, select = 'religion'))
 count(dat_reverse, 'religion')
 (cTab <- table(dat_reverse$gender, dat_reverse$religion))
 
 tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 #weird - relationship length differs in men and women... 
+```
+
+```{r}
+#race
+table(dat$race)
+
+```
+
+```{r}
+tapply(dat$indinc, dat$gender, summary)
+tapply(dat$wfh, dat$gender, summary)
+summary(overall_data$gender)
+tapply(overall_data$avg_housework_female, overall_data$gender, summary)
+tapply(overall_data$avg_housework_male, overall_data$gender, summary)
+tapply(overall_data$avg_grbs, overall_data$gender, summary)
+tapply(overall_data$housework_fair, overall_data$gender, summary)
+tapply(overall_data$housework_satisfied, overall_data$gender, summary)
 
 table(dat_reverse$race)
 
