@@ -289,8 +289,22 @@ tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 
 ```{r}
 #race
-table(dat$race)
-
+white <-count(subset(dat_reverse, race=="White or European American"))
+white
+hisp <-count(subset(dat_reverse, race=="Latinx or Hispanic"))
+hisp
+white_hisp <-count(subset(dat_reverse, race=="White or European American,Latinx or Hispanic"))
+white_hisp
+asian <-count(subset(dat_reverse, race=="Asian or Asian American"))
+asian
+black <-count(subset(dat_reverse, race=="Black or African American"))
+black
+mid_east <-count(subset(dat_reverse, race=="Middle Eastern"))
+mid_east
+other <-count(subset(dat_reverse, race=="Other"))
+other
+na <-count(subset(dat_reverse, race=="Prefer not to answer"))
+na
 ```
 
 ```{r}
