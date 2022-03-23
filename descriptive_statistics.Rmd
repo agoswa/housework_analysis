@@ -329,11 +329,6 @@ Since the p-value is much smaller than 0.05, we  reject the null hypothesis. Thi
 
 
 \newpage
-# References
-
-::: {#refs custom-style="Bibliography"}
-:::
-
 ```{r}
 descriptive_stats <- dat_reverse %>% group_by(gender) %>%
   mutate(gender = ifelse(gender == 0, "Male","Female"))%>%
@@ -349,7 +344,7 @@ apa_table(
   , caption = "Descriptive statistics of typically female tasks by Gender"
   , note = "This table was created with apa_table()."
   , escape = TRUE)
-
+```
 
 ```{r, include=FALSE}
 #descriptive_stats <- dat_reverse %>% group_by(gender) %>%
