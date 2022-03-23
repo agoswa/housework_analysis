@@ -344,6 +344,7 @@ apa_table(
   , caption = "Descriptive statistics of typically female tasks by Gender"
   , note = "This table was created with apa_table()."
   , escape = TRUE)
+<<<<<<< HEAD
 ```
 
 ```{r, include=FALSE}
@@ -360,6 +361,9 @@ apa_table(
 #  , caption = "Descriptive statistics of typically female tasks by Gender"
 #  , note = "This table was created with apa_table()."
 #  , escape = TRUE)
+=======
+
+>>>>>>> e9c28bc0cfd82d109c54268d94d4edc82a5548b7
 ```
 
 
@@ -379,14 +383,6 @@ apa_table(
 
 ```
 
-```{r, include=FALSE}
-#descriptive_stats_t_tests <- as.data.frame(womenmean,menmean)
-#apa_table(
-#  descriptive_stats_t_tests
-#  , caption = "Descriptive statistics of typically female tasks by Gender"
-#  , note = "This table was created with apa_table()."
-#  , escape = TRUE)
-```
 
 
 
