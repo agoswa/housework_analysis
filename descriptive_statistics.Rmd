@@ -187,13 +187,11 @@ Christianity_Athiest
 other_comb <- Agnostic_Other+Christianity_Agnostic+Christianity_Athiest+Other
 other_comb<-round((other_comb/n_indiv), 2)*100
 
-<<<<<<< HEAD
-=======
+
 noanswer <-length(which(dat_reverse$religion=="Prefer not to answer"))
 noanswer<-round((noanswer/n_indiv), 2)*100
 
 
->>>>>>> e687861eef2c215e3d01271f7a187a8168d111ca
 count(dat_reverse, 'religion')
 (cTab <- table(dat_reverse$gender, dat_reverse$religion))
 
