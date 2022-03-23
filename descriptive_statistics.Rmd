@@ -57,24 +57,22 @@ dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
 # Method
+## Participants 
 ```{r, include = FALSE}
 #dataset complete and cleaned
 head(dat)
 n2 <- count(dat)
 n2
 
-n <- count(dat_reverse)/2
+n <-length(which(dat_reverse$gender==0))
 n
-
-n_indiv <-count(dat_reverse)
+n_indiv <- n*2
 n_indiv
 ```
-## Participants 
-## Participant Demographics
 
 
 
-```{r}
+```{r, include = FALSE}
 #create women and men dataset 
 dat_reverse_w <- subset(dat_reverse, gender==0)
 dat_reverse_m <- subset(dat_reverse, gender==1)
@@ -121,9 +119,9 @@ meninclow
 meninchigh <- meninc[2]
 meninchigh
 
-menincmean <- mean(dat_reverse_m$indinc, na.rm=TRUE)
+menincmean <- round(mean(dat_reverse_m$indinc, na.rm=TRUE))
 
-menincsd <- sd(dat_reverse_m$indinc, na.rm=TRUE)
+menincsd <- round(sd(dat_reverse_m$indinc, na.rm=TRUE))
 
 
 womeninc <- range(dat_reverse_w$indinc, na.rm=TRUE)
@@ -132,9 +130,9 @@ womeninclow
 womeninchigh <- womeninc[2]
 womeninchigh
 
-womenincmean <- mean(dat_reverse_w$indinc, na.rm=TRUE)
+womenincmean <- round(mean(dat_reverse_w$indinc, na.rm=TRUE))
 
-womenincsd <- sd(dat_reverse_w$indinc, na.rm=TRUE)
+womenincsd <- round(sd(dat_reverse_w$indinc, na.rm=TRUE))
 ```
 
 ```{r, include = FALSE}
@@ -146,8 +144,9 @@ Mwfhno <- subset(dat_reverse_m, wfh==0)
 Mwfhno <- count(Mwfhno)
 ntotal <- count(dat_reverse_m)
 MwfhNA <- ntotal - (Mwfhyes + Mwfhno)
-Mpercnohome <-round((Mwfhno/ntotal),2)
-MpercnohomeNA <-round((MwfhNA/ntotal),2)
+Mperchome <-round((Mwfhyes/ntotal),3)*100
+Mpercnohome <-round((Mwfhno/ntotal),3)*100
+MpercnohomeNA <-round((MwfhNA/ntotal),3)*100
 
 Wwfhyes <- subset(dat_reverse_w, wfh==1)
 Wwfhyes <-count(Wwfhyes)
@@ -155,40 +154,41 @@ Wwfhno <- subset(dat_reverse_w, wfh==0)
 Wwfhno <- count(Wwfhno)
 Wntotal <- count(dat_reverse_m)
 WwfhNA <- Wntotal - (Wwfhno + Wwfhyes)
-Wpercnohome <-round((Wwfhno/Wntotal),2)
-WpercnohomeNA <-round((WwfhNA/Wntotal),2)
+Wperchome <-round((Wwfhyes/Wntotal),3)*100
+Wpercnohome <-round((Wwfhno/Wntotal),3)*100
+WpercnohomeNA <-round((WwfhNA/Wntotal),3)*100
 ```
 
 ```{r, include = FALSE}
 #religion
 dat_reverse
-Christian <-count(subset(dat_reverse, religion=="Christianity"))
-Christian <-Christian/n_indiv
-Athiest <-count(subset(dat_reverse, religion=="Athiest"))
-Athiest <-Athiest/n_indiv
-Agnostic <-count(subset(dat_reverse, religion=="Agnostic"))
-Agnostic<-Agnostic/n_indiv
-Judaism <-count(subset(dat_reverse, religion=="Judaism"))
-Judaism<-Judaism/n_indiv
-Hinduism <-count(subset(dat_reverse, religion=="Hinduism"))
-Hinduism<-Hinduism/n_indiv
-Islam <-count(subset(dat_reverse, religion=="Islam"))
-Islam<-Hinduism/n_indiv
+Christian <-length(which(dat_reverse$religion=="Christianity"))
+Christian <-round((Christian/n_indiv), 2)*100
+Athiest <-length(which(dat_reverse$religion=="Athiest"))
+Athiest <-round((Athiest/n_indiv), 2)*100
+Agnostic <-length(which(dat_reverse$religion=="Agnostic"))
+Agnostic<-round((Agnostic/n_indiv), 2)*100
+Judaism <-length(which(dat_reverse$religion=="Judaism"))
+Judaism<-round((Judaism/n_indiv), 2)*100
+Hinduism <-length(which(dat_reverse$religion=="Hinduism"))
+Hinduism<-round((Hinduism/n_indiv),2)*100
+Islam <-length(which(dat_reverse$religion=="Islam"))
+Islam<-round((Hinduism/n_indiv), 2)*100
 
 #other
-Other <-count(subset(dat_reverse, religion=="Other"))
+Other <-length(which(dat_reverse$religion=="Other"))
 Other
-Agnostic_Other <-count(subset(dat_reverse, religion=="Agnostic,Other"))
+Agnostic_Other <-length(which(dat_reverse$religion=="Agnostic,Other"))
 Agnostic_Other
-Christianity_Agnostic <-count(subset(dat_reverse, religion=="Agnostic,Other"))
+Christianity_Agnostic <-length(which(dat_reverse$religion=="Agnostic,Other"))
 Christianity_Agnostic
-Christianity_Athiest <-count(subset(dat_reverse, religion=="Christianity,Athiest"))
+Christianity_Athiest <-length(which(dat_reverse$religion=="Christianity,Athiest"))
 Christianity_Athiest
 other_comb <- Agnostic_Other+Christianity_Agnostic+Christianity_Athiest+Other
-other_comb<-other_comb/n_indiv
+other_comb<-round((other_comb/n_indiv), 2)*100
 
-noanswer <-count(subset(dat_reverse, religion=="Prefer not to answer"))
-noanswer<-noanswer/n_indiv
+noanswer <-length(which(dat_reverse$religion=="Prefer not to answer"))
+noanswer<-round((noanswer/n_indiv), 2)*100
 
 
 count(dat_reverse, 'religion')
@@ -232,13 +232,15 @@ tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 ```
 Originally, `r n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `r womenmean` (SD = `r womensd`, range = `r womenrangelow`-`r womenrangehigh`) and `r menmean` (SD = `r mensd`, range = `r menrangelow`-`r menrangehigh`) years old, respectively. 
 
-The relationship were between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthrange` years (SD = `r lengthsd`). The average income was `r menincmean` USD (SD = `r menincsd`) for men and `r womenincmean` USD (SD = `r womenincsd`) for women. `r Wpercnohome` % of the women and `r Mpercnohome` % of the men were not working from home, although it must be noted that `r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women did not answer the question.
+The relationships, at the time of the study, have been between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthmean` years (SD = `r lengthsd`). The average yearly income was `r menincmean` USD (SD = `r menincsd` USD) for men and `r womenincmean` USD (SD = `r womenincsd` USD) for women. `r Wperchome` % of the women and `r Mperchome` % of the men worked from home, `r Wpercnohome` % of the women and `r Mpercnohome` % of the men did not work from home. No answer to this question was given by the remaining participants (`r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women). 
 
-`r Christian` % of the sample identified as Christian, `Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % prefered not to answer this question.
+`r Christian` % of the sample identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question.
 
-## Measures
-
-
+## Procedure and Measures
+Couples were recruited online(??) and filled out all questionnaires online. The participants received a description of the procedure before filling out the questionnaires. They were told to fill out the questionnaire by themselves, not with their partners. Participants were not compensated for participating in this study (?).  
+This study used data from a larger study that was conducted in 2020 (??). The variables of interest are introduced below. 
+A multivariate analysis of variances (MANOVA) has been conducted. T-tests were used to assess gender differences in relevant outcome variables as well as .... 
+The analysis was conducted in R [@R-base] and written with the R papaja package [@R-papaja].
 
 ```{r include = FALSE}
 
@@ -264,6 +266,23 @@ grb_alpha<-calc_grb_alpha$total$raw_alpha
 
 ```
 
+### Demographic variables 
+Participants were asked about several demographic variables, like gender, relationship length, their income, whether they work from home, their religion as well as race. 
+
+### Housework Deviation 
+The scale *Who does what?* was developed by Cowan and Cowan in 1992 (here we need the actual source and cite it). This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a five Likert scale (1 = *0-20%* to 5 = *80-100%*). We split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
+
+### Gender Role Beliefs 
+Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) which was developed by Paula S. Kerr and Ronald R.Holden (1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
+
+Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r grb_alpha`. 
+### Housework Fairness
+Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
+
+### Housework Satisfaction
+Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
+
+I would delete everything from here 
 
 **gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
 
@@ -287,7 +306,6 @@ Average housework female - 0 to 100
 
 **partnum2** Indicates Partner number 2
 
-In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
 
 
 ######Average GRBS - 0 to 100
@@ -296,7 +314,7 @@ In our analysis, we excluded all non-heterosexual couples and participants that 
 # Results
 
 
-# T-tests
+## Preliminary Analysis 
 1. Average housework female and average housework male
 ```{r}
 t.test(dat_reverse$avg_housework_female, dat_reverse$avg_housework_male, paired = TRUE, alternative = "two.sided")
@@ -344,7 +362,6 @@ apa_table(
   , caption = "Descriptive statistics of typically female tasks by Gender"
   , note = "This table was created with apa_table()."
   , escape = TRUE)
-<<<<<<< HEAD
 ```
 
 ```{r, include=FALSE}
@@ -361,9 +378,7 @@ apa_table(
 #  , caption = "Descriptive statistics of typically female tasks by Gender"
 #  , note = "This table was created with apa_table()."
 #  , escape = TRUE)
-=======
 
->>>>>>> e9c28bc0cfd82d109c54268d94d4edc82a5548b7
 ```
 
 
@@ -384,10 +399,7 @@ apa_table(
 ```
 
 
-
-
 # References
 
 ::: {#refs custom-style="Bibliography"}
 :::
-
