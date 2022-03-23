@@ -379,5 +379,8 @@ Since the p-value is much smaller than 0.05, we fail to reject the null hypothes
 
 
 
+# References
 
+::: {#refs custom-style="Bibliography"}
+:::
 
