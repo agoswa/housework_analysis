@@ -5,33 +5,18 @@ shorttitle        : "housework analysis"
 author: 
   - name          : "Carlotta Reinhardt"
     affiliation   : "1"
-    corresponding : yes    # Define only one corresponding author
-    address       :
-    email         :
-    role:
-
+    corresponding : yes    # Define only one corresponding 
   - name          : "Margaret Bassney"
-    affiliation   : "1,2"
-    role:
-      
+    affiliation   : "1"
   - name          : "Anushree Goswami"
-    affiliation   : "1,2,3"
-    role:    
-
-
+    affiliation   : "1"
 affiliation:
   - id            : "1"
     institution   : "Smith College"
-  - id            : "2"
-    institution   : "Smith College"
-  - id            : "3"
-    institution   : "Smith College"
-
    
+# authornote: 
 
-authornote: 
-
-abstract: 
+abstract: "hi"
   
 keywords          : "keywords"
 wordcount         : "X"
@@ -64,17 +49,6 @@ set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
-
-# Method
-## Participants 
-Originally, `n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `womenmean` (SD = `womensd`, range = `womenrangelow`-`womenrangehigh`) and `menmean` (SD = `mensd`, range = `menrangelow`-`menrangehigh`) years old, respectively. 
-
-The relationship were between `lengthrangelow` and `lengthrangehigh` years long, with an average of `lengthrange` years (SD = `lengthsd`). The average income was `menincmean` USD (SD = `menincsd`) for men and `womenincmean` USD (SD = `womenincsd`) for women. `Wpercnohome` % of the women and `Mpercnohome` % of the men were not working from home, although it must be noted that `MpercnohomeNA` % of the men and `WpercnohomeNA` % of the women did not answer the question.
-
-`Christian` % of the sample identified as Christian, `Athiest` % as Athiest, `Agnostic` % as Agnostic, `Judaism` % as Jewish, `Hinduism` % as Hindu and `Islam` % as Muslim. `other_comb` % identified had a religious orientation apart from the mentioned ones and `noanswer` % prefered not to answer this question. 
-
-## Measures
-
 ```{r, include = FALSE}
 dat_reverse <- read.csv("dat_reverse.csv")
 dat_predyad <- read.csv("predyaddata.csv")
@@ -82,62 +56,7 @@ dat_dyad <- read.csv("dyadic.csv")
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
-```{r include = FALSE}
-
-calc_alpha_ft <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-female_tasks_alpha<-calc_alpha_ft$raw_alpha
-```
-
-```{r, include = FALSE}
-
-calc_alpha_mt<- psych::alpha(select(dat_reverse,housework_5, housework_6,  housework_10, housework_11))
-male_tasks_alpha<-calc_alpha_mt$total$raw_alpha
-
-```
-
-
-```{r, include = FALSE}
-calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
-                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
-                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
-
-grb_alpha<-calc_grb_alpha$total$raw_alpha
-
-
-```
-
-
-**gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
-
-**religion** Describes the religion that the individual associates with the most. Examples include "Christianity", "Islam", and "Atheist".
-
-**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
-Average Housework male - 0 to 100
-Average housework female - 0 to 100
-
-**grbs** Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) which was developed by Paula S. Kerr and Ronald R.Holden (1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
-
-**relation_length** The date when both people first got together in mm/dd/yyyy which signifies the start of their relationship.
-
-**relationship length** Measures the length of the couples' relationship in years. We calculated this value by subtracting the relation_length from the date the survey was filled out.
-
-**Gender Role Beliefs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r grb_alpha`. 
-
-**housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
-
-**housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
-
-**partnum2** Indicates Partner number 2
-
-In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
-
-
-######Average GRBS - 0 to 100
-
-
-# Results
-## Participant Demographics
-
+# Method
 ```{r, include = FALSE}
 #dataset complete and cleaned
 head(dat)
@@ -150,6 +69,10 @@ n
 n_indiv <-count(dat_reverse)
 n_indiv
 ```
+## Participants 
+## Participant Demographics
+
+
 
 ```{r}
 #create women and men dataset 
@@ -307,8 +230,70 @@ tapply(dat_predyad$avg_grbs, dat_predyad$gender, summary)
 tapply(dat_predyad$housework_fair, dat_predyad$gender, summary)
 tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 ```
+Originally, `r n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. Men and women from the final sample of `n`  adult couples were `r womenmean` (SD = `r womensd`, range = `r womenrangelow`-`r womenrangehigh`) and `r menmean` (SD = `r mensd`, range = `r menrangelow`-`r menrangehigh`) years old, respectively. 
+
+The relationship were between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthrange` years (SD = `r lengthsd`). The average income was `r menincmean` USD (SD = `r menincsd`) for men and `r womenincmean` USD (SD = `r womenincsd`) for women. `r Wpercnohome` % of the women and `r Mpercnohome` % of the men were not working from home, although it must be noted that `r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women did not answer the question.
+
+`r Christian` % of the sample identified as Christian, `Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % prefered not to answer this question.
+
+## Measures
 
 
+
+```{r include = FALSE}
+
+calc_alpha_ft <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
+female_tasks_alpha<-calc_alpha_ft$raw_alpha
+```
+
+```{r, include = FALSE}
+
+calc_alpha_mt<- psych::alpha(select(dat_reverse,housework_5, housework_6,  housework_10, housework_11))
+male_tasks_alpha<-calc_alpha_mt$total$raw_alpha
+
+```
+
+
+```{r, include = FALSE}
+calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
+                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
+
+grb_alpha<-calc_grb_alpha$total$raw_alpha
+
+
+```
+
+
+**gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
+
+**religion** Describes the religion that the individual associates with the most. Examples include "Christianity", "Islam", and "Atheist".
+
+**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
+Average Housework male - 0 to 100
+Average housework female - 0 to 100
+
+**grbs** Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) which was developed by Paula S. Kerr and Ronald R.Holden (1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
+
+**relation_length** The date when both people first got together in mm/dd/yyyy which signifies the start of their relationship.
+
+**relationship length** Measures the length of the couples' relationship in years. We calculated this value by subtracting the relation_length from the date the survey was filled out.
+
+**Gender Role Beliefs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r grb_alpha`. 
+
+**housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
+
+**housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
+
+**partnum2** Indicates Partner number 2
+
+In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N=`n` couples have been included in the analysis. 
+
+
+######Average GRBS - 0 to 100
+
+
+# Results
 
 
 # T-tests
@@ -317,7 +302,7 @@ tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 t.test(dat_reverse$avg_housework_female, dat_reverse$avg_housework_male, paired = TRUE, alternative = "two.sided")
 ```
 
-Since the p-value is 0.83 which is greater than 0.05, we can reject the null hypothesis. This means that there is sufficient evidence in the data to say that there is a true difference in both the means.
+Since the p-value is 0.83 which is greater than 0.05, we can fail to reject the null hypothesis. This means that there is not sufficient evidence in the data to say that there is a true difference in both the means.
 
 2. Housework satisfaction and gender
 ```{r}
@@ -331,23 +316,39 @@ Since the p-value is much smaller than 0.05, we fail to reject the null hypothes
 t.test(dat_reverse$avg_grbs, dat_reverse$gender, paired = TRUE, alternative = "two.sided")
 ```
 
-Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
+Since the p-value is much smaller than 0.05, we reject the null hypothesis. This means that the true difference in both the means is not equal to 0.
 
 4. Housework fairness and relationship length
 ```{r}
 t.test(dat_reverse$housework_fair,dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
 ```
 
-Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
+Since the p-value is much smaller than 0.05, we  reject the null hypothesis. This means that the probability of getting this difference in means,assuming the null hypothesis is true, is very unlikely. 
+
+
 
 
 \newpage
-
 # References
 
 ::: {#refs custom-style="Bibliography"}
 :::
 
+```{r}
+descriptive_stats <- dat_reverse %>% group_by(gender) %>%
+  mutate(gender = ifelse(gender == 0, "Male","Female"))%>%
+  summarize(
+    Mean = mean(avg_housework_female,na.rm = TRUE)
+    , Median = median(avg_housework_female,na.rm = TRUE)
+    , SD = sd(avg_housework_female,na.rm = TRUE)
+    , Min = min(avg_housework_female,na.rm = TRUE)
+    , Max = max(avg_housework_female,na.rm = TRUE))
+descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
+apa_table(
+  descriptive_stats
+  , caption = "Descriptive statistics of typically female tasks by Gender"
+  , note = "This table was created with apa_table()."
+  , escape = TRUE)
 
 
 ```{r, include=FALSE}
@@ -367,6 +368,21 @@ Since the p-value is much smaller than 0.05, we fail to reject the null hypothes
 ```
 
 
+```{r}
+means <- dat_predyad%>%group_by(gender) %>%
+  mutate(mean_housework_male = mean(avg_housework_male, na.rm = TRUE),
+         mean_housework_female = mean(avg_housework_female, na.rm = TRUE),
+         mean_grbs = mean(avg_grbs),
+         gender = ifelse(gender == 0, "Male","Female"))%>%
+  select(mean_housework_male,mean_housework_female,mean_grbs)
+means <- means[c(1,2),]
+apa_table(
+  means
+  , caption = "means"
+  , note = "This table was created with apa_table()."
+  , escape = TRUE)
+
+```
 
 ```{r, include=FALSE}
 #descriptive_stats_t_tests <- as.data.frame(womenmean,menmean)
