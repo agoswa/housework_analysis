@@ -275,17 +275,13 @@ summary(dat_reverse$sexualor)
 # dat_women
 # dat_men
 
-
-
 count(dat_reverse, 'religion')
 (cTab <- table(dat_reverse$gender, dat_reverse$religion))
-
-head(subset(dat_reverse, select = 'race'))
-count(dat_reverse, 'race')
 
 tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 #weird - relationship length differs in men and women... 
 ```
+
 
 ```{r}
 #race
@@ -305,6 +301,10 @@ other <-count(subset(dat_reverse, race=="Other"))
 other
 na <-count(subset(dat_reverse, race=="Prefer not to answer"))
 na
+
+
+head(subset(dat_reverse, select = 'race'))
+count(dat_reverse, 'race')
 ```
 
 ```{r}
