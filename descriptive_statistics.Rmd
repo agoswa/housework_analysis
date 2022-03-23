@@ -219,12 +219,11 @@ other <-count(subset(dat_reverse, race=="Other"))
 other
 na <-count(subset(dat_reverse, race=="Prefer not to answer"))
 na
+```
 
-=======
 ```{r, include = FALSE}
 #race
 #table(dat$race)
->>>>>>> e687861eef2c215e3d01271f7a187a8168d111ca
 
 head(subset(dat_reverse, select = 'race'))
 count(dat_reverse, 'race')
