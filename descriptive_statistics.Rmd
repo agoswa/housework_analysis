@@ -199,9 +199,7 @@ tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 #weird - relationship length differs in men and women... 
 ```
 
-
-<<<<<<< HEAD
-```{r}
+```{r, include = FALSE}
 #race
 white <-count(subset(dat_reverse, race=="White or European American"))
 white
@@ -273,7 +271,6 @@ female_tasks_alpha<-calc_alpha_ft$raw_alpha
 
 calc_alpha_mt<- psych::alpha(select(dat_reverse,housework_5, housework_6,  housework_10, housework_11))
 male_tasks_alpha<-calc_alpha_mt$total$raw_alpha
-
 ```
 
 
@@ -283,84 +280,69 @@ calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs
                  grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
 
 grb_alpha<-calc_grb_alpha$total$raw_alpha
-
-
 ```
 
 ### Demographic variables 
 Participants were asked about several demographic variables, like gender, relationship length, their income, whether they work from home, their religion as well as race. 
 
-### Housework Deviation 
+### Housework Distribution  
 The scale *Who does what?* was developed by Cowan and Cowan in 1992 (here we need the actual source and cite it). This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a five Likert scale (1 = *0-20%* to 5 = *80-100%*). We split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
 
 ### Gender Role Beliefs 
 Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) which was developed by Paula S. Kerr and Ronald R.Holden (1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
 
 Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r grb_alpha`. 
-### Housework Fairness
-Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
 
 ### Housework Satisfaction
 Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
-
-I would delete everything from here 
-
-**gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
-
-**religion** Describes the religion that the individual associates with the most. Examples include "Christianity", "Islam", and "Atheist".
-
-**who does what?** developed by Cowan and Cowan in 1992. This scale measures the percentages of who performs which chores and household activities with 14 questions. Example items include " "Make beds or change bed linens"  and "Take out garbage, recycling" measured on a 1-*0-20%* to 5-*80-100%* scale. We split this scale into typically male and typically female tasks. The scale was reliable with a chronbachs alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
-Average Housework male - 0 to 100
-Average housework female - 0 to 100
-
-**grbs** Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) which was developed by Paula S. Kerr and Ronald R.Holden (1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale.
-
-**relation_length** The date when both people first got together in mm/dd/yyyy which signifies the start of their relationship.
-
-**relationship length** Measures the length of the couples' relationship in years. We calculated this value by subtracting the relation_length from the date the survey was filled out.
-
-**Gender Role Beliefs**Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R.Holden(1996). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example Items include "Women should not expect men to offer them seats on busses" and "The husband should be regarded as the legal representative of the family in all matters of law" measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a chronbachs alpha of `r grb_alpha`. 
-
-**housework_fair** Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
-
-**housework_satisfied** Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
-
-**partnum2** Indicates Partner number 2
-
-
-
-######Average GRBS - 0 to 100
 
 
 # Results
 
 
 ## Preliminary Analysis 
+Results of the preliminary analysis are shown in Table 1. Age differed significantly between men and women, as did the housework tasks. 
+
 1. Average housework female and average housework male
-```{r}
-t.test(dat_reverse$avg_housework_female, dat_reverse$avg_housework_male, paired = TRUE, alternative = "two.sided")
+```{r, include = FALSE}
+t.test(dat_reverse_m$avg_housework_female, dat_reverse_w$avg_housework_female, paired = TRUE, alternative = "two.sided")
 ```
 
-Since the p-value is 0.83 which is greater than 0.05, we can fail to reject the null hypothesis. This means that there is not sufficient evidence in the data to say that there is a true difference in both the means.
+```{r, include = FALSE}
+t.test(dat_reverse_m$avg_housework_male, dat_reverse_w$avg_housework_male, paired = TRUE, alternative = "two.sided")
+```
+
 
 2. Housework satisfaction and gender
-```{r}
-t.test(dat_reverse$housework_satisfied, dat_reverse$gender, paired = TRUE, alternative = "two.sided")
+```{r, include = FALSE}
+t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, paired = TRUE, alternative = "two.sided")
 ```
 
 Since the p-value is much smaller than 0.05, we fail to reject the null hypothesis. This means that the true difference in both the means is equal to 0.
 
 3. Gender role beliefs and gender
-```{r}
-t.test(dat_reverse$avg_grbs, dat_reverse$gender, paired = TRUE, alternative = "two.sided")
+```{r, include = FALSE}
+#t.test(dat_reverse$avg_grbs, dat_reverse$gender, paired = T, alternative = "two.sided")
+```
+
+pairwise t test 
+
+
+```{r, include = FALSE}
+t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative = "two.sided")
 ```
 
 Since the p-value is much smaller than 0.05, we reject the null hypothesis. This means that the true difference in both the means is not equal to 0.
 
 4. Housework fairness and relationship length
-```{r}
+```{r, include = FALSE}
 t.test(dat_reverse$housework_fair,dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
 ```
+
+```{r, include = FALSE}
+t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternative = "two.sided")
+```
+
 
 Since the p-value is much smaller than 0.05, we  reject the null hypothesis. This means that the probability of getting this difference in means,assuming the null hypothesis is true, is very unlikely. 
 
