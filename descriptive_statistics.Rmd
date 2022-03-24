@@ -85,7 +85,6 @@ sdage<-tapply(dat_reverse$age, dat_reverse$gender, sd)
 womensd <- sdage[2]
 mensd <- sdage[1]
 
-
 womenrange <- range(dat_reverse_w$age)
 womenrangelow <- womenrange[1]
 womenrangelow
