@@ -503,7 +503,7 @@ rownames(GenderDifferences) <- c("Housework Distribution (Male Tasks)","Housewor
 ```{r}
 apa_table(
   GenderDifferences
-  , caption = "Gender Differences in outcome variables"
+  , caption = "Gender Differences in Outcome Variables"
   , note = "This table was created with apa_table().  
   Housework Distribution can be interpreted as percentages.Gender Role Beliefs and Housework Satisfaction can be interpreted on a 1-5 likert scale."
   , escape = TRUE
