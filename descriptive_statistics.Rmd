@@ -296,11 +296,30 @@ summary(apim_sat)
 rho = 0.27
 ```
 
+```{r, include = FALSE}
+## calculating ICC
+apim_hd <- gls(avg_housework_female_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_hd)
+rhoHWF = -.84
+```
+
+```{r, include = FALSE}
+## calculating ICC
+apim_hdM <- gls(avg_housework_male_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_hdM)
+rhoHWM = -.71
+```
 ### Demographic Variables 
 Participants were asked to report several demographic data. We were interested in the participants gender, the couples' relationship length, the yearly income of each partner, their work from home status, religion affiliation, and race. 
 
 ### Housework Distribution  
-The scale *Who does what?*, developed by @cowan_when_1992, measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = *0 - 20 %* to 5 = *80 - 100 %*). Example questions include "make beds or change bed linens" and "take out garbage, recycling". Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
+The scale *Who does what?*, developed by @cowan_when_1992, measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = *0 - 20 %* to 5 = *80 - 100 %*). Example questions include "make beds or change bed linens" and "take out garbage, recycling". Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks. The ICC was `r rhoHWF` for female tasks and `r rhoHWM` for male tasks.
 
 ### Gender Role Beliefs 
 Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed a high reliability with a Cronbachs Alpha of `r grb_alpha`.
