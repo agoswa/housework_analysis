@@ -286,12 +286,14 @@ calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs
 grb_alpha<-calc_grb_alpha$total$raw_alpha
 ```
 
-```{r}
+```{r, include = FALSE}
 ## calculating ICC
 apim_sat <- gls(housework_satisfied_A~1,
                data = dat_dyad,
                correlation = corCompSymm(form=~1|dyadID),
                na.action = na.omit)
+summary(apim_sat)
+rho = 0.27
 ```
 
 ### Demographic Variables 
@@ -304,7 +306,7 @@ The scale *Who does what?*, developed by @cowan_when_1992, measures the percenta
 Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed a high reliability with a Cronbachs Alpha of `r grb_alpha`.
 
 ### Housework Satisfaction
-Within the questionnaire, the question "How satisfied are you with the division of household tasks?" was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = "very dissatisfied" to 5 = "very satisfied"). 
+Within the questionnaire, the question "How satisfied are you with the division of household tasks?" was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = "very dissatisfied" to 5 = "very satisfied"). The ICC was `r rho`
 
 
 # Results
