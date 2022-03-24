@@ -344,11 +344,11 @@ age_t_test<-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternati
 ```
 
 ```{r}
-p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value,fair_t_test$p.value)
+p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value)
 ```
 
 ```{r}
-t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic,fair_t_test$statistic)
+t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic)
 ```
 
 ```{r}
@@ -364,58 +364,58 @@ p_stat_vals<-p_stat_vals%>%
 ```
 
 ```{r}
-rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework")
 ```
 
 
 \newpage
-```{r}
-descriptive_stats <- dat_reverse %>% group_by(gender) %>%
-  mutate(gender = ifelse(gender == 0, "Male","Female"))%>%
-  summarize(
-    Mean = mean(avg_housework_female,na.rm = TRUE)
-    , Median = median(avg_housework_female,na.rm = TRUE)
-    , SD = sd(avg_housework_female,na.rm = TRUE)
-    , Min = min(avg_housework_female,na.rm = TRUE)
-    , Max = max(avg_housework_female,na.rm = TRUE))
-descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
-apa_table(
-  descriptive_stats
-  , caption = "Descriptive statistics of typically female tasks by Gender"
-  , note = "This table was created with apa_table()."
-  , escape = TRUE)
-```
-
-```{r, include=FALSE}
-#descriptive_stats <- dat_reverse %>% group_by(gender) %>%
-#  summarize(
-#    Mean = mean(avg_housework_female)
-#    , Median = median(avg_housework_female)
-#    , SD = sd(avg_housework_female)
-#    , Min = min(avg_housework_female)
-#    , Max = max(avg_housework_female))
-#descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
-#apa_table(
-#  descriptive_stats
-#  , caption = "Descriptive statistics of typically female tasks by Gender"
-#  , note = "This table was created with apa_table()."
-#  , escape = TRUE)
-
-```
-
 
 
 ```{r}
 GenderDifferences <- dat_predyad%>%group_by(gender) %>%
-  mutate(mean_housework_male = mean(avg_housework_male, na.rm = TRUE),
-         mean_housework_female = mean(avg_housework_female, na.rm = TRUE),
-         mean_grbs = mean(avg_grbs),
+  mutate(mean_housework_male = round(mean(avg_housework_male, na.rm = TRUE),2),
+         mean_housework_female = round(mean(avg_housework_female, na.rm = TRUE),2),
+         mean_grbs = round(mean(avg_grbs),2),
          gender = ifelse(gender == 0, "Male","Female"),
-         meanSatisfaction = mean(housework_satisfied),
-         meanFairness = mean(housework_fair,na.rm = TRUE))%>%
-  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction,meanFairness)
+         meanSatisfaction = round(mean(housework_satisfied),2),
+         sdMHW = round(sd(avg_housework_male,na.rm = TRUE),2),
+         sdHWF = round(sd(avg_housework_female,na.rm = TRUE),2),
+         sdGRB = round(sd(avg_grbs,na.rm = TRUE),2),
+         sdSat = round(sd(housework_satisfied,na.rm = TRUE),2))
 
 ```
+
+```{r}
+SD<-GenderDifferences%>%
+  select(sdMHW,sdHWF,sdGRB,sdSat)
+```
+
+```{r}
+SD<-t(SD)
+```
+
+```{r}
+## select rows i want
+SD<-as.data.frame(SD)
+SD<-SD%>%
+  select(c(1,2))
+```
+
+```{r}
+SD<-SD[-1,]
+```
+
+```{r}
+SD <- SD %>%
+  rename(" SD" = V1,"SD" = V2)
+```
+
+
+```{r}
+GenderDifferences<-GenderDifferences%>%
+  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction)
+```
+
 
 ```{r}
 ## transpose means 
@@ -427,16 +427,38 @@ GenderDifferences<-as.data.frame(GenderDifferences)
 ```
 
 
-
-
 ```{r}
-## select rows i want
-GenderDifferences<-GenderDifferences%>%
-  select(c(1,2))
+GenderDifferences<-GenderDifferences[-1,]
 ```
 
 ```{r}
-GenderDifferences<-GenderDifferences[-1,]
+## select rows i want
+GenderDifferences1<-GenderDifferences%>%
+  select(c(1))
+```
+
+```{r}
+GenderDifferences2<-GenderDifferences%>%
+  select(c(2))
+```
+
+```{r}
+SD1<-SD%>%
+  select(c(1))
+```
+
+```{r}
+SD2<-SD%>%
+  select(c(2))
+```
+
+```{r}
+GenderDifferences<-cbind(GenderDifferences1,SD1,GenderDifferences2,SD2)
+```
+
+```{r}
+p_stat_vals<-p_stat_vals%>%
+  mutate(P_value = ifelse(P_value<.005,"<.005",round(P_value,2)))
 ```
 
 
@@ -451,15 +473,16 @@ GenderDifferences <- GenderDifferences %>%
 ```
 
 ```{r}
-rownames(GenderDifferences) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+rownames(GenderDifferences) <- c("Housework Distribution(Male tasks)","Housework Distribution(Female Tasks","Gender Role Beleifs","Housework Satisfaction")
 ```
 
 ```{r}
 apa_table(
   GenderDifferences
-  , caption = "Gender Differences"
+  , caption = "Gender Differences in outcome variables"
   , note = "This table was created with apa_table()."
-  , escape = TRUE)
+  , escape = TRUE
+  , font_size = "tiny")
 
 ```
 
