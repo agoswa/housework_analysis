@@ -94,7 +94,7 @@ menrangehigh <- menrange[2]
 menrangehigh
 ```
 
-```{r, include = FALSE}
+```{r relationship_lengt, include = FALSE}
 #relationship length
 lengthmean <- round(mean(dat_reverse$relation_yrs, na.rm = TRUE),2)
 lengthsd <- round(sd(dat_reverse$relation_yrs, na.rm = TRUE),2)
@@ -103,7 +103,7 @@ lengthrangelow <- round(lengthrange[1],2)
 lengthrangehigh <- round(lengthrange[2],2)
 ``` 
 
-```{r, include = FALSE}
+```{r income, include = FALSE}
 #income
 meninc <- range(dat_reverse_m$indinc, na.rm=TRUE)
 meninclow <- meninc[1]
