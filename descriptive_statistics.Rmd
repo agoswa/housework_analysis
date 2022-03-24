@@ -457,7 +457,6 @@ apa_table(
 ```
 
 
-
 # References
 
 ::: {#refs custom-style="Bibliography"}
