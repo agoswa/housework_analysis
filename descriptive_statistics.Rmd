@@ -286,7 +286,7 @@ Within the questionnaire, the question "How satisfied are you with the division 
 # Results
 
 ## Preliminary Analysis 
-Results of the preliminary analysis are shown in Table 1. T-tests showed that age differed significantly between men and women. 
+Results of the preliminary analysis are shown in Table 1. T-tests showed that men are doing significantly more male housework tasks than women while women perform significantly more typically female tasks around the house. Satisfaction with the distribution of housework did not differ significantly between male and female partners.
 
 ```{r, include = FALSE}
 hwf_t_test<-t.test(dat_reverse_m$avg_housework_female, dat_reverse_w$avg_housework_female, paired = TRUE, alternative = "two.sided")
