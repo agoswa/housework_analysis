@@ -35,6 +35,7 @@ output            : papaja::apa6_pdf
 ```{r setup, include = FALSE}
 library("papaja")
 library(tidyverse)
+library(nlme)
 library(dplyr)
 r_refs("r-references.bib")
 ```
@@ -195,34 +196,47 @@ tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 
 ```{r white, include = FALSE}
 white <-count(subset(dat_reverse, race=="White or European American"))
+white<-round((white/n_indiv), 2)*100
 ```
 
 ```{r hisp, include = FALSE}
 hisp <-count(subset(dat_reverse, race=="Latinx or Hispanic"))
+hisp<-round((hisp/n_indiv), 2)*100
 ```
 
 ```{r white_hisp, include = FALSE}
 white_hisp <-count(subset(dat_reverse, race=="White or European American,Latinx or Hispanic"))
+white_hisp<-round((white_hisp/n_indiv), 2)*100
 ```
 
 ```{r asian, include = FALSE}
 asian <-count(subset(dat_reverse, race=="Asian or Asian American"))
+asian<-round((asian/n_indiv), 2)*100
+
 ```
 
 ```{r black, include = FALSE}
 black <-count(subset(dat_reverse, race=="Black or African American"))
+black<-round((black/n_indiv), 2)*100
+
 ```
 
 ```{r mid_east, include = FALSE}
 mid_east <-count(subset(dat_reverse, race=="Middle Eastern"))
+mid_east<-round((mid_east/n_indiv), 2)*100
+
 ```
 
 ```{r otherCount, include = FALSE}
 other <-count(subset(dat_reverse, race=="Other"))
+other<-round((other/n_indiv), 2)*100
+
 ```
 
 ```{r naCount, include = FALSE}
 na <-count(subset(dat_reverse, race=="Prefer not to answer"))
+na<-round((na/n_indiv), 2)*100
+
 ```
 
 ```{r, include = FALSE}
@@ -256,7 +270,8 @@ Originally, `r n2` individuals in a partnership living in the United States of A
 
 The relationships, at the time of the study, have been between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthmean` years (SD = `r lengthsd`). The average yearly income was `r menincmean` USD (SD = `r menincsd` USD) for men and `r womenincmean` USD (SD = `r womenincsd` USD) for women. `r Wperchome` % of the women and `r Mperchome` % of the men worked from home, `r Wpercnohome` % of the women and `r Mpercnohome` % of the men did not work from home. No answer to this question was given by the remaining participants (`r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women). 
 
-We further looked at men and women based on their religion and race.`r Christian` is the % of the sample that identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question. `r white` is the % of the sample that were White, `r hisp_white` % that were Hispanic and White, `r black` % that were Black, `r asian` % that were Asian, `r hisp` % that were Hispanic and `r mid_east` % that were Middle Eastern.`r otherCount` % of participants that were another race and `r naCount` % of participants who did not answer the question.
+We further looked at men and women based on their religion and race.`r Christian` is the % of the sample that identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question. 
+`r white` % of the sample were White, `r white_hisp` % Hispanic and White, `r black` % Black, `r asian` % were Asian, `r hisp` % were Hispanic and `r mid_east` % were Middle Eastern.`r other` % of the participants were another race and `r na` % of the participants preferred not to answer the question.
 
  
 ## Procedure and Measures
@@ -268,7 +283,7 @@ The analysis was conducted in R [@R-base] and written with the R papaja package 
 ```{r include = FALSE}
 
 calc_alpha_ft <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
-female_tasks_alpha<-calc_alpha_ft$raw_alpha
+female_tasks_alpha<-calc_alpha_ft$total$raw_alpha
 ```
 
 ```{r, include = FALSE}
@@ -285,17 +300,46 @@ calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs
 grb_alpha<-calc_grb_alpha$total$raw_alpha
 ```
 
+```{r, include = FALSE}
+## calculating ICC
+apim_sat <- gls(housework_satisfied_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_sat)
+rho = 0.27
+```
+
+```{r, include = FALSE}
+## calculating ICC
+apim_hd <- gls(avg_housework_female_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_hd)
+rhoHWF = -.84
+```
+
+```{r, include = FALSE}
+## calculating ICC
+apim_hdM <- gls(avg_housework_male_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_hdM)
+rhoHWM = -.71
+```
 ### Demographic Variables 
 Participants were asked to report several demographic data. We were interested in the participants gender, the couples' relationship length, the yearly income of each partner, their work from home status, religion affiliation, and race. 
 
 ### Housework Distribution  
-The scale *Who does what?*, developed by @cowan_when_1992, measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = *0 - 20 %* to 5 = *80 - 100 %*). Example questions include "make beds or change bed linens" and "take out garbage, recycling". Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
+The scale *Who does what?*, developed by @cowan_when_1992, measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = *0 - 20 %* to 5 = *80 - 100 %*). Example questions include "make beds or change bed linens" and "take out garbage, recycling". Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks. The ICC was `r rhoHWF` for female tasks and `r rhoHWM` for male tasks.
 
 ### Gender Role Beliefs 
 Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed a high reliability with a Cronbachs Alpha of `r grb_alpha`.
 
 ### Housework Satisfaction
-Within the questionnaire, the question "How satisfied are you with the division of household tasks?" was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = "very dissatisfied" to 5 = "very satisfied"). 
+Within the questionnaire, the question "How satisfied are you with the division of household tasks?" was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = "very dissatisfied" to 5 = "very satisfied"). The ICC was `r rho`
 
 
 # Results
@@ -338,11 +382,11 @@ age_t_test<-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternati
 ```
 
 ```{r}
-p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value,fair_t_test$p.value)
+p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value)
 ```
 
 ```{r}
-t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic,fair_t_test$statistic)
+t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic)
 ```
 
 ```{r}
@@ -358,58 +402,58 @@ p_stat_vals<-p_stat_vals%>%
 ```
 
 ```{r}
-rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework")
 ```
 
 
 \newpage
-```{r}
-descriptive_stats <- dat_reverse %>% group_by(gender) %>%
-  mutate(gender = ifelse(gender == 0, "Male","Female"))%>%
-  summarize(
-    Mean = mean(avg_housework_female,na.rm = TRUE)
-    , Median = median(avg_housework_female,na.rm = TRUE)
-    , SD = sd(avg_housework_female,na.rm = TRUE)
-    , Min = min(avg_housework_female,na.rm = TRUE)
-    , Max = max(avg_housework_female,na.rm = TRUE))
-descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
-apa_table(
-  descriptive_stats
-  , caption = "Descriptive statistics of typically female tasks by Gender"
-  , note = "This table was created with apa_table()."
-  , escape = TRUE)
-```
-
-```{r, include=FALSE}
-#descriptive_stats <- dat_reverse %>% group_by(gender) %>%
-#  summarize(
-#    Mean = mean(avg_housework_female)
-#    , Median = median(avg_housework_female)
-#    , SD = sd(avg_housework_female)
-#    , Min = min(avg_housework_female)
-#    , Max = max(avg_housework_female))
-#descriptive_stats[, -1] <- printnum(descriptive_stats[, -1])
-#apa_table(
-#  descriptive_stats
-#  , caption = "Descriptive statistics of typically female tasks by Gender"
-#  , note = "This table was created with apa_table()."
-#  , escape = TRUE)
-
-```
-
 
 
 ```{r}
 GenderDifferences <- dat_predyad%>%group_by(gender) %>%
-  mutate(mean_housework_male = mean(avg_housework_male, na.rm = TRUE),
-         mean_housework_female = mean(avg_housework_female, na.rm = TRUE),
-         mean_grbs = mean(avg_grbs),
+  mutate(mean_housework_male = round(mean(avg_housework_male, na.rm = TRUE),2),
+         mean_housework_female = round(mean(avg_housework_female, na.rm = TRUE),2),
+         mean_grbs = round(mean(avg_grbs),2),
          gender = ifelse(gender == 0, "Male","Female"),
-         meanSatisfaction = mean(housework_satisfied),
-         meanFairness = mean(housework_fair,na.rm = TRUE))%>%
-  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction,meanFairness)
+         meanSatisfaction = round(mean(housework_satisfied),2),
+         sdMHW = round(sd(avg_housework_male,na.rm = TRUE),2),
+         sdHWF = round(sd(avg_housework_female,na.rm = TRUE),2),
+         sdGRB = round(sd(avg_grbs,na.rm = TRUE),2),
+         sdSat = round(sd(housework_satisfied,na.rm = TRUE),2))
 
 ```
+
+```{r}
+SD<-GenderDifferences%>%
+  select(sdMHW,sdHWF,sdGRB,sdSat)
+```
+
+```{r}
+SD<-t(SD)
+```
+
+```{r}
+## select rows i want
+SD<-as.data.frame(SD)
+SD<-SD%>%
+  select(c(1,2))
+```
+
+```{r}
+SD<-SD[-1,]
+```
+
+```{r}
+SD <- SD %>%
+  rename("SD (Female)" = V1,"SD (Male)" = V2)
+```
+
+
+```{r}
+GenderDifferences<-GenderDifferences%>%
+  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction)
+```
+
 
 ```{r}
 ## transpose means 
@@ -421,16 +465,38 @@ GenderDifferences<-as.data.frame(GenderDifferences)
 ```
 
 
-
-
 ```{r}
-## select rows i want
-GenderDifferences<-GenderDifferences%>%
-  select(c(1,2))
+GenderDifferences<-GenderDifferences[-1,]
 ```
 
 ```{r}
-GenderDifferences<-GenderDifferences[-1,]
+## select rows i want
+GenderDifferences1<-GenderDifferences%>%
+  select(c(1))
+```
+
+```{r}
+GenderDifferences2<-GenderDifferences%>%
+  select(c(2))
+```
+
+```{r}
+SD1<-SD%>%
+  select(c(1))
+```
+
+```{r}
+SD2<-SD%>%
+  select(c(2))
+```
+
+```{r}
+GenderDifferences<-cbind(GenderDifferences1,SD1,GenderDifferences2,SD2)
+```
+
+```{r}
+p_stat_vals<-p_stat_vals%>%
+  mutate(P_value = ifelse(P_value<.005,"<.005",round(P_value,2)))
 ```
 
 
@@ -441,19 +507,22 @@ GenderDifferences<-cbind(GenderDifferences,p_stat_vals)
 
 ```{r}
 GenderDifferences <- GenderDifferences %>%
-  rename("Female Means" = V1,"Male Means" = V2, "T Statistic" = T_Statistic,"P Value" = P_value)
+  rename("Means (Female)" = V1,"Means (Male)" = V2, "T Statistic" = T_Statistic,"P Value" = P_value)
 ```
 
 ```{r}
-rownames(GenderDifferences) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+rownames(GenderDifferences) <- c("Housework Distribution (Male Tasks)","Housework Distribution (Female Tasks)","Gender Role Beliefs","Housework Satisfaction")
 ```
 
 ```{r}
 apa_table(
   GenderDifferences
-  , caption = "Gender Differences"
-  , note = "This table was created with apa_table()."
-  , escape = TRUE)
+  , caption = "Gender Differences in Outcome Variables"
+  , note = "This table was created with apa_table().  
+  The Housework Distribution indicates percentages. Gender Role Beliefs and Housework Satisfaction have been reported on a 1-5 Likert Scale."
+  , escape = TRUE
+  , font_size = "tiny")
+
 ```
 
 
