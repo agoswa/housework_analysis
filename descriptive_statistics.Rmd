@@ -35,6 +35,7 @@ output            : papaja::apa6_pdf
 ```{r setup, include = FALSE}
 library("papaja")
 library(tidyverse)
+library(dplyr)
 r_refs("r-references.bib")
 ```
 
@@ -288,15 +289,15 @@ Within the questionnaire, the question "How satisfied are you with the division 
 Results of the preliminary analysis are shown in Table 1. T-tests showed that age differed significantly between men and women. 
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$avg_housework_female, dat_reverse_w$avg_housework_female, paired = TRUE, alternative = "two.sided")
+hwf_t_test<-t.test(dat_reverse_m$avg_housework_female, dat_reverse_w$avg_housework_female, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$avg_housework_male, dat_reverse_w$avg_housework_male, paired = TRUE, alternative = "two.sided")
+hwm_t_test<-t.test(dat_reverse_m$avg_housework_male, dat_reverse_w$avg_housework_male, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, paired = TRUE, alternative = "two.sided")
+sat_t_test<-t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
@@ -305,7 +306,7 @@ t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, pai
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative = "two.sided")
+grbs_t_test<-t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative = "two.sided")
 ```
 
 ```{r, include=FALSE}
@@ -314,14 +315,36 @@ t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative =
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse$housework_fair, dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
+fair_t_test<-t.test(dat_reverse$housework_fair, dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternative = "two.sided")
+age_t_test<-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternative = "two.sided")
 ```
 
+```{r}
+p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value,fair_t_test$p.value)
+```
 
+```{r}
+t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic,fair_t_test$statistic)
+```
+
+```{r}
+p_stat_vals<-cbind(t_stat,p_vals)
+```
+
+```{r}
+p_stat_vals<-as.data.frame(p_stat_vals)
+p_stat_vals<-p_stat_vals%>%
+  mutate(T_Statistic = t,
+         P_value = V2)%>%
+  select(T_Statistic,P_value)
+```
+
+```{r}
+rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+```
 
 
 \newpage
@@ -360,21 +383,65 @@ apa_table(
 ```
 
 
+
 ```{r}
-means <- dat_predyad%>%group_by(gender) %>%
+GenderDifferences <- dat_predyad%>%group_by(gender) %>%
   mutate(mean_housework_male = mean(avg_housework_male, na.rm = TRUE),
          mean_housework_female = mean(avg_housework_female, na.rm = TRUE),
          mean_grbs = mean(avg_grbs),
-         gender = ifelse(gender == 0, "Male","Female"))%>%
-  select(mean_housework_male,mean_housework_female,mean_grbs)
-means <- means[c(1,2),]
+         gender = ifelse(gender == 0, "Male","Female"),
+         meanSatisfaction = mean(housework_satisfied),
+         meanFairness = mean(housework_fair,na.rm = TRUE))%>%
+  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction,meanFairness)
+
+```
+
+```{r}
+## transpose means 
+GenderDifferences<-t(GenderDifferences)
+```
+
+```{r}
+GenderDifferences<-as.data.frame(GenderDifferences)
+```
+
+
+
+
+```{r}
+## select rows i want
+GenderDifferences<-GenderDifferences%>%
+  select(c(1,2))
+```
+
+```{r}
+GenderDifferences<-GenderDifferences[-1,]
+```
+
+
+```{r}
+GenderDifferences<-cbind(GenderDifferences,p_stat_vals)
+```
+
+
+```{r}
+GenderDifferences <- GenderDifferences %>%
+  rename("Female Means" = V1,"Male Means" = V2, "T Statistic" = T_Statistic,"P Value" = P_value)
+```
+
+```{r}
+rownames(GenderDifferences) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+```
+
+```{r}
 apa_table(
-  means
-  , caption = "means"
+  GenderDifferences
+  , caption = "Gender Differences"
   , note = "This table was created with apa_table()."
   , escape = TRUE)
 
 ```
+
 
 
 # References
