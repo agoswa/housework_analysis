@@ -406,24 +406,24 @@ apa_table(
 
 
 ```{r}
-means <- dat_predyad%>%group_by(gender) %>%
+GenderDifferences <- dat_predyad%>%group_by(gender) %>%
   mutate(mean_housework_male = mean(avg_housework_male, na.rm = TRUE),
          mean_housework_female = mean(avg_housework_female, na.rm = TRUE),
          mean_grbs = mean(avg_grbs),
          gender = ifelse(gender == 0, "Male","Female"),
          meanSatisfaction = mean(housework_satisfied),
-         meanFairness = mean(housework_fair))%>%
+         meanFairness = mean(housework_fair,na.rm = TRUE))%>%
   select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction,meanFairness)
 
 ```
 
 ```{r}
 ## transpose means 
-means<-t(means)
+GenderDifferences<-t(GenderDifferences)
 ```
 
 ```{r}
-means<-as.data.frame(means)
+GenderDifferences<-as.data.frame(GenderDifferences)
 ```
 
 
@@ -431,23 +431,33 @@ means<-as.data.frame(means)
 
 ```{r}
 ## select rows i want
-means<-means%>%
+GenderDifferences<-GenderDifferences%>%
   select(c(1,2))
 ```
 
 ```{r}
-means<-means[-1,]
+GenderDifferences<-GenderDifferences[-1,]
 ```
 
 
 ```{r}
-means<-cbind(means,p_stat_vals)
+GenderDifferences<-cbind(GenderDifferences,p_stat_vals)
+```
+
+
+```{r}
+GenderDifferences <- GenderDifferences %>%
+  rename("Female Means" = V1,"Male Means" = V2, "T Statistic" = T_Statistic,"P Value" = P_value)
+```
+
+```{r}
+rownames(GenderDifferences) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
 ```
 
 ```{r}
 apa_table(
-  means
-  , caption = "means"
+  GenderDifferences
+  , caption = "Gender Differences"
   , note = "This table was created with apa_table()."
   , escape = TRUE)
 
