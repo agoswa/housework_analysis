@@ -1,6 +1,6 @@
 ---
-title             : "Method Section: Measures and Descriptive Statistics Write-up"
-shorttitle        : "housework analysis"
+title             : "Satisfying housework division? Gender role beliefs and religion as moderators of housework division and satisfaction"
+shorttitle        : "gender roles, housework and satisfaction"
 
 author: 
   - name          : "Carlotta Reinhardt"
@@ -15,11 +15,6 @@ affiliation:
     institution   : "Smith College"
    
 # authornote: 
-
-abstract: "hi"
-  
-keywords          : "keywords"
-wordcount         : "X"
 
 bibliography      : ["r-references.bib", "2articles.bib"]
 
@@ -40,6 +35,7 @@ output            : papaja::apa6_pdf
 ```{r setup, include = FALSE}
 library("papaja")
 library(tidyverse)
+library(dplyr)
 r_refs("r-references.bib")
 ```
 
@@ -248,8 +244,8 @@ The relationships, at the time of the study, have been between `r lengthrangelow
 `r Christian` % of the sample identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question.
 
 ## Procedure and Measures
-Participating couples for this study were recruited online and filled out  questionnaires online, too. The participants received a description of the procedure before filling out the questionnaires and were told to fill out the questionnaire by themselves, not with their partners. They were not compensated for participating in this study.  
-In this analysis, selected data from a larger study were used that was conducted in 2020. The variables of interest are introduced below. 
+Participating couples for this study were recruited online. The study was conducted in 2020 by Randi Garcia and contained two parts: The first part included a batterie of questionnaires that included all variables used in this study. In a second part, both partners were asked to fill out a daily survey for two weeks.  Participants were instructed to not share their responses with their partner. Participants were compensated for the study if both, they and their partner, completed the questionnaires. For the second part, the daily measures, each participant received $2 per day. All participants gave their informed consent to participate in this study.
+In this analysis, selected data from the first batterie of questionnaires were used. The measures of interest are introduced below. 
 A multivariate analysis of variances (MANOVA) has been conducted. T-tests were used to assess gender differences in relevant outcome variables.
 The analysis was conducted in R [@R-base] and written with the R papaja package [@R-papaja].
 
@@ -273,34 +269,18 @@ calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs
 grb_alpha<-calc_grb_alpha$total$raw_alpha
 ```
 
-### Demographic variables 
-Participants were asked about several demographic variables such as gender, relationship length, income, work from home status, religion, and race. 
+### Demographic Variables 
+Participants were asked to report several demographic data. We were interested in the participants gender, the couples' relationship length, the yearly income of each partner, their work from home status, religion affiliation, and race. 
 
 ### Housework Distribution  
-The scale *Who does what?* used to was developed by @cowan_when_1992. This scale measures the percentages of who performs which chores and household activities through 14 questions. Example questions include "make beds or change bed linens" and "take out garbage, recycling", measured on a five Likert scale (1 = *0 - 20 %* to 5 = *80 - 100 %*). We split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
+The scale *Who does what?*, developed by @cowan_when_1992, measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = *0 - 20 %* to 5 = *80 - 100 %*). Example questions include "make beds or change bed linens" and "take out garbage, recycling". Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks.
 
 ### Gender Role Beliefs 
-Quantifies the gender role beliefs through the Gender Role Belief Scale (GRBS) developed by Paula S. Kerr and Ronald R. Holden (1996) @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law", measured on a 1-*Strongly Disagree* to 5-*Strongly Agree* scale. The scale was reliable with a Cronbachs alpha of `r grb_alpha`.
-
-### Housework Fairness
-Quantifies the fairness of the division of housework tasks between the two partners, on a scale of 1 to 5. A fairness score of 1 means "very unfair to you", 2 means "slightly unfair to you", 3 means "fair to both you and your partner", 4 means "pretty much fair to me" and 5 means "very fair to me". 
+Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed a high reliability with a Cronbachs Alpha of `r grb_alpha`.
 
 ### Housework Satisfaction
-Quantifies the satisfaction of the division of housework tasks between the two partners, on a scale of 1 to 5. A satisfaction score of 1 means "very dissatisfied", 2 means "somewhat dissatisfied", 3 means "neither satisfied not dissatisfied", 4 means "somewhat satisfied" and 5 means "very satisfied".
+Within the questionnaire, the question "How satisfied are you with the division of household tasks?" was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = "very dissatisfied" to 5 = "very satisfied"). 
 
-### Relationship Length 
-Measures the length of the couples' relationship in years. We calculated this value by subtracting the relationship's start date from the date the survey was filled out.
-
-
-I would delete everything from here 
-
-**Gender** Describes which gender the individual identifies with. Examples include "woman", "man", and "transgender".
-
-**Religion** Describes the religion that the individual associates with the most. Examples include "Christianity", "Islam", and "Atheist".
-
-
-
-######Average GRBS - 0 to 100
 
 # Results
 
@@ -308,15 +288,15 @@ I would delete everything from here
 Results of the preliminary analysis are shown in Table 1. T-tests showed that age differed significantly between men and women. 
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$avg_housework_female, dat_reverse_w$avg_housework_female, paired = TRUE, alternative = "two.sided")
+hwf_t_test<-t.test(dat_reverse_m$avg_housework_female, dat_reverse_w$avg_housework_female, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$avg_housework_male, dat_reverse_w$avg_housework_male, paired = TRUE, alternative = "two.sided")
+hwm_t_test<-t.test(dat_reverse_m$avg_housework_male, dat_reverse_w$avg_housework_male, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, paired = TRUE, alternative = "two.sided")
+sat_t_test<-t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
@@ -325,7 +305,7 @@ t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, pai
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative = "two.sided")
+grbs_t_test<-t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative = "two.sided")
 ```
 
 ```{r, include=FALSE}
@@ -334,14 +314,36 @@ t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative =
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse$housework_fair, dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
+fair_t_test<-t.test(dat_reverse$housework_fair, dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
 ```
 
 ```{r, include = FALSE}
-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternative = "two.sided")
+age_t_test<-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternative = "two.sided")
 ```
 
+```{r}
+p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value,fair_t_test$p.value)
+```
 
+```{r}
+t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic,fair_t_test$statistic)
+```
+
+```{r}
+p_stat_vals<-cbind(t_stat,p_vals)
+```
+
+```{r}
+p_stat_vals<-as.data.frame(p_stat_vals)
+p_stat_vals<-p_stat_vals%>%
+  mutate(T_Statistic = t,
+         P_value = V2)%>%
+  select(T_Statistic,P_value)
+```
+
+```{r}
+rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+```
 
 
 \newpage
@@ -380,21 +382,65 @@ apa_table(
 ```
 
 
+
 ```{r}
-means <- dat_predyad%>%group_by(gender) %>%
+GenderDifferences <- dat_predyad%>%group_by(gender) %>%
   mutate(mean_housework_male = mean(avg_housework_male, na.rm = TRUE),
          mean_housework_female = mean(avg_housework_female, na.rm = TRUE),
          mean_grbs = mean(avg_grbs),
-         gender = ifelse(gender == 0, "Male","Female"))%>%
-  select(mean_housework_male,mean_housework_female,mean_grbs)
-means <- means[c(1,2),]
+         gender = ifelse(gender == 0, "Male","Female"),
+         meanSatisfaction = mean(housework_satisfied),
+         meanFairness = mean(housework_fair,na.rm = TRUE))%>%
+  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction,meanFairness)
+
+```
+
+```{r}
+## transpose means 
+GenderDifferences<-t(GenderDifferences)
+```
+
+```{r}
+GenderDifferences<-as.data.frame(GenderDifferences)
+```
+
+
+
+
+```{r}
+## select rows i want
+GenderDifferences<-GenderDifferences%>%
+  select(c(1,2))
+```
+
+```{r}
+GenderDifferences<-GenderDifferences[-1,]
+```
+
+
+```{r}
+GenderDifferences<-cbind(GenderDifferences,p_stat_vals)
+```
+
+
+```{r}
+GenderDifferences <- GenderDifferences %>%
+  rename("Female Means" = V1,"Male Means" = V2, "T Statistic" = T_Statistic,"P Value" = P_value)
+```
+
+```{r}
+rownames(GenderDifferences) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework","Perceived Housework Fairness")
+```
+
+```{r}
 apa_table(
-  means
-  , caption = "means"
+  GenderDifferences
+  , caption = "Gender Differences"
   , note = "This table was created with apa_table()."
   , escape = TRUE)
 
 ```
+
 
 
 # References
