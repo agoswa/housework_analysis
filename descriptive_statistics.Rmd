@@ -81,7 +81,6 @@ sdage<-tapply(dat_reverse$age, dat_reverse$gender, sd)
 womensd <- sdage[2]
 mensd <- sdage[1]
 
-
 womenrange <- range(dat_reverse_w$age)
 womenrangelow <- womenrange[1]
 womenrangelow
@@ -95,7 +94,7 @@ menrangehigh <- menrange[2]
 menrangehigh
 ```
 
-```{r, include = FALSE}
+```{r relationship_lengt, include = FALSE}
 #relationship length
 lengthmean <- round(mean(dat_reverse$relation_yrs, na.rm = TRUE),2)
 lengthsd <- round(sd(dat_reverse$relation_yrs, na.rm = TRUE),2)
@@ -104,7 +103,7 @@ lengthrangelow <- round(lengthrange[1],2)
 lengthrangehigh <- round(lengthrange[2],2)
 ``` 
 
-```{r, include = FALSE}
+```{r income, include = FALSE}
 #income
 meninc <- range(dat_reverse_m$indinc, na.rm=TRUE)
 meninclow <- meninc[1]
@@ -193,25 +192,40 @@ count(dat_reverse, 'religion')
 tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
 ```
 
-```{r, include = FALSE}
-#race
-white <-count(subset(dat_reverse, race=="White or European American"))
-white
-hisp <-count(subset(dat_reverse, race=="Latinx or Hispanic"))
-hisp
-white_hisp <-count(subset(dat_reverse, race=="White or European American,Latinx or Hispanic"))
-white_hisp
-asian <-count(subset(dat_reverse, race=="Asian or Asian American"))
-asian
-black <-count(subset(dat_reverse, race=="Black or African American"))
-black
-mid_east <-count(subset(dat_reverse, race=="Middle Eastern"))
-mid_east
-other <-count(subset(dat_reverse, race=="Other"))
-other
-na <-count(subset(dat_reverse, race=="Prefer not to answer"))
-na
 
+```{r white, include = FALSE}
+white <-count(subset(dat_reverse, race=="White or European American"))
+```
+
+```{r hisp, include = FALSE}
+hisp <-count(subset(dat_reverse, race=="Latinx or Hispanic"))
+```
+
+```{r white_hisp, include = FALSE}
+white_hisp <-count(subset(dat_reverse, race=="White or European American,Latinx or Hispanic"))
+```
+
+```{r asian, include = FALSE}
+asian <-count(subset(dat_reverse, race=="Asian or Asian American"))
+```
+
+```{r black, include = FALSE}
+black <-count(subset(dat_reverse, race=="Black or African American"))
+```
+
+```{r mid_east, include = FALSE}
+mid_east <-count(subset(dat_reverse, race=="Middle Eastern"))
+```
+
+```{r otherCount, include = FALSE}
+other <-count(subset(dat_reverse, race=="Other"))
+```
+
+```{r naCount, include = FALSE}
+na <-count(subset(dat_reverse, race=="Prefer not to answer"))
+```
+
+```{r, include = FALSE}
 head(subset(dat_reverse, select = 'race'))
 count(dat_reverse, 'race')
 ```
@@ -238,12 +252,13 @@ tapply(dat_predyad$avg_grbs, dat_predyad$gender, summary)
 tapply(dat_predyad$housework_fair, dat_predyad$gender, summary)
 tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 ```
-Originally, `r n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N = `r n` couples (N = `r n_indiv` individuals) have been included in the analysis. Women and men from the final sample of `r n`  adult couples were `r womenmean` (SD = `r womensd`, range = `r womenrangelow`-`r womenrangehigh`) and `r menmean` (SD = `r mensd`, range = `r menrangelow`-`r menrangehigh`) years old, respectively. 
+Originally, `r n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N = `r n` couples (N = `r n_indiv` individuals) have been included in the analysis. Women and men from the final sample of `r n`  adult couples were `r womenmean` (SD = `r womensd`, range = `r womenrangelow`-`r womenrangehigh`) and `r menmean` (SD = `r mensd`, range = `r menrangelow`-`r menrangehigh`) years old, respectively.
 
 The relationships, at the time of the study, have been between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthmean` years (SD = `r lengthsd`). The average yearly income was `r menincmean` USD (SD = `r menincsd` USD) for men and `r womenincmean` USD (SD = `r womenincsd` USD) for women. `r Wperchome` % of the women and `r Mperchome` % of the men worked from home, `r Wpercnohome` % of the women and `r Mpercnohome` % of the men did not work from home. No answer to this question was given by the remaining participants (`r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women). 
 
-`r Christian` % of the sample identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question.
+We further looked at men and women based on their religion and race.`r Christian` is the % of the sample that identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question. `r white` is the % of the sample that were White, `r hisp_white` % that were Hispanic and White, `r black` % that were Black, `r asian` % that were Asian, `r hisp` % that were Hispanic and `r mid_east` % that were Middle Eastern.`r otherCount` % of participants that were another race and `r naCount` % of participants who did not answer the question.
 
+ 
 ## Procedure and Measures
 Participating couples for this study were recruited online. The study was conducted in 2020 by Randi Garcia and contained two parts: The first part included a batterie of questionnaires that included all variables used in this study. In a second part, both partners were asked to fill out a daily survey for two weeks.  Participants were instructed to not share their responses with their partner. Participants were compensated for the study if both, they and their partner, completed the questionnaires. For the second part, the daily measures, each participant received $2 per day. All participants gave their informed consent to participate in this study.
 In this analysis, selected data from the first batterie of questionnaires were used. The measures of interest are introduced below. 
@@ -439,7 +454,6 @@ apa_table(
   , caption = "Gender Differences"
   , note = "This table was created with apa_table()."
   , escape = TRUE)
-
 ```
 
 
