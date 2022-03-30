@@ -1,0 +1,72 @@
+---
+title: "Results"
+author: "Margaret Bassney"
+date: "3/30/2022"
+output: pdf_document
+---
+
+```{r}
+library(tidyverse)
+library(nlme)
+```
+
+```{r, include = FALSE}
+dat_reverse <- read.csv("dat_reverse.csv")
+dat_predyad <- read.csv("predyaddata.csv")
+dat_dyad <- read.csv("dyadic.csv")
+dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+```
+
+
+Outcome: [housework_satisfied_A] Satisfaction 
+Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg housework distribution(female tasks) of the actor and the partner 
+Moderators: [avg_grbs_A, avg_grbs_P] Gender role beleifs of the actor and the partner
+
+## centering moderator and predictor
+
+```{r}
+dat_dyad <- dat_dyad %>%
+  mutate(
+    Cavg_housework_female_A =  avg_housework_female_A- mean(avg_housework_female_A, na.rm = TRUE),
+    Cavg_housework_female_P =  avg_housework_female_P- mean(avg_housework_female_P, na.rm = TRUE),
+    Cavg_grbs_A =  avg_grbs_A- mean(avg_grbs_A, na.rm = TRUE),
+    Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE))
+    
+```
+
+## two intercept model
+
+```{r}
+two_int_mod<- gls(housework_satisfied_A~genderE_A+
+                    Cavg_housework_female_A:genderE_A+
+                    Cavg_housework_female_P:genderE_A+
+                    Cavg_grbs_A:genderE_A+
+                    Cavg_grbs_P:genderE_A+
+                    Cavg_housework_female_A:Cavg_grbs_A:genderE_A+
+                    Cavg_housework_female_P:Cavg_grbs_P:genderE_A+
+                    Cavg_housework_female_A:Cavg_grbs_P:genderE_A+
+                    Cavg_housework_female_P:Cavg_grbs_A:genderE_A,
+                    data = dat_dyad,
+                    correlation = corCompSymm(form=~1|dyadID), 
+                    weights = varIdent(form=~1|genderE_A), 
+                    na.action = na.omit)
+coef(summary(two_int_mod))
+```
+
+
+## check for gender interactions
+
+```{r}
+int_mod<- gls(housework_satisfied_A ~ Cavg_housework_female_A*Cavg_grbs_A*genderE_A + Cavg_housework_female_A*Cavg_grbs_P*genderE_A
+                    + Cavg_housework_female_P*Cavg_grbs_A*genderE_A + Cavg_housework_female_P*Cavg_grbs_P*genderE_A,
+                    data = dat_dyad,
+                    correlation = corCompSymm(form=~1|dyadID), 
+                    weights = varIdent(form=~1|genderE_A), 
+                    na.action = na.omit)
+
+coef(summary(int_mod))
+```
+
+
+
+
