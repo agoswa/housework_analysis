@@ -17,46 +17,76 @@ dat_dyad <- read.csv("dyadic.csv")
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
+## Analysis Strategy
 
-Outcome: [housework_satisfied_A] Satisfaction 
-Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg housework distribution(female tasks) of the actor and the partner 
-Moderators: [avg_grbs_A, avg_grbs_P] Gender role beleifs of the actor and the partner
+• Remind reader what your research question and your hypotheses were (do not
+write hypotheses in bullet point here, write them in a paragraph form). DO NOT YET STATE WHETHER THEY WERE SUPPORTED OR NOT, JUST REMIND THE READER WHAT THEY WERE.
+• What statistical analyses did you run to test each of your hypotheses? Your next task is to describe the statistical analysis you will be using to test these hypotheses. Here is where you will briefly describe the APIM and dyadic data analysis.
+i. It is often helpful to include a generic APIM figure to point readers to as an accompaniment to your text description.
+ii. State all of the explanatory variables you are including in your model, as well as all of the interaction terms
+iii. If you are using mediation to test your hypotheses, this is the time to describe that process.
+• This is also the space for you to describe any approaches you took to reducing your model (or building up your model) to get to the final model you will report. For example, maybe you included a bunch of “higher-order” interactions, but you decided to trim the non-significant terms from the final model to reach the most parsimonious model you could.
 
-## centering moderator and predictor
+## Main Results
+
 
 ```{r}
+## centering moderator and predictor
 dat_dyad <- dat_dyad %>%
   mutate(
     Cavg_housework_female_A =  avg_housework_female_A- mean(avg_housework_female_A, na.rm = TRUE),
     Cavg_housework_female_P =  avg_housework_female_P- mean(avg_housework_female_P, na.rm = TRUE),
     Cavg_grbs_A =  avg_grbs_A- mean(avg_grbs_A, na.rm = TRUE),
-    Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE))
+    Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE),
+    religionYN_A = ifelse((religion_A = "Agnostic" | "Athiest"), "N","Y"),
+    religionYN_P = ifelse((religion_P = "Agnostic" | "Athiest"), "N","Y"))
     
 ```
 
-## two intercept model
-
+**Outcome: [housework_satisfied_A] Satisfaction **
+**Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg** **housework distribution(female tasks) of the actor and the partner**
 ```{r}
-two_int_mod<- gls(housework_satisfied_A~genderE_A+
-                    Cavg_housework_female_A:genderE_A+
-                    Cavg_housework_female_P:genderE_A+
-                    Cavg_grbs_A:genderE_A+
-                    Cavg_grbs_P:genderE_A+
-                    Cavg_housework_female_A:Cavg_grbs_A:genderE_A+
-                    Cavg_housework_female_P:Cavg_grbs_P:genderE_A+
-                    Cavg_housework_female_A:Cavg_grbs_P:genderE_A+
-                    Cavg_housework_female_P:Cavg_grbs_A:genderE_A,
-                    data = dat_dyad,
-                    correlation = corCompSymm(form=~1|dyadID), 
-                    weights = varIdent(form=~1|genderE_A), 
-                    na.action = na.omit)
-coef(summary(two_int_mod))
+## just the actor partner effects no moderation
+basic_mod<- gls(housework_satisfied_A~Cavg_housework_female_A+Cavg_housework_female_P,
+                  data = dat_dyad,
+                  correlation = corCompSymm(form=~1|dyadID), 
+                  weights = varIdent(form=~1|as.factor(genderE_A)), 
+                  na.action = na.omit)
+summary(basic_mod)
+
 ```
 
 
-## check for gender interactions
+
+**Outcome: [housework_satisfied_A] Satisfaction** 
+**Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg** **housework distribution(female tasks) of the actor and the partner **
+**Moderators: [avg_grbs_A, avg_grbs_P] Gender role beleifs of the actor and the partner **
+ 
 
 ```{r}
+## two intercept model
+#this model removes the grand mean
+## using grbs and gender as a moderator
+two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
+                    Cavg_housework_female_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:as.factor(genderE_A)+
+                    Cavg_grbs_A:as.factor(genderE_A)+
+                    Cavg_grbs_P:as.factor(genderE_A)+
+                    Cavg_housework_female_A:Cavg_grbs_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:Cavg_grbs_P:as.factor(genderE_A)+
+                    Cavg_housework_female_A:Cavg_grbs_P:as.factor(genderE_A)+
+                    Cavg_housework_female_P:Cavg_grbs_A:as.factor(genderE_A) -1,
+                    data = dat_dyad,
+                    correlation = corCompSymm(form=~1|dyadID), 
+                    weights = varIdent(form=~1|as.factor(genderE_A) ), 
+                    na.action = na.omit)
+coef(summary(two_int_mod))
+```
+The two interecpt model gives us the two coeficients for men and women
+
+```{r}
+#moderation approach
+## check for gender interactions
 int_mod<- gls(housework_satisfied_A ~ Cavg_housework_female_A*Cavg_grbs_A*genderE_A + Cavg_housework_female_A*Cavg_grbs_P*genderE_A
                     + Cavg_housework_female_P*Cavg_grbs_A*genderE_A + Cavg_housework_female_P*Cavg_grbs_P*genderE_A,
                     data = dat_dyad,
@@ -66,6 +96,28 @@ int_mod<- gls(housework_satisfied_A ~ Cavg_housework_female_A*Cavg_grbs_A*gender
 
 coef(summary(int_mod))
 ```
+
+moderation apprach lets us know the difference between gender coeficients. are the coefeicients for men and women statistically different 
+
+
+**Outcome: [housework_satisfied_A] Satisfaction** 
+**Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg** **housework distribution(female tasks) of the actor and the partner **
+**Moderators: [religionYN_A,religionYN_P] Gender role beleifs of the actor and the partner **
+
+
+
+## Exploratory Results
+
+
+
+
+
+
+
+
+
+
+
 
 
 
