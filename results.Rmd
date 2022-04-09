@@ -1,8 +1,35 @@
 ---
-title: "Results"
-author: "Margaret Bassney"
-date: "3/30/2022"
-output: pdf_document
+title             : "Satisfying housework division? Gender role beliefs and religion as moderators of housework division and satisfaction"
+shorttitle        : "gender roles, housework and satisfaction"
+
+author: 
+  - name          : "Carlotta Reinhardt"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding 
+  - name          : "Margaret Bassney"
+    affiliation   : "1"
+  - name          : "Anushree Goswami"
+    affiliation   : "1"
+affiliation:
+  - id            : "1"
+    institution   : "Smith College"
+   
+# authornote: 
+
+bibliography      : ["r-references.bib"]
+
+
+floatsintext      : no
+figurelist        : no
+tablelist         : yes
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
 ---
 
 ```{r}
@@ -27,6 +54,20 @@ ii. State all of the explanatory variables you are including in your model, as w
 iii. If you are using mediation to test your hypotheses, this is the time to describe that process.
 • This is also the space for you to describe any approaches you took to reducing your model (or building up your model) to get to the final model you will report. For example, maybe you included a bunch of “higher-order” interactions, but you decided to trim the non-significant terms from the final model to reach the most parsimonious model you could.
 
+
+
+
+To test our hypotheses that gender role beliefs moderate the relationship between housework distribution and satisfaction with the distribution, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variable for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partners housework distribution effects both their own satisfaction with the distribution and their partners satisfaction with the distributions. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the nonindependent data. 
+
+
+
+figure here:
+
+something about using a paired data structure 
+
+
+
+
 ## Main Results
 
 
@@ -37,9 +78,9 @@ dat_dyad <- dat_dyad %>%
     Cavg_housework_female_A =  avg_housework_female_A- mean(avg_housework_female_A, na.rm = TRUE),
     Cavg_housework_female_P =  avg_housework_female_P- mean(avg_housework_female_P, na.rm = TRUE),
     Cavg_grbs_A =  avg_grbs_A- mean(avg_grbs_A, na.rm = TRUE),
-    Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE),
-    religionYN_A = ifelse((religion_A = "Agnostic" | "Athiest"), "N","Y"),
-    religionYN_P = ifelse((religion_P = "Agnostic" | "Athiest"), "N","Y"))
+    Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE))
+    #religionYN_A = ifelse((religion_A = "Agnostic" | "Athiest"), "N","Y"),
+   # religionYN_P = ifelse((religion_P = "Agnostic" | "Athiest"), "N","Y"))
     
 ```
 
@@ -107,8 +148,6 @@ moderation apprach lets us know the difference between gender coeficients. are t
 
 
 ## Exploratory Results
-
-
 
 
 
