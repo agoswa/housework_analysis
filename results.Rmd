@@ -194,11 +194,11 @@ husbands <- dat_dyad %>%
 ```{r, include = TRUE}
 husband_plot<- ggplot(husbands,aes(
                 x = Cavg_housework_female_A,
-                y = housework_satisfied_A, color = Cavg_grbs_A)
+                y = housework_satisfied_A, color = grbs_hl_A)
                 )+
   geom_point()+
   geom_smooth(method = "lm")+
-  labs(x = "housework distribution", y = "Satisfaction", title = "INteraction of husbands housework distribution and their gender role beleifs")
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs")
   
 husband_plot
 
