@@ -118,10 +118,10 @@ Wife's house work distribution on her own satisfaction with the housework distri
 ## we don't need every single combination as an interaction term, so we only kept the ones that we are interested in and haven't already calculated. 
 ## by removing extra parameters we will get more accurate estimates.
 two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
-                    #Cavg_housework_female_A:as.factor(genderE_A)+
-                    #Cavg_housework_female_P:as.factor(genderE_A)+
-                    #Cavg_grbs_A:as.factor(genderE_A)+
-                    #Cavg_grbs_P:as.factor(genderE_A)+
+                    Cavg_housework_female_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:as.factor(genderE_A)+
+                    Cavg_grbs_A:as.factor(genderE_A)+
+                    Cavg_grbs_P:as.factor(genderE_A)+
                     Cavg_housework_female_A:Cavg_grbs_A:as.factor(genderE_A)+
                     Cavg_housework_female_P:Cavg_grbs_P:as.factor(genderE_A)+
                     Cavg_housework_female_A:Cavg_grbs_P:as.factor(genderE_A)+
@@ -217,8 +217,8 @@ husband_plot
 two_int_mod_religion<- gls(housework_satisfied_A~as.factor(genderE_A)+
                     Cavg_housework_female_A:as.factor(genderE_A)+
                     Cavg_housework_female_P:as.factor(genderE_A)+
-                    Cavg_grbs_A:as.factor(genderE_A)+
-                    Cavg_grbs_P:as.factor(genderE_A)+
+                    religionYN_A:as.factor(genderE_A)+
+                    #religionYN_P:as.factor(genderE_A)+
                     Cavg_housework_female_A:religionYN_A:as.factor(genderE_A)+
                     Cavg_housework_female_P:religionYN_P:as.factor(genderE_A)+
                     Cavg_housework_female_A:religionYN_P:as.factor(genderE_A)+
@@ -236,9 +236,9 @@ The two intercept model gives us the two coefficients for men and women
 ## check for gender interactions
  int_mod_religion<- gls(housework_satisfied_A ~
                        Cavg_housework_female_A*religionYN_A*genderE_A+
-                       Cavg_housework_female_A*religionYN_P*genderE_A+
-                       #Cavg_housework_female_P*religionYN_A*genderE_A+
-                       Cavg_housework_female_P*religionYN_P*genderE_A,
+                       # Cavg_housework_female_A*religionYN_P*genderE_A+
+                       Cavg_housework_female_P*religionYN_A*genderE_A,
+                       # Cavg_housework_female_P*religionYN_P*genderE_A,
                     data = dat_dyad,
                     correlation = corCompSymm(form=~1|dyadID), 
                     weights = varIdent(form=~1|genderE_A), 
