@@ -201,7 +201,6 @@ husband_plot<- ggplot(husbands,aes(
   labs(x = "housework distribution", y = "Satisfaction", title = "INteraction of husbands housework distribution and their gender role beleifs")
   
 husband_plot
-
 ```
 
 
