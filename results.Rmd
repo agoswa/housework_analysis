@@ -42,6 +42,9 @@ knitr::opts_chunk$set(include = FALSE)
 ```{r}
 library(tidyverse)
 library(nlme)
+library(dyadr)
+library(dplyr)
+library(ggplot2)
 ```
 
 ```{r, include = FALSE}
@@ -132,9 +135,23 @@ coef(summary(two_int_mod))
 ```
 We found four significant parameter estimates. Only two of which were moderation effects. 
 
+
 The interaction between the actors gender and housework distribution and gender role beliefs was significant when the actor was the husband 
 
+estimate 0.0686374108
+p-val 4.776644e-04
+
+
+positive effect on satisfaction with the more housework he does, if his gender role beleifs are more traditional 
+
 The interaction between the actors gender, the actors house work distribution, and their partners gender role beliefs were significant when the actor was the husband.
+
+estimate -0.0669358877
+p-val   1.066857e-03
+
+negative effect on satisfaction with the more housework he does, if his partners gender role beliefs are more traditional
+
+the other two effects were just the effect of being male and the effect of being female on satisfaction.
 
 ```{r}
 #moderation approach
@@ -157,7 +174,31 @@ coef(summary(mod))
 
 The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives 
 
+estimate 0.062986556
+p-val  3.154078e-02
+
+as the actors housework distribution increases, and their gender role beleifs are more traditional, satisfaction tended to be 0.062986556 higher for husbands than wives. 
+
 The interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives 
+
+estimate   -0.077597303
+p-val   7.190096e-03
+
+as the actors housework distribution increases, and their partners gender role beliefs are more traditional, satisfaction tended to be 0.077597303 lower for husbands than wives.
+
+
+```{r}
+husbands <- dat_dyad %>%
+  filter(genderE_A == 1)
+## making a plot 
+## it doesnt work yet because dyadr doesnt install on my version of r so i cant use graphMod
+
+plot<- graphMod(data = husbands,
+                x = Cavg_housework_female_A,
+                y = Chousework_satisfied_A,
+                mod = Cavg_grbs_A
+                )
+```
 
 
 **Outcome: [housework_satisfied_A] Satisfaction** 
