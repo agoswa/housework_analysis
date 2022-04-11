@@ -79,8 +79,8 @@ dat_dyad <- dat_dyad %>%
     Cavg_grbs_A =  avg_grbs_A- mean(avg_grbs_A, na.rm = TRUE),
     Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE),
     religionYN_A = ifelse((religion_A == "Athiest"| religion_A =="Agnostic"),"N","Y"),
-    religionYN_P = ifelse((religion_P == "Athiest"|religion_A == "Agnostic"), "N","Y"))
-    
+    religionYN_P = ifelse((religion_P == "Athiest"|religion_A == "Agnostic"), "N","Y"),
+    grbs_hl_A = ifelse(avg_grbs_A > mean(avg_grbs_A, na.rm = TRUE),"High","Low"))
 ```
 
 **Outcome: [housework_satisfied_A] Satisfaction **
