@@ -42,7 +42,6 @@ knitr::opts_chunk$set(include = FALSE)
 ```{r}
 library(tidyverse)
 library(nlme)
-library(dyadr)
 library(dplyr)
 library(ggplot2)
 ```
@@ -190,14 +189,19 @@ as the actors housework distribution increases, and their partners gender role b
 ```{r}
 husbands <- dat_dyad %>%
   filter(genderE_A == 1)
-## making a plot 
-## it doesnt work yet because dyadr doesnt install on my version of r so i cant use graphMod
+```
 
-plot<- graphMod(data = husbands,
+```{r, include = TRUE}
+husband_plot<- ggplot(husbands,aes(
                 x = Cavg_housework_female_A,
-                y = Chousework_satisfied_A,
-                mod = Cavg_grbs_A
-                )
+                y = housework_satisfied_A, color = Cavg_grbs_A)
+                )+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  labs(x = "housework distribution", y = "Satisfaction", title = "INteraction of husbands housework distribution and their gender role beleifs")
+  
+husband_plot
+
 ```
 
 
@@ -209,7 +213,7 @@ plot<- graphMod(data = husbands,
 ```{r}
 ## two intercept model
 #this model removes the grand mean
-## using religion and gender as a moderator
+## using religion and gender as  moderators
 two_int_mod_religion<- gls(housework_satisfied_A~as.factor(genderE_A)+
                     Cavg_housework_female_A:as.factor(genderE_A)+
                     Cavg_housework_female_P:as.factor(genderE_A)+
