@@ -125,7 +125,9 @@ Wife's house work distribution on her own satisfaction with the housework distri
 
 For women, her gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r two_int_mod$coefficients[12]` with a p value of `r two_int_mod$apVar[12]` and a standard deviation of `r two_int_mod$varBeta[12]`. For every one unit increase in gender role beliefs, satisfaction increases by `r two_int_mod$coefficients[12]` while keeping housework distribution constant.Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r two_int_mod$coefficients[16]` with a p value of `r two_int_mod$apVar[16]` and a standard deviation of `r two_int_mod$varBeta[16]`. For every one unit increase in her partners gender role beliefs, her own satisfaction increases by `r two_int_mod$coefficients[16]` while keeping housework distribution constant.
 
-
+Looking at the summary table above, these are the relationships that are statistically significant: as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_P, 8.742833e-03
+as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_A, 8.408625e-04
+as.factor(genderE_A)0:Cavg_housework_female_A, 2.259373e-02
 
 ```{r}
 #moderation approach
