@@ -54,18 +54,18 @@ dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
 ## Analysis Strategy  
+
 To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variable for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partner's housework distribution effects both their own satisfaction with the housework distribution and their partners satisfaction with the housework distribution. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the nonindependent data. 
 
 In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was contained all in one line. This way we could calculate the actor and partner effects for both the husbands and wives. 
 
+To test our hypotheses that gender role beliefs moderate the relationship between housework distribution and satisfaction with the distribution, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variable for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partners housework distribution effects both their own satisfaction with the distribution and their partners satisfaction with the distributions. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework as a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the nonindependent data. 
+In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was contained all in one line. This way we could calculate the actor and partner effects for both the husbands and wives. 
 (ref:my-figure-caption) Actor Partner Effects in the APIM
 
 ```{r my-figure, fig.cap = "(ref:my-figure-caption)", include=TRUE}
 knitr::include_graphics("APIM_Housework_Distribution.pdf")
 ```
-
-
-
 ## Main Results
 
 ```{r}
@@ -82,8 +82,7 @@ dat_dyad <- dat_dyad %>%
     grbs_hl_A = ifelse(avg_grbs_A > mean(avg_grbs_A, na.rm = TRUE),"High","Low"))
 ```
 
-**Outcome: [housework_satisfied_A] Satisfaction **
-**Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg** **housework distribution(female tasks) of the actor and the partner**
+
 ```{r}
 ## just the actor partner effects no moderation
 basic_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
@@ -102,12 +101,6 @@ Wife's housework distribution on her own satisfaction with the housework distrib
 ```{r}
 
 ```
-
-
-**Outcome: [housework_satisfied_A] Satisfaction** 
-**Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg** **housework distribution(female tasks) of the actor and the partner **
-**Moderators: [avg_grbs_A, avg_grbs_P] Gender role beleifs of the actor and the partner **
- 
 
 ```{r}
 ## two intercept model gives us the two coefficients for men and women
@@ -130,25 +123,13 @@ two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
                     na.action = na.omit)
 coef(summary(two_int_mod))
 ```
-We found four significant parameter estimates. Only two of which were moderation effects. 
 
 
-The interaction between the actors gender and housework distribution and gender role beliefs was significant when the actor was the husband 
+Wife's house work distribution on her own satisfaction with the housework distribution was `r basic_mod$coefficients[2]`. Wife's house work distribution on her husbands satisfaction with the housework distribution was `r basic_mod$coefficients[6]`.Husband's house work distribution on his own satisfaction with the housework distribution was `r basic_mod$coefficients[4]`. Husband's house work distribution on his wife's satisfaction with the housework distribution was `r basic_mod$coefficients[5]`.
 
-estimate 0.0686374108
-p-val 4.776644e-04
+For women, her gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r two_int_mod$coefficients[12]` with a p value of `r two_int_mod$apVar[12]` and a standard deviation of `r two_int_mod$varBeta[12]`. For every one unit increase in gender role beliefs, satisfaction increases by `r two_int_mod$coefficients[12]` while keeping housework distribution constant.Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r two_int_mod$coefficients[16]` with a p value of `r two_int_mod$apVar[16]` and a standard deviation of `r two_int_mod$varBeta[16]`. For every one unit increase in her partners gender role beliefs, her own satisfaction increases by `r two_int_mod$coefficients[16]` while keeping housework distribution constant.
 
 
-positive effect on satisfaction with the more housework he does, if his gender role beleifs are more traditional 
-
-The interaction between the actors gender, the actors house work distribution, and their partners gender role beliefs were significant when the actor was the husband.
-
-estimate -0.0669358877
-p-val   1.066857e-03
-
-negative effect on satisfaction with the more housework he does, if his partners gender role beliefs are more traditional
-
-the other two effects were just the effect of being male and the effect of being female on satisfaction.
 
 ```{r}
 #moderation approach
@@ -167,21 +148,8 @@ mod<- gls(housework_satisfied_A ~
 coef(summary(mod))
 ```
 
- Only looking at the three way interactions with gender we found two significant gender differences in the moderation effects. 
-
-The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives 
-
-estimate 0.062986556
-p-val  3.154078e-02
-
-as the actors housework distribution increases, and their gender role beleifs are more traditional, satisfaction tended to be 0.062986556 higher for husbands than wives. 
-
-The interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives 
-
-estimate   -0.077597303
-p-val   7.190096e-03
-
-as the actors housework distribution increases, and their partners gender role beliefs are more traditional, satisfaction tended to be 0.077597303 lower for husbands than wives.
+ Only looking at the three way interactions with gender we found two significant gender differences in the moderation effects. The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives with an estimate of `r mod$coefficients[15]` a p value of `r mod$apVar[15]` and a standard deviation of `r mod$varBeta[15]`. The moderation effect of ones own gender role beliefs was `r mod$coefficients[15]` units higher for women than men meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands. 
+In addition the interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives with an estimate of `r mod$coefficients[16]` a p value of `r mod$apVar[16]` and a standard deviation of `r mod$betaVar[16]`.The moderation effect of ones partners gender role beliefs was `r mod$coefficients[16]` units lower for women than men meaning the moderation effect of her husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how her gender role beleifs effected the relationship between housework distribution and satisfaction for her husband. 
 
 
 ```{r}
@@ -200,11 +168,6 @@ husband_plot<- ggplot(husbands,aes(
   
 husband_plot
 ```
-
-
-**Outcome: [housework_satisfied_A] Satisfaction** 
-**Predictor Variables:  [avg_housework_female_A,avg_housework_female_P] Avg** **housework distribution(female tasks) of the actor and the partner **
-**Moderators: [religionYN_A,religionYN_P] Gender role beleifs of the actor and the partner **
 
 
 ```{r}
