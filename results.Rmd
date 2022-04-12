@@ -98,13 +98,9 @@ Looking at the summary table above, the only relationship that is statistically 
 
 
 ```{r}
-
-```
-
-```{r}
 ## two intercept model gives us the two coefficients for men and women
-#this model removes the grand mean so we are only left with actor/partner effects 
-## using grbs and gender as a moderator
+## this model removes the grand mean so we are only left with actor/partner  
+## effects using grbs and gender as a moderator
 ## we don't need every single combination as an interaction term, so we only 
 ## kept the ones that we are interested in and haven't already calculated. 
 ## by removing extra parameters we will get more accurate estimates.
@@ -121,9 +117,9 @@ two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
                     correlation = corCompSymm(form=~1|dyadID), 
                     weights = varIdent(form=~1|as.factor(genderE_A) ), 
                     na.action = na.omit)
+
 coef(summary(two_int_mod))
 ```
-
 
 Wife's house work distribution on her own satisfaction with the housework distribution was `r basic_mod$coefficients[2]`. Wife's house work distribution on her husbands satisfaction with the housework distribution was `r basic_mod$coefficients[6]`.Husband's house work distribution on his own satisfaction with the housework distribution was `r basic_mod$coefficients[4]`. Husband's house work distribution on his wife's satisfaction with the housework distribution was `r basic_mod$coefficients[5]`.
 
