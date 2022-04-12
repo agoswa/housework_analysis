@@ -54,9 +54,9 @@ dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 ```
 
 ## Analysis Strategy  
-To test our hypotheses that gender role beliefs moderate the relationship between housework distribution and satisfaction with the distribution, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variable for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partners housework distribution effects both their own satisfaction with the distribution and their partners satisfaction with the distributions. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the nonindependent data. 
-In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was contained all in one line. This way we could calculate the actor and partner effects for both the husbands and wives. 
+To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variable for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partner's housework distribution effects both their own satisfaction with the housework distribution and their partners satisfaction with the housework distribution. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the nonindependent data. 
 
+In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was contained all in one line. This way we could calculate the actor and partner effects for both the husbands and wives. 
 
 (ref:my-figure-caption) Actor Partner Effects in the APIM
 
@@ -67,7 +67,6 @@ knitr::include_graphics("APIM_Housework_Distribution.pdf")
 
 
 ## Main Results
-
 
 ```{r}
 ## centering moderator and predictor
@@ -95,10 +94,9 @@ basic_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
                   weights = varIdent(form=~1|as.factor(genderE_A)), 
                   na.action = na.omit)
 summary(basic_mod)
-
 ```
 
-Wife's house work distribution on her own satisfaction with the housework distribution was `r basic_mod$coefficients[2]`. Wife's house work distribution on her husbands satisfaction with the housework distribution was `r basic_mod$coefficients[6]`.Husband's house work distribution on his own satisfaction with the housework distribution was `r basic_mod$coefficients[4]`. Husband's house work distribution on his wife's satisfaction with the housework distribution was `r basic_mod$coefficients[5]`.
+Wife's housework distribution on her own satisfaction with the housework distribution was `r basic_mod$coefficients[2]`. Wife's housework distribution on her husbands satisfaction with the housework distribution was `r basic_mod$coefficients[6]`.Husband's housework distribution on his own satisfaction with the housework distribution was `r basic_mod$coefficients[4]`. Husband's housework distribution on his wife's satisfaction with the housework distribution was `r basic_mod$coefficients[5]`.
 
 
 ```{r}
