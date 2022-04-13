@@ -134,8 +134,9 @@ as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_A, 8.408625e-04
 as.factor(genderE_A)0:Cavg_housework_female_A, 2.259373e-02
 
 ```{r}
-#moderation approach
-# moderation approach lets us know the difference between gender coefficients. are #the coefficients for men and women statistically different.
+# moderation approach
+# moderation approach lets us know the difference between gender coefficients. 
+# are the coefficients for men and women statistically different.
 ## check for gender interactions
 mod<- gls(housework_satisfied_A ~ 
                 Cavg_housework_female_A*Cavg_grbs_A*genderE_A +
