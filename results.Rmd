@@ -236,8 +236,6 @@ coef(summary(int_mod_religion))
 ## Exploratory Results
 
 - explain the concept/process of mediation in general, 1 paragraph
-
-
 - one more diagram
 
 We want to explore the possibility of gatekeeping being a significant factor in our analysis. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
