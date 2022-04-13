@@ -77,7 +77,8 @@ dat_dyad <- dat_dyad %>%
     Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE),
     religionYN_A = ifelse((religion_A == "Athiest"| religion_A =="Agnostic"),"N","Y"),
     religionYN_P = ifelse((religion_P == "Athiest"|religion_A == "Agnostic"), "N","Y"),
-    grbs_hl_A = ifelse(avg_grbs_A > mean(avg_grbs_A, na.rm = TRUE),"High","Low"))
+    grbs_hl_A = ifelse(avg_grbs_A > mean(avg_grbs_A, na.rm = TRUE),"High","Low"),
+    grbs_hl_P = ifelse(avg_grbs_P > mean(avg_grbs_P, na.rm = TRUE),"High","Low"))
 ```
 
 
@@ -93,7 +94,6 @@ basic_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
 summary(basic_mod)
 ```
 
-Wife's housework distribution on her own satisfaction with the housework distribution was `r basic_mod$coefficients[2]`. Wife's housework distribution on her husbands satisfaction with the housework distribution was `r basic_mod$coefficients[6]`. Husband's housework distribution on his own satisfaction with the housework distribution was `r basic_mod$coefficients[4]`. Husband's housework distribution on his wife's satisfaction with the housework distribution was `r basic_mod$coefficients[5]`.
 
 Looking at the summary table above, the only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for `as.factor(genderE_A)1:Cavg_housework_female_A` is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
 
@@ -122,7 +122,6 @@ two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
 coef(summary(two_int_mod))
 ```
 
-Wife's house work distribution on her own satisfaction with the housework distribution was `r basic_mod$coefficients[2]`. Wife's house work distribution on her husbands satisfaction with the housework distribution was `r basic_mod$coefficients[6]`.Husband's house work distribution on his own satisfaction with the housework distribution was `r basic_mod$coefficients[4]`. Husband's house work distribution on his wife's satisfaction with the housework distribution was `r basic_mod$coefficients[5]`.
 
 ```{r}
 hd_grbA_p_val<-p_format(coef(summary(two_int_mod))[12,4],accuracy = .05)
@@ -164,12 +163,12 @@ In addition the interaction between actors housework distribution and their part
 
 
 ```{r}
-husbands <- dat_dyad %>%
+wives <- dat_dyad %>%
   filter(genderE_A == 1)
 ```
 
 ```{r, include = TRUE}
-husband_plot<- ggplot(husbands,aes(
+wife_plot<- ggplot(wives,aes(
                 x = Cavg_housework_female_A,
                 y = housework_satisfied_A, color = grbs_hl_A)
                 )+
@@ -177,9 +176,19 @@ husband_plot<- ggplot(husbands,aes(
   geom_smooth(method = "lm")+
   labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs")
   
-husband_plot
+wife_plot
 ```
-
+```{r, include = TRUE}
+wife_plot2<- ggplot(wives,aes(
+                x = Cavg_housework_female_A,
+                y = housework_satisfied_A, color = grbs_hl_P)
+                )+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs")
+  
+wife_plot2
+```
 
 ```{r}
 ## two intercept model
