@@ -52,6 +52,7 @@ dat_reverse <- read.csv("dat_reverse.csv")
 dat_predyad <- read.csv("predyaddata.csv")
 dat_dyad <- read.csv("dyadic.csv")
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+View(dat_dyad)
 ```
 
 ## Analysis Strategy  
@@ -66,6 +67,8 @@ knitr::include_graphics("APIM_Housework_Distribution.pdf")
 ```
 
 ## Main Results
+
+### Gender Role Beliefs
 
 ```{r}
 ## centering moderator and predictor
@@ -169,7 +172,9 @@ wife_plot<- ggplot(wives,aes(
                 )+
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs")
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs") +
+  xlim(0,100) #+
+  #scale_x_continuous(labels=c("20"="0-20","40"="20-40", "60"="40-60", "80"="60-80", "100"="80-100"))
   
 wife_plot
 ```
@@ -183,12 +188,17 @@ wife_plot2<- ggplot(wives, aes(
                 )+
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") + 
+  xlim(0,100) +
+  scale_x_continuous(labels=c("100"="80-100"))
   
 wife_plot2
 ```
 
 As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases.
+
+
+### Religion
 
 ```{r}
 ## two intercept model
