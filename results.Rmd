@@ -44,6 +44,7 @@ library(tidyverse)
 library(nlme)
 library(dplyr)
 library(ggplot2)
+library(rstatix)
 ```
 
 ```{r, include = FALSE}
@@ -123,8 +124,13 @@ coef(summary(two_int_mod))
 
 Wife's house work distribution on her own satisfaction with the housework distribution was `r basic_mod$coefficients[2]`. Wife's house work distribution on her husbands satisfaction with the housework distribution was `r basic_mod$coefficients[6]`.Husband's house work distribution on his own satisfaction with the housework distribution was `r basic_mod$coefficients[4]`. Husband's house work distribution on his wife's satisfaction with the housework distribution was `r basic_mod$coefficients[5]`.
 
+```{r}
+hd_grbA_p_val<-p_format(coef(summary(two_int_mod))[12,4],accuracy = .05)
 
-For women, her gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[12,1]` with a p value of `r coef(summary(two_int_mod))[12,4]` and a standard deviation of `r coef(summary(two_int_mod))[12,2]`. For every one unit increase in gender role beliefs, satisfaction increases by `r two_int_mod$coefficients[12]` while keeping housework distribution constant.Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[16,1]` with a p value of `r coef(summary(two_int_mod))[16,4]` and a standard deviation of `r coef(summary(two_int_mod))[16,2]`. For every one unit increase in her partners gender role beliefs, her own satisfaction increases by `r coef(summary(two_int_mod))[16,1]` while keeping housework distribution constant.
+```
+
+
+For women, her gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[12,1]` with a p value of `r hd_grbA_p_val` and a standard deviation of `r coef(summary(two_int_mod))[12,2]`. For every one unit increase in gender role beliefs, satisfaction increases by `r two_int_mod$coefficients[12]` while keeping housework distribution constant.Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[16,1]` with a p value of `r coef(summary(two_int_mod))[16,4]` and a standard deviation of `r coef(summary(two_int_mod))[16,2]`. For every one unit increase in her partners gender role beliefs, her own satisfaction increases by `r coef(summary(two_int_mod))[16,1]` while keeping housework distribution constant.
 
 
 Looking at the summary table above, these are the relationships that are statistically significant: as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_P, 8.742833e-03
@@ -147,6 +153,10 @@ mod<- gls(housework_satisfied_A ~
 
 coef(summary(mod))
 ```
+
+
+
+
 
 
 Only looking at the three way interactions with gender we found two significant gender differences in the moderation effects. The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives with an estimate of `r coef(summary(mod))[15,1]` a p value of `r coef(summary(mod))[15,4]` and a standard deviation of `r coef(summary(mod))[15,2]`. The moderation effect of ones own gender role beliefs was `r coef(summary(mod))[15,1]` units higher for women than men meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands. 
