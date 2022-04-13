@@ -52,6 +52,7 @@ dat_reverse <- read.csv("dat_reverse.csv")
 dat_predyad <- read.csv("predyaddata.csv")
 dat_dyad <- read.csv("dyadic.csv")
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+View(dat_dyad)
 ```
 
 ## Analysis Strategy  
@@ -66,6 +67,8 @@ knitr::include_graphics("APIM_Housework_Distribution.pdf")
 ```
 
 ## Main Results
+
+### Gender Role Beliefs
 
 ```{r}
 ## centering moderator and predictor
@@ -167,28 +170,39 @@ show(wives)
 wife_plot<- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, color = grbs_hl_A)
+                y = housework_satisfied_A, 
+                color = grbs_hl_A,  na.rm = TRUE)
                 )+
-  geom_point()+
+  geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
+
   labs(x = "Housework distribution", y = "Satisfaction", title = "Relationship of wive's housework distribution and gender role beliefs", caption = "Caption should start on the left")
   
+
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs") 
+
+
 wife_plot
 ```
 As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the housework distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
 
 ```{r, include = TRUE}
-wife_plot2<- ggplot(wives,aes(
-                x = Cavg_housework_female_A,
-                y = housework_satisfied_A, color = grbs_hl_P)
+wife_plot2<- ggplot(wives, aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, 
+                color = grbs_hl_P, na.rm = TRUE)
                 )+
-  geom_point()+
+  geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs")
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
   
 wife_plot2
 ```
 
 As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases.
+
+
+### Religion
 
 ```{r}
 ## two intercept model
@@ -212,8 +226,8 @@ coef(summary(two_int_mod_religion))
 The two intercept model gives us the two coefficients for men and women
 
 ```{r}
-#moderation approach
-## check for gender interactions
+# moderation approach
+# check for gender interactions
  int_mod_religion<- gls(housework_satisfied_A ~
                        Cavg_housework_female_A*religionYN_A*genderE_A+
                        # Cavg_housework_female_A*religionYN_P*genderE_A+
@@ -229,9 +243,10 @@ coef(summary(int_mod_religion))
 
 ## Exploratory Results
 
+- explain the concept/process of mediation in general, 1 paragraph
+- one more diagram
 
-
-
+We want to explore the possibility of gatekeeping being a significant factor in our analysis. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
 
 
 
