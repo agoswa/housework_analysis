@@ -22,7 +22,7 @@ head(dat)
 ```{r}
 # selecting the variables we need
 dat <- dat %>%
-  select(dyadID, partnum, gender, religion, birthday, sexualor, race, RecordedDate, relation_length, indinc, wfh, starts_with("housework_"), starts_with("grbs_"))
+  select(dyadID, partnum, gender, religion, birthday, sexualor, race, RecordedDate, relation_length, indinc, wfh, starts_with("housework_"), starts_with("grbs_"), starts_with("gatekeeping_"))
 
 head(dat)
 ```
@@ -150,6 +150,26 @@ dat$grbs_20<-recode(dat$grbs_20, "Strongly disagree"=1, "Somewhat disagree"=2, "
 ```
 
 ```{r}
+dat$gatekeeping_
+dat$gatekeeping_1<-recode(dat$gatekeeping_1, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_2<-recode(dat$gatekeeping_2, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_3<-recode(dat$gatekeeping_3, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_4<-recode(dat$gatekeeping_4, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_5<-recode(dat$gatekeeping_5, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_6<-recode(dat$gatekeeping_6, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_7<-recode(dat$gatekeeping_7, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_8<-recode(dat$gatekeeping_8, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_9<-recode(dat$gatekeeping_9, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_10<-recode(dat$gatekeeping_10, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_11<-recode(dat$gatekeeping_11, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_12<-recode(dat$gatekeeping_12, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_13<-recode(dat$gatekeeping_13, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_14<-recode(dat$gatekeeping_14, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_15<-recode(dat$gatekeeping_15, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+dat$gatekeeping_16<-recode(dat$gatekeeping_16, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+```
+
+```{r}
 # re-coding housework_satisfied
 dat$housework_satisfied<-recode(dat$housework_satisfied, "Very dissatisfied" = 1, "Somewhat dissatisfied" = 2, "Neither satisfied nor dissatisfied" = 3, "Somewhat satisfied" = 4, "Very satisfied" = 5)
 ```
@@ -212,6 +232,7 @@ We should check for reversed items!! 2y 3y 7 10 12 17
 # reverse score anything
 max + min for a scale and subtract the original score from that.
 
+conservative is high number 
 ```{r}
 dat_reverse <- dat %>% mutate(grbs_2.r = (1 + 5) - grbs_2,
                               grbs_3.r = (1 + 5) - grbs_3,
