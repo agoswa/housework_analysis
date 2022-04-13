@@ -330,7 +330,7 @@ tempB <- overall_data_clean %>%
 # acitelli_pair <- bind_rows(tempA, tempB) %>%
 #  mutate(genderstring_A = ifelse(genderE_A == 1, "Husband", "Wife")) %>%
 #  arrange(cuplid) 
-#
+
  rm(tempA, tempB)
  head(overall_data_pair)
  write.csv(overall_data_pair,"dyadic.csv")

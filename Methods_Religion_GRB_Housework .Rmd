@@ -1,0 +1,532 @@
+---
+title             : "Satisfying housework division? Gender role beliefs and religion as moderators of housework division and satisfaction"
+shorttitle        : "gender roles, housework and satisfaction"
+
+author: 
+  - name          : "Carlotta Reinhardt"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding 
+  - name          : "Margaret Bassney"
+    affiliation   : "1"
+  - name          : "Anushree Goswami"
+    affiliation   : "1"
+affiliation:
+  - id            : "1"
+    institution   : "Smith College"
+   
+# authornote: 
+
+bibliography      : ["r-references.bib", "2articles.bib"]
+
+
+floatsintext      : no
+figurelist        : no
+tablelist         : yes
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+library(tidyverse)
+library(nlme)
+library(dplyr)
+r_refs("r-references.bib")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+```{r, include = FALSE}
+dat_reverse <- read.csv("dat_reverse.csv")
+dat_predyad <- read.csv("predyaddata.csv")
+dat_dyad <- read.csv("dyadic.csv")
+dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+```
+
+# Method
+## Participants 
+```{r, include = FALSE}
+#dataset complete and cleaned
+head(dat)
+n2 <- count(dat)
+n2
+
+n <-length(which(dat_reverse$gender==0))
+n
+n_indiv <- n*2
+n_indiv
+```
+
+```{r, include = FALSE}
+#create women and men dataset 
+dat_reverse_w <- subset(dat_reverse, gender==0)
+dat_reverse_m <- subset(dat_reverse, gender==1)
+
+#age 
+mean(dat_reverse$age)
+meanage<-tapply(dat_reverse$age, dat_reverse$gender, mean)
+womenmean <- meanage[2]
+menmean <- meanage[1]
+
+sdage<-tapply(dat_reverse$age, dat_reverse$gender, sd)
+womensd <- sdage[2]
+mensd <- sdage[1]
+
+womenrange <- range(dat_reverse_w$age)
+womenrangelow <- womenrange[1]
+womenrangelow
+womenrangehigh <- womenrange[2]
+womenrangehigh
+
+menrange <- range(dat_reverse_m$age)
+menrangelow <- menrange[1]
+menrangelow
+menrangehigh <- menrange[2]
+menrangehigh
+```
+
+```{r relationship_lengt, include = FALSE}
+#relationship length
+lengthmean <- round(mean(dat_reverse$relation_yrs, na.rm = TRUE),2)
+lengthsd <- round(sd(dat_reverse$relation_yrs, na.rm = TRUE),2)
+lengthrange <- range(dat_reverse$relation_yrs, na.rm = TRUE)
+lengthrangelow <- round(lengthrange[1],2)
+lengthrangehigh <- round(lengthrange[2],2)
+``` 
+
+```{r income, include = FALSE}
+#income
+meninc <- range(dat_reverse_m$indinc, na.rm=TRUE)
+meninclow <- meninc[1]
+meninclow
+meninchigh <- meninc[2]
+meninchigh
+
+menincmean <- round(mean(dat_reverse_m$indinc, na.rm=TRUE))
+
+menincsd <- round(sd(dat_reverse_m$indinc, na.rm=TRUE))
+
+
+womeninc <- range(dat_reverse_w$indinc, na.rm=TRUE)
+womeninclow <- womeninc[1]
+womeninclow
+womeninchigh <- womeninc[2]
+womeninchigh
+
+womenincmean <- round(mean(dat_reverse_w$indinc, na.rm=TRUE))
+
+womenincsd <- round(sd(dat_reverse_w$indinc, na.rm=TRUE))
+```
+
+```{r, include = FALSE}
+#work from home 
+dat_reverse_m$wfh
+Mwfhyes <- subset(dat_reverse_m, wfh==1)
+Mwfhyes <-count(Mwfhyes)
+Mwfhno <- subset(dat_reverse_m, wfh==0)
+Mwfhno <- count(Mwfhno)
+ntotal <- count(dat_reverse_m)
+MwfhNA <- ntotal - (Mwfhyes + Mwfhno)
+Mperchome <-round((Mwfhyes/ntotal),3)*100
+Mpercnohome <-round((Mwfhno/ntotal),3)*100
+MpercnohomeNA <-round((MwfhNA/ntotal),3)*100
+
+Wwfhyes <- subset(dat_reverse_w, wfh==1)
+Wwfhyes <-count(Wwfhyes)
+Wwfhno <- subset(dat_reverse_w, wfh==0)
+Wwfhno <- count(Wwfhno)
+Wntotal <- count(dat_reverse_m)
+WwfhNA <- Wntotal - (Wwfhno + Wwfhyes)
+Wperchome <-round((Wwfhyes/Wntotal),3)*100
+Wpercnohome <-round((Wwfhno/Wntotal),3)*100
+WpercnohomeNA <-round((WwfhNA/Wntotal),3)*100
+```
+
+```{r, include = FALSE}
+#religion
+dat_reverse
+Christian <-length(which(dat_reverse$religion=="Christianity"))
+Christian <-round((Christian/n_indiv), 2)*100
+Athiest <-length(which(dat_reverse$religion=="Athiest"))
+Athiest <-round((Athiest/n_indiv), 2)*100
+Agnostic <-length(which(dat_reverse$religion=="Agnostic"))
+Agnostic<-round((Agnostic/n_indiv), 2)*100
+Judaism <-length(which(dat_reverse$religion=="Judaism"))
+Judaism<-round((Judaism/n_indiv), 2)*100
+Hinduism <-length(which(dat_reverse$religion=="Hinduism"))
+Hinduism<-round((Hinduism/n_indiv),2)*100
+Islam <-length(which(dat_reverse$religion=="Islam"))
+Islam<-round((Hinduism/n_indiv), 2)*100
+
+#other
+Other <-length(which(dat_reverse$religion=="Other"))
+Other
+Agnostic_Other <-length(which(dat_reverse$religion=="Agnostic,Other"))
+Agnostic_Other
+Christianity_Agnostic <-length(which(dat_reverse$religion=="Agnostic,Other"))
+Christianity_Agnostic
+Christianity_Athiest <-length(which(dat_reverse$religion=="Christianity,Athiest"))
+Christianity_Athiest
+other_comb <- Agnostic_Other+Christianity_Agnostic+Christianity_Athiest+Other
+other_comb<-round((other_comb/n_indiv), 2)*100
+
+noanswer <-length(which(dat_reverse$religion=="Prefer not to answer"))
+noanswer<-round((noanswer/n_indiv), 2)*100
+
+noanswer <-length(which(dat_reverse$religion=="Prefer not to answer"))
+noanswer<-round((noanswer/n_indiv), 2)*100
+
+
+count(dat_reverse, 'religion')
+(cTab <- table(dat_reverse$gender, dat_reverse$religion))
+
+tapply(dat_reverse$relation_yrs, dat_reverse$gender, summary)
+```
+
+
+```{r white, include = FALSE}
+white <-count(subset(dat_reverse, race=="White or European American"))
+white<-round((white/n_indiv), 2)*100
+```
+
+```{r hisp, include = FALSE}
+hisp <-count(subset(dat_reverse, race=="Latinx or Hispanic"))
+hisp<-round((hisp/n_indiv), 2)*100
+```
+
+```{r white_hisp, include = FALSE}
+white_hisp <-count(subset(dat_reverse, race=="White or European American,Latinx or Hispanic"))
+white_hisp<-round((white_hisp/n_indiv), 2)*100
+```
+
+```{r asian, include = FALSE}
+asian <-count(subset(dat_reverse, race=="Asian or Asian American"))
+asian<-round((asian/n_indiv), 2)*100
+
+```
+
+```{r black, include = FALSE}
+black <-count(subset(dat_reverse, race=="Black or African American"))
+black<-round((black/n_indiv), 2)*100
+
+```
+
+```{r mid_east, include = FALSE}
+mid_east <-count(subset(dat_reverse, race=="Middle Eastern"))
+mid_east<-round((mid_east/n_indiv), 2)*100
+
+```
+
+```{r otherCount, include = FALSE}
+other <-count(subset(dat_reverse, race=="Other"))
+other<-round((other/n_indiv), 2)*100
+
+```
+
+```{r naCount, include = FALSE}
+na <-count(subset(dat_reverse, race=="Prefer not to answer"))
+na<-round((na/n_indiv), 2)*100
+
+```
+
+```{r, include = FALSE}
+head(subset(dat_reverse, select = 'race'))
+count(dat_reverse, 'race')
+```
+
+```{r, include = FALSE}
+tapply(dat$indinc, dat$gender, summary)
+tapply(dat$wfh, dat$gender, summary)
+summary(dat_reverse$gender)
+tapply(dat_reverse$avg_housework_female, dat_reverse$gender, summary)
+tapply(dat_reverse$avg_housework_male, dat_reverse$gender, summary)
+tapply(dat_reverse$avg_grbs, dat_reverse$gender, summary)
+tapply(dat_reverse$housework_fair, dat_reverse$gender, summary)
+tapply(dat_reverse$housework_satisfied, dat_reverse$gender, summary)
+
+table(dat_reverse$race)
+
+tapply(dat_reverse$indinc, dat_reverse$gender, summary)
+tapply(dat_reverse$wfh, dat_reverse$gender, summary)
+
+summary(dat_predyad$gender)
+tapply(dat_predyad$avg_housework_female, dat_predyad$gender, summary)
+tapply(dat_predyad$avg_housework_male, dat_predyad$gender, summary)
+tapply(dat_predyad$avg_grbs, dat_predyad$gender, summary)
+tapply(dat_predyad$housework_fair, dat_predyad$gender, summary)
+tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
+```
+Originally, `r n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N = `r n` couples (N = `r n_indiv` individuals) have been included in the analysis. Women and men from the final sample of `r n`  adult couples were `r womenmean` (SD = `r womensd`, range = `r womenrangelow`-`r womenrangehigh`) and `r menmean` (SD = `r mensd`, range = `r menrangelow`-`r menrangehigh`) years old, respectively.
+
+The relationships, at the time of the study, have been between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthmean` years (SD = `r lengthsd`). The average yearly income was `r menincmean` USD (SD = `r menincsd` USD) for men and `r womenincmean` USD (SD = `r womenincsd` USD) for women. `r Wperchome` % of the women and `r Mperchome` % of the men worked from home, `r Wpercnohome` % of the women and `r Mpercnohome` % of the men did not work from home. No answer to this question was given by the remaining participants (`r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women). 
+
+We further looked at men and women based on their religion and race.`r Christian` is the % of the sample that identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question. 
+`r white` % of the sample were White, `r white_hisp` % Hispanic and White, `r black` % Black, `r asian` % were Asian, `r hisp` % were Hispanic and `r mid_east` % were Middle Eastern.`r other` % of the participants were another race and `r na` % of the participants preferred not to answer the question.
+
+ 
+## Procedure and Measures
+Participating couples for this study were recruited online. The study was conducted in 2020 by Randi Garcia and contained two parts: The first part included a batterie of questionnaires that included all variables used in this study. In a second part, both partners were asked to fill out a daily survey for two weeks.  Participants were instructed to not share their responses with their partner. Participants were compensated for the study if both, they and their partner, completed the questionnaires. For the second part, the daily measures, each participant received $2 per day. All participants gave their informed consent to participate in this study.
+In this analysis, selected data from the first batterie of questionnaires were used. The measures of interest are introduced below. 
+A multivariate analysis of variances (MANOVA) has been conducted. T-tests were used to assess gender differences in relevant outcome variables.
+The analysis was conducted in R [@R-base] and written with the R papaja package [@R-papaja].
+
+```{r include = FALSE}
+
+calc_alpha_ft <- psych::alpha(select(dat_reverse,housework_1, housework_2, housework_3, housework_4, housework_7, housework_8, housework_9,housework_12, housework_13, housework_14))
+female_tasks_alpha<-calc_alpha_ft$total$raw_alpha
+```
+
+```{r, include = FALSE}
+
+calc_alpha_mt<- psych::alpha(select(dat_reverse,housework_5, housework_6,  housework_10, housework_11))
+male_tasks_alpha<-calc_alpha_mt$total$raw_alpha
+```
+
+```{r, include = FALSE}
+calc_grb_alpha<- psych::alpha(select(dat_reverse, grbs_1, grbs_2.r,grbs_3.r,grbs_4,grbs_5,grbs_6,grbs_7.r,grbs_8,
+                 grbs_9, grbs_10.r, grbs_11, grbs_12.r, grbs_13, grbs_14, grbs_15, 
+                 grbs_16, grbs_17.r, grbs_18, grbs_19, grbs_20))
+
+grb_alpha<-calc_grb_alpha$total$raw_alpha
+```
+
+```{r, include = FALSE}
+## calculating ICC
+apim_sat <- gls(housework_satisfied_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_sat)
+rho = 0.27
+```
+
+```{r, include = FALSE}
+## calculating ICC
+apim_hd <- gls(avg_housework_female_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_hd)
+rhoHWF = -.84
+```
+
+```{r, include = FALSE}
+## calculating ICC
+apim_hdM <- gls(avg_housework_male_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_hdM)
+rhoHWM = -.71
+```
+### Demographic Variables 
+Participants were asked to report several demographic data. We were interested in the participants gender, the couples' relationship length, the yearly income of each partner, their work from home status, religion affiliation, and race. 
+
+### Housework Distribution  
+The scale *Who does what?*, developed by @cowan_when_1992, measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = *0 - 20 %* to 5 = *80 - 100 %*). Example questions include "make beds or change bed linens" and "take out garbage, recycling". Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks. The ICC was `r rhoHWF` for female tasks and `r rhoHWM` for male tasks.
+
+### Gender Role Beliefs 
+Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed a high reliability with a Cronbachs Alpha of `r grb_alpha`.
+
+### Housework Satisfaction
+Within the questionnaire, the question "How satisfied are you with the division of household tasks?" was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = "very dissatisfied" to 5 = "very satisfied"). The ICC was `r rho`
+
+
+# Results
+
+## Preliminary Analysis 
+Results of the preliminary analysis are shown in Table 1. T-tests showed that men are doing significantly more male housework tasks than women while women perform significantly more typically female tasks around the house. Satisfaction with the distribution of housework did not differ significantly between male and female partners.
+
+```{r, include = FALSE}
+hwf_t_test<-t.test(dat_reverse_m$avg_housework_female, dat_reverse_w$avg_housework_female, paired = TRUE, alternative = "two.sided")
+```
+
+```{r, include = FALSE}
+hwm_t_test<-t.test(dat_reverse_m$avg_housework_male, dat_reverse_w$avg_housework_male, paired = TRUE, alternative = "two.sided")
+```
+
+```{r, include = FALSE}
+sat_t_test<-t.test(dat_reverse_m$housework_satisfied, dat_reverse_w$housework_satisfied, paired = TRUE, alternative = "two.sided")
+```
+
+```{r, include = FALSE}
+#t.test(dat_reverse$avg_grbs, dat_reverse$gender, paired = T, alternative = "two.sided")
+#this was wrong
+```
+
+```{r, include = FALSE}
+grbs_t_test<-t.test(dat_reverse_m$avg_grbs, dat_reverse_w$avg_grbs, paired = T, alternative = "two.sided")
+```
+
+```{r, include=FALSE}
+ attach(dat_reverse)
+         pairwise.t.test(avg_grbs, gender, p.adjust.method="bonferroni", paired=T)
+```
+
+```{r, include = FALSE}
+fair_t_test<-t.test(dat_reverse$housework_fair, dat_reverse$relation_yrs, paired = TRUE, alternative = "two.sided")
+```
+
+```{r, include = FALSE}
+age_t_test<-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternative = "two.sided")
+```
+
+```{r}
+p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value)
+```
+
+```{r}
+t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic)
+```
+
+```{r}
+p_stat_vals<-cbind(t_stat,p_vals)
+```
+
+```{r}
+p_stat_vals<-as.data.frame(p_stat_vals)
+p_stat_vals<-p_stat_vals%>%
+  mutate(T_Statistic = t,
+         P_value = V2)%>%
+  select(T_Statistic,P_value)
+```
+
+```{r}
+rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework")
+```
+
+
+\newpage
+
+
+```{r}
+GenderDifferences <- dat_predyad%>%group_by(gender) %>%
+  mutate(mean_housework_male = round(mean(avg_housework_male, na.rm = TRUE),2),
+         mean_housework_female = round(mean(avg_housework_female, na.rm = TRUE),2),
+         mean_grbs = round(mean(avg_grbs),2),
+         gender = ifelse(gender == 0, "Male","Female"),
+         meanSatisfaction = round(mean(housework_satisfied),2),
+         sdMHW = round(sd(avg_housework_male,na.rm = TRUE),2),
+         sdHWF = round(sd(avg_housework_female,na.rm = TRUE),2),
+         sdGRB = round(sd(avg_grbs,na.rm = TRUE),2),
+         sdSat = round(sd(housework_satisfied,na.rm = TRUE),2))
+
+```
+
+```{r}
+SD<-GenderDifferences%>%
+  select(sdMHW,sdHWF,sdGRB,sdSat)
+```
+
+```{r}
+SD<-t(SD)
+```
+
+```{r}
+## select rows i want
+SD<-as.data.frame(SD)
+SD<-SD%>%
+  select(c(1,2))
+```
+
+```{r}
+SD<-SD[-1,]
+```
+
+```{r}
+SD <- SD %>%
+  rename("SD (Female)" = V1,"SD (Male)" = V2)
+```
+
+
+```{r}
+GenderDifferences<-GenderDifferences%>%
+  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction)
+```
+
+
+```{r}
+## transpose means 
+GenderDifferences<-t(GenderDifferences)
+```
+
+```{r}
+GenderDifferences<-as.data.frame(GenderDifferences)
+```
+
+
+```{r}
+GenderDifferences<-GenderDifferences[-1,]
+```
+
+```{r}
+## select rows i want
+GenderDifferences1<-GenderDifferences%>%
+  select(c(1))
+```
+
+```{r}
+GenderDifferences2<-GenderDifferences%>%
+  select(c(2))
+```
+
+```{r}
+SD1<-SD%>%
+  select(c(1))
+```
+
+```{r}
+SD2<-SD%>%
+  select(c(2))
+```
+
+```{r}
+GenderDifferences<-cbind(GenderDifferences1,SD1,GenderDifferences2,SD2)
+```
+
+```{r}
+p_stat_vals<-p_stat_vals%>%
+  mutate(P_value = ifelse(P_value<.005,"<.005",round(P_value,2)))
+```
+
+
+```{r}
+GenderDifferences<-cbind(GenderDifferences,p_stat_vals)
+```
+
+
+```{r}
+GenderDifferences <- GenderDifferences %>%
+  rename("Means (Female)" = V1,"Means (Male)" = V2, "T Statistic" = T_Statistic,"P Value" = P_value)
+```
+
+```{r}
+rownames(GenderDifferences) <- c("Housework Distribution (Male Tasks)","Housework Distribution (Female Tasks)","Gender Role Beliefs","Housework Satisfaction")
+```
+
+```{r}
+apa_table(
+  GenderDifferences
+  , caption = "Gender Differences in Outcome Variables"
+  , note = "This table was created with apa_table().  
+  The Housework Distribution indicates percentages. Gender Role Beliefs and Housework Satisfaction have been reported on a 1-5 Likert Scale."
+  , escape = TRUE
+  , font_size = "tiny")
+
+```
+
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::
