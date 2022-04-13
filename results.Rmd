@@ -172,8 +172,7 @@ wife_plot<- ggplot(wives,aes(
                 )+
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs") +
-  xlim(0,100) 
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs") 
 
 wife_plot
 ```
@@ -187,8 +186,7 @@ wife_plot2<- ggplot(wives, aes(
                 )+
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") + 
-  xlim(0,100) 
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
   
 wife_plot2
 ```
@@ -237,11 +235,12 @@ coef(summary(int_mod_religion))
 
 ## Exploratory Results
 
+- explain the concept/process of mediation in general, 1 paragraph
+
 
 - one more diagram
 
 We want to explore the possibility of gatekeeping being a significant factor in our analysis. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
-
 
 
 
