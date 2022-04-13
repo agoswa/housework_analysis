@@ -173,7 +173,7 @@ wife_plot<- ggplot(wives,aes(
 wife_plot
 ```
 
-As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
+As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the housework distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
 
 ```{r, include = TRUE}
 wife_plot2<- ggplot(wives,aes(
@@ -186,6 +186,8 @@ wife_plot2<- ggplot(wives,aes(
   
 wife_plot2
 ```
+
+As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases.
 
 ```{r}
 ## two intercept model
