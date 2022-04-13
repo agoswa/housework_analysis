@@ -163,26 +163,27 @@ wives <- dat_dyad %>%
 
 ```{r, include = TRUE}
 wife_plot<- ggplot(wives,aes(
-                x = Cavg_housework_female_A,
-                y = housework_satisfied_A, color = grbs_hl_A)
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, 
+                color = grbs_hl_A,  na.rm = TRUE)
                 )+
-  geom_point()+
+  geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
   labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs")
   
 wife_plot
 ```
-
 As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the housework distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
 
 ```{r, include = TRUE}
-wife_plot2<- ggplot(wives,aes(
-                x = Cavg_housework_female_A,
-                y = housework_satisfied_A, color = grbs_hl_P)
+wife_plot2<- ggplot(wives, aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, 
+                color = grbs_hl_P, na.rm = TRUE)
                 )+
-  geom_point()+
+  geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs")
+  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
   
 wife_plot2
 ```
