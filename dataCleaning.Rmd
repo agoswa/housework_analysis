@@ -167,6 +167,10 @@ dat$gatekeeping_13<-recode(dat$gatekeeping_13, "Strongly Disagree1"=1, "Disagree
 dat$gatekeeping_14<-recode(dat$gatekeeping_14, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
 dat$gatekeeping_15<-recode(dat$gatekeeping_15, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
 dat$gatekeeping_16<-recode(dat$gatekeeping_16, "Strongly Disagree1"=1, "Disagree2"=2, "Neither agree nor Disagree3"=3, "Agree4"=4, "Strongly Agree5"=5)
+
+dat <- dat %>%
+  mutate(avg_gatekeeping = rowMeans(select(dat,gatekeeping_1, gatekeeping_2, gatekeeping_3, gatekeeping_4, gatekeeping_5,gatekeeping_6,gatekeeping_7, gatekeeping_8, gatekeeping_9, gatekeeping_10, gatekeeping_11, gatekeeping_12, gatekeeping_13, gatekeeping_14),na.rm = TRUE))
+
 ```
 
 ```{r}
@@ -264,7 +268,7 @@ write.csv(dat_reverse, "dat_reverse.csv")
 ```{r}
 # overall dataset with means
 overall_data <- dat_reverse %>%
-  select(dyadID, gender, religion, avg_housework_male, avg_housework_female, avg_grbs, housework_fair, housework_satisfied)
+  select(dyadID, gender, religion, avg_housework_male, avg_housework_female, avg_grbs, housework_fair, avg_gatekeeping, housework_satisfied)
 
 show(overall_data)
 ```
