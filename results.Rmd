@@ -267,12 +267,9 @@ coef(summary(int_mod_religion))
 
 
 
-
 ## Exploratory Results
 
 Mediation is a way for researchers to explain the process of one variable affecting another variable. It is essentially a possible explanation for the relationship between the two variables. Mediation assesses whether the effects of the X variable (the independent variable) are signifcant on the Y variable (the dependent variable), through a third variable called M (the mediator).
-
-- one more diagram
 
 Based on our primary analysis so far, we are interested in further exploring how to concept of gatekeeping fits into our research. We want to explore whether gatekeeping is a mediator variable in our relationship between the partners' gender role beliefs and housework tasks. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
 
@@ -291,6 +288,7 @@ summary(apim_stp1)
 ```
 
 ####Interpretation: 
+
 All four paths are positive and statistically significant: Seeing your partner positively leads you and your partner to be more satisfied.  All four of these paths could potentially be mediated.
 
 ###Step 2: Testing the effects of the grbs (X) on the mediators of Wife and Husband gatekeeping (M).
@@ -306,10 +304,10 @@ apim_stp2 <- gls(avg_gatekeeping_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs
 summary(apim_stp2)
 ```
 
-####Interpretation: 
+#### Interpretation: 
 All four paths of the "a" paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
 
-###Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y). 
+### Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y). 
 
 ```{r}
 apim_stp3 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A 
@@ -324,14 +322,14 @@ summary(apim_stp3)
 
 
 
-####I didn't change anything from here on yet! 
+#### I didn't change anything from here on yet! 
 
 
-####Interpretation:    
+#### Interpretation:    
 **Step 3**: All four "b" paths from Tension to Satisfaction are negative and three are statistically significant:  Seeing more tension in the relationship leads to less satisfaction for you and your partner, even after controlling for how positively you and your partner see each other. The one effect that is not statistically significant is the effect of male's level of tension on his wife's level of satisfaction.   
 **Step 4**: All paths from Other Positivity to Satisfaction, the direct of c', are positive and statistically significant: Seeing your partner positively leads you and your partner to have higher levels of satisfaction, even after controlling for yours and your partner's tension.
 
-#Testing Indirect Effects Using Multilevel Modeling
+# Testing Indirect Effects Using Multilevel Modeling
 
   * Sobel Test
     + Save effect estimates and standard errors.
@@ -347,7 +345,7 @@ summary(apim_stp3)
   * Monte Carlo Method
     + Appears to be the method of choice for MLMeM  
 
-##Sobel Test
+## Sobel Test
 
 ```{r}
 sobel <- function(aval, bval, seA, seB){
@@ -372,7 +370,7 @@ sobel(act_H_a, act_H_b, act_H_a_se, act_H_b_se)
 ```
 
 
-##MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
+## MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
 
 ```{r}
 #Function that returns mcmc CI. 
@@ -421,7 +419,7 @@ mcmamCI(act_H_a, act_H_b, act_H_a_se^2, act_H_b_se^2, 3000)
 
 	
 	
-##Summary of Indirect Effects
+## Summary of Indirect Effects
 
 |Name	|Indirect Effects	|Estim.|	p	|95% CI^a^ Lower|	Upper|
 |:---:|:---------------:|:----:|:--:|:---:|:----:|
@@ -437,7 +435,7 @@ mcmamCI(act_H_a, act_H_b, act_H_a_se^2, act_H_b_se^2, 3000)
 ^a^Bootstrapped CI using MCM
 (The above table was produced by an Excel spreadsheet: IndirectEffects.xls.)
 
-##Summary Direct and Total Effects
+## Summary Direct and Total Effects
 |Name|	Direct Effects	|Direct|	p	|Total^a^|	% Mediated|
 |:---:|:---------------:|:----:|:--:|:---:|:---:|
 |Actor: Wife|	Xw ->  Yw |	0.185	| .007|	0.378|	50.9|
