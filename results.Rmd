@@ -175,7 +175,7 @@ wife_plot<- ggplot(wives,aes(
 #(ref:my-figure-caption1) caption for graph
 ``` 
 
-```{r, include = TRUE,wife_plot, fig.cap = "(ref:my-figure-caption1)"}
+```{r}
 wife_plot<- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -186,7 +186,10 @@ wife_plot<- ggplot(wives,aes(
   labs(x = "Housework distribution", y = "Satisfaction", title ="Relationship of wive's housework distribution and gender role beliefs", caption = "Caption should start on the left")
 ```
 
-```{r}
+
+(ref:my-figure-caption1) caption for graph
+
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption1)"}
 wife_plot <- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -206,14 +209,14 @@ wife_plot
 
 
 (ref:my-figure-caption2) caption for graph
-```{r,include = TRUE, wife_plot2, fig.cap = "(ref:my-figure-caption2)"}
+```{r}
 wife_plot2<- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, color = grbs_hl_P))
 ```
 As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the housework distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
 
-```{r, include = TRUE}
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption2)"}
 wife_plot2<- ggplot(wives, aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -222,12 +225,13 @@ wife_plot2<- ggplot(wives, aes(
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
   scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
-  labs(x = "housework distribution", y = "Satisfaction", title = "    Interaction of wives housework distribution and their husbands gender role beleifs",color = "Gender Role Beleifs")
+  labs(x = "housework distribution", y = "Satisfaction", title ="Interaction of wives housework distribution and their husbands gender role beleifs",color = "Gender Role Beleifs")
   #scale_color_brewer(palette = "Set1") 
   #theme_apa(box = TRUE) 
   #theme(legend.position = c(0.2, 0.8))
 
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
+  #labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
+  
 
 wife_plot2
 ```
