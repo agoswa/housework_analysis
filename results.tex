@@ -201,15 +201,16 @@ In order to calculate our APIM's we had to put our data into a paired data struc
 
 Looking at the summary table above, the only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for \texttt{as.factor(genderE\_A)1:Cavg\_housework\_female\_A} is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
 
-For women, gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was 0.07 with a p value of \textless0.05 and a standard deviation of 0.02. For every one unit increase in her gender role beliefs, her satisfaction increases by 0.07 while keeping housework distribution constant. Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was -0.06 with a p-value of 0.01 and a standard deviation of 0.02. For every one unit increase in her partners gender role beliefs, her own satisfaction increased by -0.06 while keeping housework distribution constant.
+For women, gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was 0.07 (\emph{p} = 0.00, \emph{se} = 0.02). For every one unit increase in her gender role beliefs, her satisfaction increases by 0.07 while keeping housework distribution constant. Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was -0.06 (\emph{p} = 0.01,se = 0.02). For every one unit increase in her partners gender role beliefs, her own satisfaction increased by -0.06 while keeping housework distribution constant.
 
 Looking at the summary table above, these are the relationships that are statistically significant:
 as.factor(genderE\_A)1:Cavg\_housework\_female\_A:Cavg\_grbs\_P, 8.742833e-03
 as.factor(genderE\_A)1:Cavg\_housework\_female\_A:Cavg\_grbs\_A, 8.408625e-04
 as.factor(genderE\_A)0:Cavg\_housework\_female\_A, 2.259373e-02
 
-Only looking at the three way interactions with gender we found two significant gender differences in the moderation effects. The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives with an estimate of 0.06 a p value of 0.03 and a standard deviation of 0.03. The moderation effect of ones own gender role beliefs was 0.06 units higher for women than men meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands.
+Only looking at the three way interactions with gender we found two significant gender differences in the moderation effects. The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives with an estimate of 0.06 (\emph{p}=0.03,\emph{se}=0.03). The moderation effect of ones own gender role beliefs was 0.06 units higher for women than men meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands.
 
+<<<<<<< HEAD
 In addition the interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives with an estimate of -0.08 a p-value of 0.01 and a standard deviation of 0.03.The moderation effect of ones partners gender role beliefs was -0.08 units lower for women than men meaning the moderation effect of her husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how her gender role beliefs effected the relationship between housework distribution and satisfaction for her husband.
 
 \begin{figure}
@@ -217,6 +218,9 @@ In addition the interaction between actors housework distribution and their part
 \includegraphics{results_files/figure-latex/wife_plot-1.pdf}
 \caption{(\#fig:wife\_plot)(ref:my-figure-caption1)}
 \end{figure}
+=======
+In addition the interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives with an estimate of -0.08(\emph{p}=0.01,\emph{se} = 0.03).The moderation effect of ones partners gender role beliefs was -0.08 units lower for women than men meaning the moderation effect of her husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how her gender role beliefs effected the relationship between housework distribution and satisfaction for her husband.
+>>>>>>> f92e8dba6972a3d41f0f9348ec9c7f722a4b8931
 
 
 
@@ -236,7 +240,7 @@ As the housework distribution increases for wives with low gender role beliefs, 
 ## [1] "labels"
 \end{verbatim}
 
-\includegraphics{results_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{results_files/figure-latex/unnamed-chunk-11-1.pdf}
 
 As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases.
 
