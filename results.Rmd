@@ -100,7 +100,7 @@ basic_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
 summary(basic_mod)
 ```
 
-Looking at the summary table above, the only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for `as.factor(genderE_A)1:Cavg_housework_female_A` is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
+The summary table above is just of the actor partner effects with no moderation. The only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for `as.factor(genderE_A)1:Cavg_housework_female_A` is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
 
 
 ```{r, include=FALSE}
@@ -126,6 +126,8 @@ two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
 
 coef(summary(two_int_mod))
 ```
+
+as.factor(genderE_A)0:Cavg_housework_female_A:Cavg_grbs_P = For men, keeping their average female-typed housework tasks constant, for every one unit increase in avg grbs, their housework satisfaction increases by 0.02. 
 
 ```{r, include=FALSE}
 hd_grbA_p_val<-p_format(coef(summary(two_int_mod))[12,4],accuracy = .05)
@@ -194,9 +196,8 @@ wife_plot <- ggplot(wives,aes(
   geom_smooth(method = "lm")+
   xlab("Housework distribution")+
   ylab("Satisfaction")+
-  ggtitle("Relationship of wive's housework distribution and gender role beliefs")+
-  theme(text=element_text(size=16, 
-       family="TT Times New Roman"))
+  ggtitle("Relationship of wive's housework distribution and gender role beliefs")#+
+  #theme(text=element_text( family="TT Times New Roman", size=16))
 
 wife_plot
 ```
@@ -275,7 +276,7 @@ coef(summary(int_mod_religion))
 
 ## Exploratory Results
 
-Mediation is a way for researchers to explain the process of one variable affecting another variable. It is essentially a possible explanation for the relationship between the two variables. Mediation assesses whether the effects of the X variable (the independent variable) are signifcant on the Y variable (the dependent variable), through a third variable called M (the mediator).
+Mediation is a way for researchers to explain the process of one variable affecting another variable. It is essentially a possible explanation for the relationship between the two variables. Mediation assesses whether the effects of the X variable (the independent variable) are significant on the Y variable (the dependent variable), through a third variable called M (the mediator).
 
 Based on our primary analysis so far, we are interested in further exploring how to concept of gatekeeping fits into our research. We want to explore whether gatekeeping is a mediator variable in our relationship between the partners' gender role beliefs and housework tasks. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
 
