@@ -195,7 +195,7 @@ wife_plot
 
 
 (ref:my-figure-caption2) caption for graph
-```{r,include = TRUE, wife_plot2,fig.cap = "(ref:my-figure-caption2)"}
+```{r,include = TRUE, wife_plot2, fig.cap = "(ref:my-figure-caption2)"}
 wife_plot2<- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, color = grbs_hl_P))
@@ -268,10 +268,11 @@ coef(summary(int_mod_religion))
 
 ## Exploratory Results
 
-- explain the concept/process of mediation in general, 1 paragraph
+Mediation is a way for researchers to explain the process of one variable affecting another variable. It is essentially a possible explanation for the relationship between the two variables. Mediation assesses whether the effects of the X variable (the independent variable) are signifcant on the Y variable (the dependent variable), through a third variable called M (the mediator).
+
 - one more diagram
 
-We want to explore the possibility of gatekeeping being a significant factor in our analysis. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
+Based on our primary analysis so far, we are interested in further exploring how to concept of gatekeeping fits into our research. We want to explore whether gatekeeping is a mediator variable in our relationship between the partners' gender role beliefs and housework tasks. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
 
 ```{r, include=FALSE}
 library(tidyverse)
