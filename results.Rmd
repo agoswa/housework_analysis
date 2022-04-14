@@ -185,6 +185,7 @@ wife_plot<- ggplot(wives,aes(
   geom_smooth(method = "lm")+
   labs(x = "Housework distribution", y = "Satisfaction", title ="Relationship of wive's housework distribution and gender role beliefs", caption = "Caption should start on the left")
 
+
 wife_plot <- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -284,13 +285,14 @@ library(tidyverse)
 library(nlme)
 dat_dyad
 ##Step 1: Estimating and testing the total effect (c) of grbs (X) on Satisfaction (Y)
-apim_stp1 <- gls(avg_grbs_A ~ genderE_A + housework_satisfied_A:genderE_A + housework_satisfied_P:genderE_A - 1,
+apim_stp1 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A - 1,
                  data = dat_dyad,
                  correlation = corCompSymm(form=~1|dyadID), 
                  weights = varIdent(form=~1|genderE_A), 
                  na.action = na.omit)
 
 summary(apim_stp1)
+
 ```
 
 ####Interpretation: 
@@ -317,7 +319,7 @@ All four paths of the "a" paths are negative and statistically significant: Seei
 
 ```{r}
 apim_stp3 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A 
-                 + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A - 1,
+                 + avg_gatekeeping_A:genderE_A + avg_gatekeeping_P:genderE_A - 1,
                  data = dat_dyad,
                  correlation = corCompSymm(form=~1|dyadID), 
                  weights = varIdent(form=~1|genderE_A), 
