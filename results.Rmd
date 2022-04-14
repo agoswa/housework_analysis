@@ -262,7 +262,10 @@ two_int_mod_religion<- gls(housework_satisfied_A~as.factor(genderE_A)+
                     na.action = na.omit)
 coef(summary(two_int_mod_religion))
 ```
-The two intercept model gives us the two coefficients for men and women
+The two intercept model gives us the two coefficients for men and women. 
+
+None of the interactions between actors housework distribution and their religion was significantly different for husbands or wives. (*p*>=`r coef(summary(two_int_mod_religion))[16,4]`,*se*=`r coef(summary(two_int_mod_religion))[16,2]`). None of the results illustrate that the average female-typed tasks completed by the actor or partner from the husband and wife's perspective was related to their religion.
+
 
 ```{r}
 # moderation approach
@@ -302,7 +305,7 @@ apim_stp1 <- gls(avg_grbs_A ~ genderE_A + housework_satisfied_A:genderE_A + hous
 summary(apim_stp1)
 ```
 
-####Interpretation: 
+#### Interpretation: 
 
 All four paths are positive and statistically significant: Seeing your partner positively leads you and your partner to be more satisfied.  All four of these paths could potentially be mediated.
 
@@ -388,10 +391,10 @@ sobel <- function(aval, bval, seA, seB){
 ## MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
 
 ``{r}
-#Function that returns mcmc CI. 
-#mcmamCI <- function(aval, bval, varA, varB, n){
+# Function that returns mcmc CI. 
+# mcmamCI <- function(aval, bval, varA, varB, n){
 
-#code (Selig & Preacher, 2008).
+# code (Selig & Preacher, 2008).
   #require(MASS)
   
   a=aval
