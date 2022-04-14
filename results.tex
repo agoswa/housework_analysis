@@ -267,33 +267,35 @@ The two intercept model gives us the two coefficients for men and women
 \hypertarget{exploratory-results}{%
 \subsection{Exploratory Results}\label{exploratory-results}}
 
-\begin{itemize}
-\tightlist
-\item
-  explain the concept/process of mediation in general, 1 paragraph
-\item
-  one more diagram
-\end{itemize}
+Mediation is a way for researchers to explain the process of one variable affecting another variable. It is essentially a possible explanation for the relationship between the two variables. Mediation assesses whether the effects of the X variable (the independent variable) are signifcant on the Y variable (the dependent variable), through a third variable called M (the mediator).
 
-We want to explore the possibility of gatekeeping being a significant factor in our analysis. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
+Based on our primary analysis so far, we are interested in further exploring how to concept of gatekeeping fits into our research. We want to explore whether gatekeeping is a mediator variable in our relationship between the partners' gender role beliefs and housework tasks. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
 
 \#\#\#\#Interpretation:
+
 All four paths are positive and statistically significant: Seeing your partner positively leads you and your partner to be more satisfied. All four of these paths could potentially be mediated.
 
 \#\#\#Step 2: Testing the effects of the grbs (X) on the mediators of Wife and Husband gatekeeping (M).
 
-\#\#\#\#Interpretation:
+\hypertarget{interpretation}{%
+\paragraph{Interpretation:}\label{interpretation}}
+
 All four paths of the ``a'' paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
 
-\#\#\#Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y).
+\hypertarget{steps-3-and-4-testing-the-effects-of-the-tension-m-and-other-positivity-x-on-the-satisfaction-y.}{%
+\subsubsection{Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y).}\label{steps-3-and-4-testing-the-effects-of-the-tension-m-and-other-positivity-x-on-the-satisfaction-y.}}
 
-\#\#\#\#I didn't change anything from here on yet!
+\hypertarget{i-didnt-change-anything-from-here-on-yet}{%
+\paragraph{I didn't change anything from here on yet!}\label{i-didnt-change-anything-from-here-on-yet}}
 
-\#\#\#\#Interpretation:\\
+\hypertarget{interpretation-1}{%
+\paragraph{Interpretation:}\label{interpretation-1}}
+
 \textbf{Step 3}: All four ``b'' paths from Tension to Satisfaction are negative and three are statistically significant: Seeing more tension in the relationship leads to less satisfaction for you and your partner, even after controlling for how positively you and your partner see each other. The one effect that is not statistically significant is the effect of male's level of tension on his wife's level of satisfaction.\\
 \textbf{Step 4}: All paths from Other Positivity to Satisfaction, the direct of c', are positive and statistically significant: Seeing your partner positively leads you and your partner to have higher levels of satisfaction, even after controlling for yours and your partner's tension.
 
-\#Testing Indirect Effects Using Multilevel Modeling
+\hypertarget{testing-indirect-effects-using-multilevel-modeling}{%
+\section{Testing Indirect Effects Using Multilevel Modeling}\label{testing-indirect-effects-using-multilevel-modeling}}
 
 \begin{itemize}
 \tightlist
@@ -341,7 +343,8 @@ All four paths of the ``a'' paths are negative and statistically significant: Se
   \end{itemize}
 \end{itemize}
 
-\#\#Sobel Test
+\hypertarget{sobel-test}{%
+\subsection{Sobel Test}\label{sobel-test}}
 
 ``\{r\}
 sobel \textless- function(aval, bval, seA, seB)\{
@@ -365,7 +368,8 @@ return(data.frame(indirect\_effect = ab, z\_value = z, p\_value = p))
 #sobel(act_H_a, act_H_b, act_H_a_se, act_H_b_se)
 \end{verbatim}
 
-\#\#MCMAM \href{http://www.quantpsy.org/medmc/medmc.htm}{Selig \& Preacher, 2008}
+\hypertarget{mcmam-selig-preacher-2008}{%
+\subsection{\texorpdfstring{MCMAM \href{http://www.quantpsy.org/medmc/medmc.htm}{Selig \& Preacher, 2008}}{MCMAM Selig \& Preacher, 2008}}\label{mcmam-selig-preacher-2008}}
 
 ``\{r\}
 \#Function that returns mcmc CI.
@@ -411,7 +415,8 @@ mcmamCI(act_H_a, act_H_b, act_H_a_se^2, act_H_b_se^2, 3000)
 #confidence intervals > does it include 0?
 \end{verbatim}
 
-\#\#Summary of Indirect Effects
+\hypertarget{summary-of-indirect-effects}{%
+\subsection{Summary of Indirect Effects}\label{summary-of-indirect-effects}}
 
 \begin{longtable}[]{@{}cccccc@{}}
 \toprule
@@ -432,13 +437,20 @@ Partner-Actor: H & Xw -\textgreater{} Mh -\textgreater{} Yh & 0.072 & .003 & 0.0
 \textsuperscript{a}Bootstrapped CI using MCM
 (The above table was produced by an Excel spreadsheet: IndirectEffects.xls.)
 
-\#\#Summary Direct and Total Effects
-\textbar Name\textbar{} Direct Effects \textbar Direct\textbar{} p \textbar Total\textsuperscript{a}\textbar{} \% Mediated\textbar{}
-\textbar:---:\textbar:---------------:\textbar:----:\textbar:--:\textbar:---:\textbar:---:\textbar{}
-\textbar Actor: Wife\textbar{} Xw -\textgreater{} Yw \textbar{} 0.185 \textbar{} .007\textbar{} 0.378\textbar{} 50.9\textbar{}
-\textbar Actor: Husband\textbar{} Xh -\textgreater{} Yh \textbar{} 0.291\textbar{} \textless.001\textbar{} 0.424\textbar{} 31.5\textbar{}
-\textbar Partner: Wife\textbar{} Xh -\textgreater{} Yw \textbar{} 0.190\textbar{} .010\textbar{} 0.321\textbar{} 40.9\textbar{}
-\textbar Partner: Husband\textbar{} Xw -\textgreater{} Yh \textbar{} 0.129\textbar{} .028\textbar{} 0.262\textbar{} 50.8\textbar{}
+\hypertarget{summary-direct-and-total-effects}{%
+\subsection{Summary Direct and Total Effects}\label{summary-direct-and-total-effects}}
+
+\begin{longtable}[]{@{}cccccc@{}}
+\toprule
+Name & Direct Effects & Direct & p & Total\textsuperscript{a} & \% Mediated \\
+\midrule
+\endhead
+Actor: Wife & Xw -\textgreater{} Yw & 0.185 & .007 & 0.378 & 50.9 \\
+Actor: Husband & Xh -\textgreater{} Yh & 0.291 & \textless.001 & 0.424 & 31.5 \\
+Partner: Wife & Xh -\textgreater{} Yw & 0.190 & .010 & 0.321 & 40.9 \\
+Partner: Husband & Xw -\textgreater{} Yh & 0.129 & .028 & 0.262 & 50.8 \\
+\bottomrule
+\end{longtable}
 
 \textsuperscript{a}Computed as \texttt{ab\ +\ c\textquotesingle{}} and \texttt{c} with results agreeing.
 

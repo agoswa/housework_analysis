@@ -183,12 +183,20 @@ wife_plot<- ggplot(wives,aes(
                 )+
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
+  labs(x = "Housework distribution", y = "Satisfaction", title ="Relationship of wive's housework distribution and gender role beliefs", caption = "Caption should start on the left")
 
-  labs(x = "Housework distribution", y = "Satisfaction", title = "Relationship of wive's housework distribution and gender role beliefs", caption = "Caption should start on the left")
-  
-
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their gender role beleifs") 
-
+wife_plot <- ggplot(wives,aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, 
+                color = grbs_hl_A,  na.rm = TRUE)
+                )+
+  geom_point(na.rm = TRUE)+
+  geom_smooth(method = "lm")+
+  xlab("Housework distribution")+
+  ylab("Satisfaction")+
+  ggtitle("Relationship of wive's housework distribution and gender role beliefs")+
+  theme(text=element_text(size=16, 
+       family="TT Times New Roman"))
 
 wife_plot
 ```
