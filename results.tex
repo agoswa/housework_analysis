@@ -42,6 +42,16 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -177,27 +187,14 @@
 \hypertarget{analysis-strategy}{%
 \subsection{Analysis Strategy}\label{analysis-strategy}}
 
-<<<<<<< HEAD
-To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, \& Cook, 2006). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partner's housework distribution effects both their own satisfaction with the housework distribution and their partners satisfaction with the housework distribution. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs and religion. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the nonindependent data.
-
-In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was contained all in one line. This way we could calculate the actor and partner effects for both the husbands and wives.
-=======
 To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, \& Cook, 2006). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partner's housework distribution effects both their own satisfaction with the housework distribution and their partners satisfaction with the housework distribution. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs and religion. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the non-independent data.
 
 In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was all contained in one line. This way we could calculate the actor and partner effects for both the husbands and wives.
->>>>>>> 71ff8d82663603c79f5ff4fcd38ff2052482afae
 
 
+\begin{figure}
+\centering
 \includegraphics{APIM_Housework_Distribution.pdf}
-<<<<<<< HEAD
-\#\# Main Results
-
-Looking at the summary table above, the only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for \texttt{as.factor(genderE\_A)1:Cavg\_housework\_female\_A} is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
-
-For women, her gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was 0.07 with a p value of \textless0.05 and a standard deviation of 0.02. For every one unit increase in gender role beliefs, satisfaction increases by 0.07 while keeping housework distribution constant.Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was -0.06 with a p value of 0.01 and a standard deviation of 0.02. For every one unit increase in her partners gender role beliefs, her own satisfaction increases by -0.06 while keeping housework distribution constant.
-
-Looking at the summary table above, these are the relationships that are statistically significant: as.factor(genderE\_A)1:Cavg\_housework\_female\_A:Cavg\_grbs\_P, 8.742833e-03
-=======
 \caption{\label{fig:my-figure}Actor Partner Effects in the APIM}
 \end{figure}
 
@@ -209,41 +206,62 @@ Looking at the summary table above, these are the relationships that are statist
 
 Looking at the summary table above, the only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for \texttt{as.factor(genderE\_A)1:Cavg\_housework\_female\_A} is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
 
-For women, her gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was 0.07 with a p value of \textless0.05 and a standard deviation of 0.02. For every one unit increase in her gender role beliefs, her satisfaction increases by 0.07 while keeping housework distribution constant. Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was -0.06 with a p-value of 0.01 and a standard deviation of 0.02. For every one unit increase in her partners gender role beliefs, her own satisfaction increased by -0.06 while keeping housework distribution constant.
+For women, gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was 0.07 with a p value of \textless0.05 and a standard deviation of 0.02. For every one unit increase in her gender role beliefs, her satisfaction increases by 0.07 while keeping housework distribution constant. Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was -0.06 with a p-value of 0.01 and a standard deviation of 0.02. For every one unit increase in her partners gender role beliefs, her own satisfaction increased by -0.06 while keeping housework distribution constant.
 
 Looking at the summary table above, these are the relationships that are statistically significant:
 as.factor(genderE\_A)1:Cavg\_housework\_female\_A:Cavg\_grbs\_P, 8.742833e-03
->>>>>>> 71ff8d82663603c79f5ff4fcd38ff2052482afae
 as.factor(genderE\_A)1:Cavg\_housework\_female\_A:Cavg\_grbs\_A, 8.408625e-04
 as.factor(genderE\_A)0:Cavg\_housework\_female\_A, 2.259373e-02
 
 Only looking at the three way interactions with gender we found two significant gender differences in the moderation effects. The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives with an estimate of 0.06 a p value of 0.03 and a standard deviation of 0.03. The moderation effect of ones own gender role beliefs was 0.06 units higher for women than men meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands.
-<<<<<<< HEAD
-In addition the interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives with an estimate of -0.08 a p value of 0.01 and a standard deviation of 0.03.The moderation effect of ones partners gender role beliefs was -0.08 units lower for women than men meaning the moderation effect of her husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how her gender role beliefs effected the relationship between housework distribution and satisfaction for her husband.
-
-
-
-
-
-
-=======
 
 In addition the interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives with an estimate of -0.08 a p-value of 0.01 and a standard deviation of 0.03.The moderation effect of ones partners gender role beliefs was -0.08 units lower for women than men meaning the moderation effect of her husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how her gender role beliefs effected the relationship between housework distribution and satisfaction for her husband.
 
-\includegraphics{results_files/figure-latex/unnamed-chunk-9-1.pdf}
+\begin{verbatim}
+## $x
+## [1] "housework distribution"
+## 
+## $y
+## [1] "Satisfaction"
+## 
+## $title
+## [1] "Interaction of wives housework distribution and their gender role beleifs"
+## 
+## attr(,"class")
+## [1] "labels"
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{results_files/figure-latex/wife_plot-1.pdf}
+\caption{(\#fig:wife\_plot)(ref:my-figure-caption1)}
+\end{figure}
+
+
+
 As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the housework distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
+
+\begin{verbatim}
+## $x
+## [1] "housework distribution"
+## 
+## $y
+## [1] "Satisfaction"
+## 
+## $title
+## [1] "Interaction of wives housework distribution and their husbands gender role beleifs"
+## 
+## attr(,"class")
+## [1] "labels"
+\end{verbatim}
 
 \includegraphics{results_files/figure-latex/unnamed-chunk-10-1.pdf}
 
 As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases.
 
-<<<<<<< HEAD
-=======
 \hypertarget{religion}{%
 \subsubsection{Religion}\label{religion}}
->>>>>>> 71ff8d82663603c79f5ff4fcd38ff2052482afae
 
->>>>>>> 71ff8d82663603c79f5ff4fcd38ff2052482afae
 The two intercept model gives us the two coefficients for men and women
 
 \hypertarget{exploratory-results}{%
@@ -252,10 +270,179 @@ The two intercept model gives us the two coefficients for men and women
 \begin{itemize}
 \tightlist
 \item
+  explain the concept/process of mediation in general, 1 paragraph
+\item
   one more diagram
 \end{itemize}
 
 We want to explore the possibility of gatekeeping being a significant factor in our analysis. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
+
+\#\#\#\#Interpretation:
+All four paths are positive and statistically significant: Seeing your partner positively leads you and your partner to be more satisfied. All four of these paths could potentially be mediated.
+
+\#\#\#Step 2: Testing the effects of the grbs (X) on the mediators of Wife and Husband gatekeeping (M).
+
+\#\#\#\#Interpretation:
+All four paths of the ``a'' paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
+
+\#\#\#Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y).
+
+\#\#\#\#I didn't change anything from here on yet!
+
+\#\#\#\#Interpretation:\\
+\textbf{Step 3}: All four ``b'' paths from Tension to Satisfaction are negative and three are statistically significant: Seeing more tension in the relationship leads to less satisfaction for you and your partner, even after controlling for how positively you and your partner see each other. The one effect that is not statistically significant is the effect of male's level of tension on his wife's level of satisfaction.\\
+\textbf{Step 4}: All paths from Other Positivity to Satisfaction, the direct of c', are positive and statistically significant: Seeing your partner positively leads you and your partner to have higher levels of satisfaction, even after controlling for yours and your partner's tension.
+
+\#Testing Indirect Effects Using Multilevel Modeling
+
+\begin{itemize}
+\tightlist
+\item
+  Sobel Test
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Save effect estimates and standard errors.
+  \item
+    Compute Z test.
+  \item
+    Low power.
+  \end{itemize}
+\item
+  Separately Test a and b
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Old fashioned.
+  \item
+    But may be making a comeback.
+  \end{itemize}
+\item
+  Bootstrapping
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Difficult currently
+  \item
+    See Pituch \& Stapleton (Multivariate Behavioral Research, 2008) for a discussion of how to bootstrap in MLM.
+  \item
+    Option available in some MLM programs. Only for effects but not indirect effects.
+  \end{itemize}
+\item
+  Monte Carlo Method
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Appears to be the method of choice for MLMeM
+  \end{itemize}
+\end{itemize}
+
+\#\#Sobel Test
+
+``\{r\}
+sobel \textless- function(aval, bval, seA, seB)\{
+
+ab \textless- aval\emph{bval
+ab\_se \textless- sqrt(aval\textsuperscript{2\emph{seB\textsuperscript{2+bval}2}seA}2)
+z \textless- ab/ab\_se
+p \textless- 2}pnorm(z, lower.tail=FALSE)
+
+return(data.frame(indirect\_effect = ab, z\_value = z, p\_value = p))
+
+\}
+
+\begin{verbatim}
+``{r}
+#act_H_a <- coef(summary(apim_stp2))[3,1] #this is the a coefficient extracted from the table apim_stp2 
+#act_H_a_se <- coef(summary(apim_stp2))[3,2] # standard error 
+#act_H_b <- coef(summary(apim_stp3))[7,1] # b coeff
+#act_H_b_se <- coef(summary(apim_stp3))[7,2]
+
+#sobel(act_H_a, act_H_b, act_H_a_se, act_H_b_se)
+\end{verbatim}
+
+\#\#MCMAM \href{http://www.quantpsy.org/medmc/medmc.htm}{Selig \& Preacher, 2008}
+
+``\{r\}
+\#Function that returns mcmc CI.
+\#mcmamCI \textless- function(aval, bval, varA, varB, n)\{
+
+\#code (Selig \& Preacher, 2008).
+\#require(MASS)
+
+a=aval
+b=bval
+rep=n
+conf=95
+pest=c(a,b)
+acov \textless- matrix(c(varA, 0, 0, varB),2,2)
+
+mcmc \textless- mvrnorm(rep,pest,acov,empirical=FALSE)
+
+ab \textless- mcmc{[},1{]}*mcmc{[},2{]}
+
+low=(1-conf/100)/2
+upp=((1-conf/100)/2)+(conf/100)
+
+LL=quantile(ab,low)
+UL=quantile(ab,upp)
+LL=format(LL,digits=3)
+UL=format(UL,digits=3)
+
+CI \textless- cbind.data.frame(LL, UL)
+return(CI)
+
+\}
+
+\begin{verbatim}
+For example, we can find the MCMC 95% CI for the **Actor-Actor: Husband** indirect effect like this.
+
+
+act_H_a <- coef(summary(apim_stp2))[3,1]
+act_H_a_se <- coef(summary(apim_stp2))[3,2]
+act_H_b <- coef(summary(apim_stp3))[7,1]
+act_H_b_se <- coef(summary(apim_stp3))[7,2]
+
+mcmamCI(act_H_a, act_H_b, act_H_a_se^2, act_H_b_se^2, 3000)
+#confidence intervals > does it include 0?
+\end{verbatim}
+
+\#\#Summary of Indirect Effects
+
+\begin{longtable}[]{@{}cccccc@{}}
+\toprule
+Name & Indirect Effects & Estim. & p & 95\% CI\textsuperscript{a} Lower & Upper \\
+\midrule
+\endhead
+Actor-Actor: W & Xw -\textgreater{} Mw -\textgreater{} Yw & 0.165 & \textless.001 & 0.086 & 0.257 \\
+Actor-Actor: H & Xh -\textgreater{} Mh -\textgreater{} Yh & 0.099 & \textless.001 & 0.042 & 0.172 \\
+Partner-Partner: W & Xw -\textgreater{} Mh -\textgreater{} Yw & 0.027 & .090 & -0.003 & 0.070 \\
+Partner-Partner: H & Xh -\textgreater{} Mw -\textgreater{} Yh & 0.034 & .024 & 0.003 & 0.079 \\
+Actor-Partner: W & Xh -\textgreater{} Mh -\textgreater{} Yw & 0.038 & .086 & -0.005 & 0.092 \\
+Actor-Partner: H & Xw -\textgreater{} Mw -\textgreater{} Yh & 0.060 & .004 & 0.017 & 0.115 \\
+Partner-Actor: W & Xh -\textgreater{} Mw -\textgreater{} Yw & 0.094 & .023 & 0.013 & 0.186 \\
+Partner-Actor: H & Xw -\textgreater{} Mh -\textgreater{} Yh & 0.072 & .003 & 0.023 & 0.134 \\
+\bottomrule
+\end{longtable}
+
+\textsuperscript{a}Bootstrapped CI using MCM
+(The above table was produced by an Excel spreadsheet: IndirectEffects.xls.)
+
+\#\#Summary Direct and Total Effects
+\textbar Name\textbar{} Direct Effects \textbar Direct\textbar{} p \textbar Total\textsuperscript{a}\textbar{} \% Mediated\textbar{}
+\textbar:---:\textbar:---------------:\textbar:----:\textbar:--:\textbar:---:\textbar:---:\textbar{}
+\textbar Actor: Wife\textbar{} Xw -\textgreater{} Yw \textbar{} 0.185 \textbar{} .007\textbar{} 0.378\textbar{} 50.9\textbar{}
+\textbar Actor: Husband\textbar{} Xh -\textgreater{} Yh \textbar{} 0.291\textbar{} \textless.001\textbar{} 0.424\textbar{} 31.5\textbar{}
+\textbar Partner: Wife\textbar{} Xh -\textgreater{} Yw \textbar{} 0.190\textbar{} .010\textbar{} 0.321\textbar{} 40.9\textbar{}
+\textbar Partner: Husband\textbar{} Xw -\textgreater{} Yh \textbar{} 0.129\textbar{} .028\textbar{} 0.262\textbar{} 50.8\textbar{}
+
+\textsuperscript{a}Computed as \texttt{ab\ +\ c\textquotesingle{}} and \texttt{c} with results agreeing.
+
+Note that \texttt{\%\ Mediated} equals \texttt{ab/c} or equivalently \texttt{1\ -\ c\textquotesingle{}/c}. This value can be larger than one or negative. First, make sure that \texttt{c} is substantial. If it is, then if \texttt{\%\ Mediated} is greater than 100 or negative, you have ``inconsistent mediation'': the direct and indirect effects are of opposite signs.
 
 
 \clearpage
