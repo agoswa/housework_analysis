@@ -61,10 +61,10 @@ head(dat_dyad)
 To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partner's housework distribution effects both their own satisfaction with the housework distribution and their partners satisfaction with the housework distribution. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs and religion. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the non-independent data. 
 
 In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was all contained in one line. This way we could calculate the actor and partner effects for both the husbands and wives. 
-(ref:my-figure-caption) Actor Partner Effects in the APIM
+(ref:my-figure-caption) Actor Partner Effects in the APIM.
 
-```{r my-figure, fig.cap = "(ref:my-figure-caption)", include=TRUE}
-knitr::include_graphics("APIM_Housework_Distribution.pdf")
+```{r, fig.cap = "(ref:my-figure-caption)", include=TRUE}
+knitr::include_graphics("APIM.png")
 ```
 
 ## Main Results
@@ -136,6 +136,12 @@ as.factor(genderE_A)0:Cavg_housework_female_A:Cavg_grbs_P = For men, keeping the
 
 For women, gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[12,1]` (*p* = `r coef(summary(two_int_mod))[12,4]`, *se* = `r coef(summary(two_int_mod))[12,2]`). For every one unit increase in her gender role beliefs, her satisfaction increases by `r two_int_mod$coefficients[12]` while keeping housework distribution constant. Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[16,1]` (*p* = `r coef(summary(two_int_mod))[16,4]`,se = `r coef(summary(two_int_mod))[16,2]`). For every one unit increase in her partners gender role beliefs, her own satisfaction increased by `r coef(summary(two_int_mod))[16,1]` while keeping housework distribution constant.
 
+(ref:my-figure-caption1) Moderation effects in the APIM.
+
+```{r, fig.cap = "(ref:my-figure-caption1)", include=TRUE}
+knitr::include_graphics("moderation.png")
+```
+
 Looking at the summary table above, these are the relationships that are statistically significant:
 as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_P, 8.742833e-03
 as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_A, 8.408625e-04
@@ -178,7 +184,7 @@ wife_plot<- ggplot(wives,aes(
 #(ref:my-figure-caption1) caption for graph
 ``` 
 
-```{r}
+```
 wife_plot<- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -186,18 +192,12 @@ wife_plot<- ggplot(wives,aes(
                 )+
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
-  labs(x = "Housework distribution", y = "Satisfaction", title ="Relationship of wive's housework distribution and gender role beliefs", caption = "Caption should start on the left")
+  labs(x = "Housework distribution", y = "Satisfaction", title ="Relationship of wive's housework distribution and gender role beliefs")
 ```
 
+(ref:my-figure-caption2) caption for graph
 
-<<<<<<< HEAD
-```{r}
-=======
-
-(ref:my-figure-caption1) caption for graph
-
-```{r, include = TRUE,fig.cap = "(ref:my-figure-caption1)"}
->>>>>>> f0b74ba3ba5afedb1ed92a9702a7446e044ed3dc
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption2)"}
 wife_plot <- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -220,7 +220,7 @@ wife_plot
 ```
 
 
-(ref:my-figure-caption2) caption for graph
+(ref:my-figure-caption3) caption for graph
 ```{r}
 wife_plot2<- ggplot(wives,aes(
                 x = avg_housework_female_A,
@@ -228,7 +228,7 @@ wife_plot2<- ggplot(wives,aes(
 ```
 As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the housework distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
 
-```{r, include = TRUE,fig.cap = "(ref:my-figure-caption2)"}
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption3)"}
 wife_plot2<- ggplot(wives, aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -390,7 +390,7 @@ mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs
 
 ## MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
 
-```{r}
+```
 # Function that returns mcmc CI. 
 # mcmamCI <- function(aval, bval, varA, varB, n){
 
