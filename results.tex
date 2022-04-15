@@ -214,18 +214,23 @@ To test our hypotheses that gender role beliefs and religion moderate the relati
 \hypertarget{main-results}{%
 \subsection{Main Results}\label{main-results}}
 
-\hypertarget{gender-role-beliefs-as-a-moderator}{%
-\paragraph{Gender Role Beliefs as a moderator}\label{gender-role-beliefs-as-a-moderator}}
+\hypertarget{gender-role-beliefs}{%
+\paragraph{Gender Role Beliefs}\label{gender-role-beliefs}}
+
+All relevant results of the moderation analysis in the APIM are shown in figure 2. It was shown that for husbands and wives, a higher amount of housework was significantly related to a lower satisfaction (\(\beta\) =-0.02, \emph{p} = 0.02,\(\beta\) =-0.03, \emph{p} = 0.01).
+For the female partners, gender role beliefs significantly moderated the relationship between the wives' housework distribution and satisfaction with the housework distribution. The moderation effect was 0.07 (\emph{p} = \textless0.01, SE = 0.02). Higher gender role beliefs, which means more conservative, was therefore associated with a higher satisfaction when the amount of housework was kept constant. The wife's gender role beliefs and husband's gender role beliefs significantly moderated the relationship between the wife's housework distribution and the wife's satisfaction with the housework distribution. The moderation effect was -0.06 (\emph{p} = 0.01, SE = 0.02). When the husbands had more conservative gender role beliefs, the wife's satisfaction decreased by -0.06 while keeping housework distribution constant.
+Moreover, a moderation effect was found for the relationship between the husbands amount of housework and the wife's satisfaction which was moderated by the husband's gender role beliefs(\(\beta\) = -0.01, \emph{p} =0.68) . More conservative gender role beliefs were associated with lower satisfaction when housework distribution was held constant 0.07.
 
 All relevant results of the moderation analysis in the APIM are shown in figure 2. It was shown that for husbands and wives, a higher amount of housework was significantly related to a lower satisfaction. For wives we found \(\beta\) =-0.02, \emph{p} = 0.02, and SE =0.01. For husbands we found \(\beta\) =-0.03, \emph{p} = 0.01 and SE = 0.01.
 For the female partners, gender role beliefs significantly moderated the relationship between the wives' housework distribution and satisfaction with the housework distribution. The moderation effect was 0.07 (\emph{p} = \textless0.01, SE = 0.02). Higher gender role beliefs, which means more conservative, was therefore associated with a higher satisfaction when the amount of housework was kept constant at the mean. The wife's gender role beliefs and husband's gender role beliefs significantly moderated the relationship between the wife's housework distribution and the wife's satisfaction with the housework distribution. The moderation effect was -0.06 (\emph{p} = 0.01, SE = 0.02). When the husbands had more conservative gender role beliefs, the wife's satisfaction decreased by -0.06 while keeping housework distribution constant at the mean.
 Moreover, a marginaly significaant moderation effect was found for the relationship between the husbands amount of housework and the wife's satisfaction which was moderated by the husband's gender role beliefs(\(\beta\) = -0.01, \emph{p} =0.68, SE = 0.02) . More conservative gender role beliefs were associated with lower satisfaction when housework distribution was held constant 0.07 (INCLUDE NUMBERS).
-All other paths were not significantly related to each other (INCLUDE LOWEST OF ALL NONSIGN. P VALUES HERE, AND THEN \emph{p} \textgreater{} \ldots)
+
 
 
 
 \begin{figure}
-\includegraphics[width=4.25in]{moderation} \caption{Moderation effects in the APIM. Values shown in the figure are uncorrected b coefficients (PLEASE TRY TO FIND WHAT THE NUMBERS MEAN, I AM LOST - i dont understand what you mean by uncorrected b coefficients).}\label{fig:unnamed-chunk-9}
+\includegraphics[width=4.11in]{moderation} \caption{Moderation effects in the APIM. Values shown in the figure are \(\beta\) coefficients.
+* \emph{p} \textless{} .05, ** \emph{p} \textless{} .01, *** \emph{p} \textless{} .001.}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 
@@ -255,25 +260,36 @@ As the housework distribution increases for wives whose husbands have low gender
 \hypertarget{religion}{%
 \paragraph{Religion}\label{religion}}
 
-None of the interactions between actors housework distribution and their religion was significantly different for husbands or wives. (\emph{p}\textgreater=0.19, SE =0.08). None of the results illustrate that the average female-typed tasks completed by the actor or partner from the husband and wife's perspective was related to their religion.
+No significant relationships between any of the variables have been found in the APIM model including the moderator religion (\emph{p} \textgreater{} 0.19). Religion did therefore not moderate the relationship between housework distribution and satisfaction for wives and husbands.
 
 \hypertarget{exploratory-results}{%
 \subsection{Exploratory Results}\label{exploratory-results}}
 
-Mediation is a way for researchers to explain the process of one variable affecting another variable. It is essentially a possible explanation for the relationship between the two variables. Mediation assesses whether the effects of the X variable (the independent variable) are significant on the Y variable (the dependent variable), through a third variable called M (the mediator).
+In order to being able to find possible explanations for the association between gender role beliefs and satisfaction that we found in our analysis, we conducted a simple mediation analysis, investigating whether the wife's gatekeeping mediated the relationship between her gender role beliefs and her satisfaction, and therefore could explain the patterns found in the prior analysis. Are women with higher gender role beliefs more likely to gatekeep housework tasks which would in turn lead to a higher satisfaction?
+Linear models will be calculated for all paths to see whether all paths are significant first, before we will calculate the mediation effect in a second step.
 
-Based on our primary analysis so far, we are interested in further exploring how to concept of gatekeeping fits into our research. We want to explore whether gatekeeping is a mediator variable in our relationship between the partners' gender role beliefs and housework tasks. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
+
+
+
+\begin{figure}
+\includegraphics[width=3.69in]{mediation} \caption{Proposed mediation model with wife's gatekeeping as the mediator of the wife's gender role beliefs and satisfaction. Values shown in the figure are \(\beta\) coefficients.
+* \emph{p} \textless{} .05, ** \emph{p} \textless{} .01, *** \emph{p} \textless{} .001.}\label{fig:unnamed-chunk-19}
+\end{figure}
+
+As seen in figure 5, no significant relationship between gender role beliefs and satisfaction has been found, despite the moderating effect of gender role beliefs that has been found before. Because only the relationship between gender role beliefs and gatekeeping has been significant, a full mediation analysis was no longer appropriate to conduct.
+Instead, we conducted post-hoc t tests to get a better sense of the relationship between gender role beliefs and gatekeeping. INCLUDE T TESTS HERE.
 
 The summary table above shows us that all paths are statistically significant (\emph{p} \textless0.01). Not all the paths are positive, the effect of the partner gender role beliefs on the actor's satisfaction is negative. So, the partner's gender role beliefs could negatively impact the actor's satisfaction. The effect of the actor's gender role beliefs on the actor's satisfaction is 0.52 which means that the actor's gender role beliefs could positively impact the actor's satisfaction.
 
+library(tidyverse)
+library(psych)
+library(lubridate)
+dat\_dyad\_f \textless- filter(dat\_dyad,genderE\_A == 1)
+model1 \textless- lm (housework\_satisfied\_A \textasciitilde{} avg\_grbs\_A, dat\_dyad)
+summary(model1)
+```
+
 The summary table above shows us that not all paths are statistically significant. The effect of the actor's gender role beliefs on the actor's gatekeeping behaviors could be potentially mediated (\emph{p} =\textless0.01). This path is also positive, so the actor's gender role beliefs could positively impact the actor's gatekeeping behaviors.
-
-I DONT UNDERSTAND WHAT A B PATH IS SO I CANT ADD MY ANALYSIS THIS THIS PART - DO EITHER OF YOU UNDERSTAND IT?(a path, the effect the explanatory variable has on the mediator, c path: the effect the explanatory had on the response. B path: the effect the mediator has on the response while controling for the explanatory variable. c` means the effect the explanatory variable has on the predictor after controling for the mediator. To find how much effect the mediator has, we do ab/c*100 )(in context of our study b path means the effect of gatekeeping on satisfaction while controlling for housework distribution.We need both a and b paths to claim mediation. )
-
-\hypertarget{sobel-test}{%
-\paragraph{Sobel Test}\label{sobel-test}}
-
-The Sobel test measures whether gatekeeping influences how the female partner's gender role beliefs affects her satisfaction. Looking at the p-value from results table above, the data are not statistic. Gatekeeping doesn't have a significant influence on this relationship.
 
 \hypertarget{references}{%
 \section{References}\label{references}}

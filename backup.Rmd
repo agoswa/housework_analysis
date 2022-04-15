@@ -1,0 +1,391 @@
+---
+title             : "Satisfying housework division? Gender role beliefs and religion as moderators of housework division and satisfaction"
+shorttitle        : "gender roles, housework and satisfaction"
+
+author: 
+  - name          : "Carlotta Reinhardt"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding 
+  - name          : "Margaret Bassney"
+    affiliation   : "1"
+  - name          : "Anushree Goswami"
+    affiliation   : "1"
+affiliation:
+  - id            : "1"
+    institution   : "Smith College"
+   
+# authornote: 
+
+bibliography      : ["r-references.bib"]
+
+
+floatsintext      : yes
+figurelist        : yes
+tablelist         : yes
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+knitr::opts_chunk$set(include = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(nlme)
+library(dplyr)
+library(ggplot2)
+library(rstatix)
+library(bda)
+```
+
+```{r, include = FALSE}
+dat_reverse <- read.csv("dat_reverse.csv")
+dat_predyad <- read.csv("predyaddata.csv")
+dat_dyad <- read.csv("dyadic.csv")
+dat <- read.csv("TeleCom_Dyad_premeasures.csv")
+head(dat_dyad)
+```
+# Results
+
+## Analysis Strategy  
+
+To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; THIS NEEDS TO BE A REAL CITATION SO THERE IS A BIBLIOGRAPHY Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time, so actor as well as partner effects could be considered in our analysis. This way, it is possible to see how one partner's housework distribution effects both their own satisfaction with the housework distribution (actor effect) and their partner's satisfaction with the housework distribution (partner effect). In this analysis, we will further look at the moderating effect of each partner's gender role beliefs on the two actor effects (shown in figure 1) as well as on the partner effects. (THIS FOLLOWING SENTENCE CONFUSES ME!) The APIM measures proportion of variance in satisfaction that occurs between dyads vs. the total variation present. In other words, the model considers how much of the variation in satisfaction is caused by the dyad. This allows to estimate satisfaction with the distribution of housework as a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the non-independent data. 
+
+(ref:my-figure-caption) Schematic representation of actor and partner effects in the APIM moderated by gender role beliefs.
+
+```{r, fig.cap = "(ref:my-figure-caption)", include=TRUE}
+knitr::include_graphics("APIM.png")
+```
+
+## Main Results
+
+### Gender Role Beliefs as a mediator 
+
+```{r, include=FALSE}
+## centering moderator and predictor
+## calculate difference btw each individuals score and the grand mean of the entire sample
+dat_dyad <- dat_dyad %>%
+  mutate(
+    Cavg_housework_female_A =  avg_housework_female_A- mean(avg_housework_female_A, na.rm = TRUE),
+    Cavg_housework_female_P =  avg_housework_female_P- mean(avg_housework_female_P, na.rm = TRUE),
+    Cavg_grbs_A =  avg_grbs_A- mean(avg_grbs_A, na.rm = TRUE),
+    Cavg_grbs_P =  avg_grbs_P- mean(avg_grbs_P, na.rm = TRUE),
+    Cavg_gate_A =  avg_gatekeeping_A - mean(avg_gatekeeping_A, na.rm=TRUE),
+    Cavg_gate_P = avg_gatekeeping_P - mean(avg_gatekeeping_P, na.rm=TRUE),
+    religionYN_A = ifelse((religion_A == "Athiest"| religion_A =="Agnostic"),"N","Y"),
+    religionYN_P = ifelse((religion_P == "Athiest"|religion_A == "Agnostic"), "N","Y"),
+    grbs_hl_A = ifelse(avg_grbs_A > mean(avg_grbs_A, na.rm = TRUE),"High","Low"),
+    grbs_hl_P = ifelse(avg_grbs_P > mean(avg_grbs_P, na.rm = TRUE),"High","Low"))
+```
+
+
+```{r, include=FALSE}
+## just the actor partner effects no moderation
+basic_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
+                    Cavg_housework_female_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:as.factor(genderE_A),
+                  data = dat_dyad,
+                  correlation = corCompSymm(form=~1|dyadID), 
+                  weights = varIdent(form=~1|as.factor(genderE_A)), 
+                  na.action = na.omit)
+summary(basic_mod)
+
+
+#The summary table above is just of the actor partner effects with no moderation. The only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for `as.factor(genderE_A)1:Cavg_housework_female_A` is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
+```
+
+```{r, include=FALSE}
+## two intercept model gives us the two coefficients for men and women
+## this model removes the grand mean so we are only left with actor/partner  
+## effects using grbs and gender as a moderator
+## we don't need every single combination as an interaction term, so we only 
+## kept the ones that we are interested in and haven't already calculated. 
+## by removing extra parameters we will get more accurate estimates.
+two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
+                    Cavg_housework_female_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:as.factor(genderE_A)+
+                    Cavg_grbs_A:as.factor(genderE_A)+
+                    Cavg_grbs_P:as.factor(genderE_A)+
+                    Cavg_housework_female_A:Cavg_grbs_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:Cavg_grbs_P:as.factor(genderE_A)+
+                    Cavg_housework_female_A:Cavg_grbs_P:as.factor(genderE_A)+
+                    Cavg_housework_female_P:Cavg_grbs_A:as.factor(genderE_A) -1,
+                    data = dat_dyad,
+                    correlation = corCompSymm(form=~1|dyadID), 
+                    weights = varIdent(form=~1|as.factor(genderE_A) ), 
+                    na.action = na.omit)
+
+coef(summary(two_int_mod))
+```
+
+```{r, include=FALSE}
+#as.factor(genderE_A)0:Cavg_housework_female_A:Cavg_grbs_P = For men, keeping their average female-typed housework tasks constant, for every one unit increase in avg grbs, their housework satisfaction increases by 0.02. 
+```
+
+```{r, include=FALSE}
+#hd_grbA_p_val<-p_format(coef(summary(two_int_mod))[12,4],accuracy = .05)
+```
+
+All relevant results of the moderation analysis in the APIM are shown in figure 2. It was shown that for husbands and wives, a higher amount of housework was significantly related to a lower satisfaction (INCLUDE P VALUES). 
+For women, gender role beliefs significantly moderated the relationship between her own housework distribution and satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[12,1]` (*p* = `r coef(summary(two_int_mod))[12,4]`, SE = `r coef(summary(two_int_mod))[12,2]`). Higher, which mean more conservative, gender role beliefs were therefore associated with a higher satisfaction when the amount of housework was kept constant. Not only the wife's gender role beliefs but also the husband's gender role beliefs significantly moderated the relationship between the wife's housework distribution and her satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[16,1]` (*p* = `r coef(summary(two_int_mod))[16,4]`, SE = `r coef(summary(two_int_mod))[16,2]`). When the husbands had more conservative gender role beliefs, the wife's satisfaction decreased by `r coef(summary(two_int_mod))[16,1]` while keeping housework distribution constant.
+Moreover, a moderation effect was found for the relationship between the husbands amount of housework and the wife's satisfaction which was moderated by the husband's gender role beliefs. More conservative gender role beliefs were associated with lower satisfaction when housework distribution was held constant (INCLUDE NUMBERS).
+All other paths were not significantly related to each other (INCLUDE LOWEST OF ALL NONSIGN. P VALUES HERE, AND THEN *p* > ...)
+
+(ref:my-figure-caption1) Moderation effects in the APIM. Values shown in the figure are uncorrected b coefficients (PLEASE TRY TO FIND WHAT THE NUMBERS MEAN, I AM LOST). 
+
+```{r, fig.cap = "(ref:my-figure-caption1)", include=TRUE}
+knitr::include_graphics("moderation.png")
+```
+
+```{r, include=FALSE}
+#Looking at the summary table above, these are the relationships that are statistically significant:
+#as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_P, 8.742833e-03
+#as.factor(genderE_A)1:Cavg_housework_female_A:Cavg_grbs_A, 8.408625e-04
+#as.factor(genderE_A)0:Cavg_housework_female_A, 2.259373e-02
+```
+
+```{r, include=FALSE}
+# moderation approach
+# moderation approach lets us know the difference between gender coefficients. 
+# are the coefficients for men and women statistically different.
+## check for gender interactions
+mod<- gls(housework_satisfied_A ~ 
+                Cavg_housework_female_A*Cavg_grbs_A*genderE_A +
+                Cavg_housework_female_A*Cavg_grbs_P*genderE_A+
+                Cavg_housework_female_P*Cavg_grbs_A*genderE_A +
+                Cavg_housework_female_P*Cavg_grbs_P*genderE_A,
+                    data = dat_dyad,
+                    correlation = corCompSymm(form=~1|dyadID), 
+                    weights = varIdent(form=~1|genderE_A), 
+                    na.action = na.omit)
+
+coef(summary(mod))
+```
+
+(I DON'T UNDERSTAND THIS SENTENCE/SECTION. WHAT IS DESCRIBED HERE? THAT MUST BE CLEAR AND RELATED TO A FIGURE ETC.) Only looking at the three way interactions with gender we found two significant gender differences in the moderation effects. The interaction between actors housework distribution and their own gender role beliefs was significantly different for husbands and wives with an estimate of `r coef(summary(mod))[15,1]` (*p* = `r coef(summary(mod))[15,4]`, SE =`r coef(summary(mod))[15,2]`). The moderation effect of ones own gender role beliefs was `r coef(summary(mod))[15,1]` units higher for women than men meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands. 
+
+In addition the interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives with an estimate of `r coef(summary(mod))[16,1]`(*p* = `r coef(summary(mod))[16,4]`, SE = `r coef(summary(mod))[16,2]`).The moderation effect of ones partners gender role beliefs was `r coef(summary(mod))[16,1]` units lower for women than men meaning the moderation effect of her husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how her gender role beliefs effected the relationship between housework distribution and satisfaction for her husband. 
+
+
+```{r, include=FALSE}
+wives <- dat_dyad %>%
+  filter(genderE_A == 1)%>%
+  filter(grbs_hl_P == "High"|grbs_hl_P =="Low")
+```
+
+```{r, include = TRUE}
+wife_plot<- ggplot(wives,aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, color = grbs_hl_A))
+
+#(ref:my-figure-caption1) caption for graph
+``` 
+
+(ref:my-figure-caption2) Moderation of wife's housework distribution and satisfaction by gender role beliefs. Housework distribution in %, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).
+
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption2)"}
+wife_plot <- ggplot(wives,aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, 
+                color = grbs_hl_A,  na.rm = TRUE)
+                )+
+  geom_point(na.rm = TRUE)+
+  geom_smooth(method = "lm")+
+  xlab("Housework Distribution (Wife)")+
+  ylab("Satisfaction (Wife)")+
+  scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
+  labs(x = "Housework Distribution", y = "Satisfaction", title ="Moderation of Wife's Housework Distribution and Satisfaction \nby Gender Role Beliefs",color = "Gender Role Beliefs \n(Wife)")+
+  theme_bw()+
+  theme(text = element_text(family = "Times New Roman"),
+         axis.title = element_text(size=12), 
+         axis.text = element_text(size=10),
+         legend.title= element_text(size=12),
+         legend.text = element_text(size=10),
+         strip.text = element_text(size=12))
+  
+  #ggtitle("Relationship of wife's housework distribution and gender role beliefs")#+
+  #theme(text=element_text( family="TT Times New Roman", size=16))
+
+  #ggtitle("Relationship of wive's housework distribution and gender role beliefs")
+  #theme(text=element_text(size=16, 
+       #family="TT Times New Roman"))
+  #apa_theme()
+
+wife_plot
+```
+
+
+(ref:my-figure-caption3) Moderation of wife's housework distribution and her satisfaction by their husbands gender role beliefs. Housework distribution in %, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).
+```{r}
+wife_plot2<- ggplot(wives,aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, color = grbs_hl_P))
+```
+
+Wives who have low gender role beliefs, which means they are more liberal, reported a lower satisfaction with an increasing amount of housework they had to do. Women with more conservative gender role beliefs (high) did not show a significant decrease in satisfaction with an increasing amount of housework (figure 3). 
+
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption3)"}
+wife_plot2<- ggplot(wives, aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, 
+                color = grbs_hl_P, na.rm = TRUE)
+                )+
+  geom_point(na.rm = TRUE)+
+  geom_smooth(method = "lm")+
+  scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
+  labs(x = "Housework Distribution (Wife)", y = "Satisfaction (Wife)", title ="Moderation of Wife's Housework Distribution and her Satisfaction by \nher Husbands Gender Role Beliefs",color = "Gender Role Beliefs \n(Husband)")+
+  theme_bw()+
+  theme(text = element_text(family = "Times New Roman"),
+         axis.title = element_text(size=12), 
+         axis.text = element_text(size=10),
+         legend.title= element_text(size=12),
+         legend.text = element_text(size=10),
+         strip.text = element_text(size=12))
+  #scale_color_brewer(palette = "Set1") 
+  #theme_apa(box = TRUE) 
+  #theme(legend.position = c(0.2, 0.8))
+
+  #labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beliefs") 
+  
+
+wife_plot2
+```
+
+As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases (figure 4).
+
+
+### Religion
+
+```{r}
+## two intercept model
+#this model removes the grand mean
+## using religion and gender as  moderators
+two_int_mod_religion<- gls(housework_satisfied_A~as.factor(genderE_A)+
+                    Cavg_housework_female_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:as.factor(genderE_A)+
+                    religionYN_A:as.factor(genderE_A)+
+                    #religionYN_P:as.factor(genderE_A)+
+                    Cavg_housework_female_A:religionYN_A:as.factor(genderE_A)+
+                    Cavg_housework_female_P:religionYN_P:as.factor(genderE_A)+
+                    Cavg_housework_female_A:religionYN_P:as.factor(genderE_A)+
+                    Cavg_housework_female_P:religionYN_A:as.factor(genderE_A) -1,
+                    data = dat_dyad,
+                    correlation = corCompSymm(form=~1|dyadID), 
+                    weights = varIdent(form=~1|as.factor(genderE_A) ), 
+                    na.action = na.omit)
+coef(summary(two_int_mod_religion))
+```
+The two intercept model gives us the two coefficients for men and women. 
+
+None of the interactions between actors housework distribution and their religion was significantly different for husbands or wives. (*p*>=`r coef(summary(two_int_mod_religion))[16,4]`,*se*=`r coef(summary(two_int_mod_religion))[16,2]`). None of the results illustrate that the average female-typed tasks completed by the actor or partner from the husband and wife's perspective was related to their religion.
+
+
+```{r}
+# moderation approach
+# check for gender interactions
+ int_mod_religion<- gls(housework_satisfied_A ~
+                       Cavg_housework_female_A*religionYN_A*genderE_A+
+                       # Cavg_housework_female_A*religionYN_P*genderE_A+
+                       Cavg_housework_female_P*religionYN_A*genderE_A,
+                       # Cavg_housework_female_P*religionYN_P*genderE_A,
+                    data = dat_dyad,
+                    correlation = corCompSymm(form=~1|dyadID), 
+                    weights = varIdent(form=~1|genderE_A), 
+                    na.action = na.omit)
+
+coef(summary(int_mod_religion))
+```
+
+
+
+## Exploratory Results
+
+Mediation is a way for researchers to explain the process of one variable affecting another variable. It is essentially a possible explanation for the relationship between the two variables. Mediation assesses whether the effects of the X variable (the independent variable) are significant on the Y variable (the dependent variable), through a third variable called M (the mediator).
+
+Based on our primary analysis so far, we are interested in further exploring how to concept of gatekeeping fits into our research. We want to explore whether gatekeeping is a mediator variable in our relationship between the partners' gender role beliefs and housework tasks. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
+
+```{r, include=FALSE}
+library(tidyverse)
+library(nlme)
+dat_dyad
+##Step 1: Estimating and testing the total effect (c) of grbs (X) on Satisfaction (Y)
+apim_stp1 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A - 1,
+                 data = dat_dyad,
+                 correlation = corCompSymm(form=~1|dyadID), 
+                 weights = varIdent(form=~1|genderE_A), 
+                 na.action = na.omit)
+
+summary(apim_stp1)
+
+```
+
+```{r, include=FALSE}
+#### Interpretation: 
+
+#All four paths are positive and statistically significant: Seeing your partner positively leads you and your partner to be more satisfied.  All four of these paths could potentially be mediated.
+```
+
+```{r, include=FALSE}
+###Step 2: Testing the effects of the grbs (X) on the mediators of Wife and Husband gatekeeping (M).
+dat_dyad
+apim_stp2 <- gls(avg_gatekeeping_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A - 1,
+                 data = dat_dyad,
+                 correlation = corCompSymm(form=~1|dyadID), 
+                 weights = varIdent(form=~1|genderE_A), 
+                 na.action = na.omit)
+
+summary(apim_stp2)
+```
+
+```{r, include=FALSE}
+
+#### Interpretation: 
+#All four paths of the "a" paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
+
+### Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y). 
+```
+
+```{r}
+apim_stp3 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A 
+                 + avg_gatekeeping_A:genderE_A + avg_gatekeeping_P:genderE_A - 1,
+                 data = dat_dyad,
+                 correlation = corCompSymm(form=~1|dyadID), 
+                 weights = varIdent(form=~1|genderE_A), 
+                 na.action = na.omit)
+
+summary(apim_stp3)
+```
+
+
+```{r, include=FALSE}
+#### Interpretation:    
+#**Step 3**: All four "b" paths from Tension to Satisfaction are negative and three are statistically significant:  Seeing more tension in the relationship leads to less satisfaction for you and your partner, even after controlling for how positively you and your partner see each other. The one effect that is not statistically significant is the effect of male's level of tension on his wife's level of satisfaction.   
+#**Step 4**: All paths from Other Positivity to Satisfaction, the direct of c', are positive and statistically significant: Seeing your partner positively leads you and your partner to have higher levels of satisfaction, even after controlling for yours and your partner's tension.
+```
+
+
+```{r, include=FALSE}
+
+## Sobel Test
+
+# just for female partners
+
+female_gatekeeping <- dat_dyad %>%
+  dplyr::filter(genderE_A == 1)
+
+mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs_A, female_gatekeeping$housework_satisfied_A)
+```
+
+
+
+
