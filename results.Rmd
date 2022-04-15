@@ -69,7 +69,7 @@ knitr::include_graphics("APIM.png")
 
 ## Main Results
 
-### Gender Role Beliefs as a mediator 
+#### Gender Role Beliefs as a mediator 
 
 ```{r, include=FALSE}
 ## centering moderator and predictor
@@ -264,7 +264,7 @@ wife_plot2
 As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases (figure 4).
 
 
-### Religion
+#### Religion
 
 ```{r}
 ## two intercept model
