@@ -45,6 +45,7 @@ library(nlme)
 library(dplyr)
 library(ggplot2)
 library(rstatix)
+library(bda)
 ```
 
 ```{r, include = FALSE}
@@ -177,7 +178,7 @@ wife_plot<- ggplot(wives,aes(
 #(ref:my-figure-caption1) caption for graph
 ``` 
 
-```{r, include = TRUE,wife_plot, fig.cap = "(ref:my-figure-caption1)"}
+```{r}
 wife_plot<- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -189,7 +190,14 @@ wife_plot<- ggplot(wives,aes(
 ```
 
 
+<<<<<<< HEAD
 ```{r}
+=======
+
+(ref:my-figure-caption1) caption for graph
+
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption1)"}
+>>>>>>> f0b74ba3ba5afedb1ed92a9702a7446e044ed3dc
 wife_plot <- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -213,14 +221,14 @@ wife_plot
 
 
 (ref:my-figure-caption2) caption for graph
-```{r,include = TRUE, wife_plot2, fig.cap = "(ref:my-figure-caption2)"}
+```{r}
 wife_plot2<- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, color = grbs_hl_P))
 ```
 As the housework distribution increases for wives with low gender role beliefs, their satisfaction decreases. This makes sense because wives with low gender role beliefs would believe in an equal housework distribution where she wasn't doing majority of the housework tasks. As the housework distribution increases for wives with high gender role beliefs, their satisfaction has a very slight decrease, but it stays more or less the same.
 
-```{r, include = TRUE}
+```{r, include = TRUE,fig.cap = "(ref:my-figure-caption2)"}
 wife_plot2<- ggplot(wives, aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -229,12 +237,13 @@ wife_plot2<- ggplot(wives, aes(
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
   scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
-  labs(x = "housework distribution", y = "Satisfaction", title = "    Interaction of wives housework distribution and their husbands gender role beleifs",color = "Gender Role Beleifs")
+  labs(x = "housework distribution", y = "Satisfaction", title ="Interaction of wives housework distribution and their husbands gender role beleifs",color = "Gender Role Beleifs")
   #scale_color_brewer(palette = "Set1") 
   #theme_apa(box = TRUE) 
   #theme(legend.position = c(0.2, 0.8))
 
-  labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
+  #labs(x = "housework distribution", y = "Satisfaction", title = "Interaction of wives housework distribution and their husbands gender role beleifs") 
+  
 
 wife_plot2
 ```
@@ -367,32 +376,21 @@ summary(apim_stp3)
 
 ## Sobel Test
 
-``{r}
-sobel <- function(aval, bval, seA, seB){
-  
-  ab <- aval*bval
-  ab_se <- sqrt(aval^2*seB^2+bval^2*seA^2)
-  z <- ab/ab_se
-  p <- 2*pnorm(z, lower.tail=FALSE)
-  
-  return(data.frame(indirect_effect = ab, z_value = z, p_value = p))
-   
-}
+```{r}
+# just for female partners
+
+female_gatekeeping <- dat_dyad %>%
+  dplyr::filter(genderE_A == 1)
+
+mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs_A, female_gatekeeping$housework_satisfied_A)
 ```
 
-``{r}
-#act_H_a <- coef(summary(apim_stp2))[3,1] #this is the a coefficient extracted from the table apim_stp2 
-#act_H_a_se <- coef(summary(apim_stp2))[3,2] # standard error 
-#act_H_b <- coef(summary(apim_stp3))[7,1] # b coeff
-#act_H_b_se <- coef(summary(apim_stp3))[7,2]
 
-#sobel(act_H_a, act_H_b, act_H_a_se, act_H_b_se)
-```
 
 
 ## MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
 
-``{r}
+```{r}
 # Function that returns mcmc CI. 
 # mcmamCI <- function(aval, bval, varA, varB, n){
 
@@ -421,7 +419,7 @@ sobel <- function(aval, bval, seA, seB){
   CI <- cbind.data.frame(LL, UL)
   return(CI)
 
-}
+
 ```
 
 For example, we can find the MCMC 95% CI for the **Actor-Actor: Husband** indirect effect like this.
