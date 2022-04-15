@@ -368,23 +368,19 @@ I DONT UNDERSTAND WHAT A B PATH IS SO I CANT ADD MY ANALYSIS THIS THIS PART - DO
 ```{r, include=FALSE}
 #### Interpretation:    
 #**Step 3**: All four "b" paths from Tension to Satisfaction are negative and three are statistically significant:  Seeing more tension in the relationship leads to less satisfaction for you and your partner, even after controlling for how positively you and your partner see each other. The one effect that is not statistically significant is the effect of male's level of tension on his wife's level of satisfaction.   
+
 #**Step 4**: All paths from Other Positivity to Satisfaction, the direct of c', are positive and statistically significant: Seeing your partner positively leads you and your partner to have higher levels of satisfaction, even after controlling for yours and your partner's tension.
 ```
 
-
+#### Sobel Test
 ```{r, include=FALSE}
-
-## Sobel Test
-
-# just for female partners
-
 female_gatekeeping <- dat_dyad %>%
   dplyr::filter(genderE_A == 1)
 
 mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs_A, female_gatekeeping$housework_satisfied_A)
 ```
 
-The Sobel test measures whether gatekeeping influences how the female partner's gender role beliefs affects her satisfaction. The p-value is 0.82, and since it is greater than 0.05, we can conclude that the results are not significant. Gatekeeping doesn't have a significant influence on this relationship.
+The Sobel test measures whether gatekeeping influences how the female partner's gender role beliefs affects her satisfaction. Looking at the p-value from results table above, the data are not statistic. Gatekeeping doesn't have a significant influence on this relationship.
 
 # References
 
