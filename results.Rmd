@@ -364,7 +364,7 @@ apim_stp3 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_
 summary(apim_stp3)
 ```
 
-I DONT UNDERSTAND WHAT A B PATH IS SO I CANT ADD MY ANALYSIS THIS THIS PART - DO EITHER OF YOU UNDERSTAND IT?(a path, the effect the explanatory variable has on the mediator, c path: the effect the explanatory had on the response. B path: the effect the mediator has on the response while controling for the explanatory variable. c` means the effect the explanatory variable has on the predictor after controling for the mediator. To find how much effect the mediator has, we do ab/c*100 )(in context of our study b path means the effect of gatekeeping on satisfaction while controlling for housework distribution.If b paths are significant but none of the a paths, then we found a partial mediation)
+I DONT UNDERSTAND WHAT A B PATH IS SO I CANT ADD MY ANALYSIS THIS THIS PART - DO EITHER OF YOU UNDERSTAND IT?(a path, the effect the explanatory variable has on the mediator, c path: the effect the explanatory had on the response. B path: the effect the mediator has on the response while controling for the explanatory variable. c` means the effect the explanatory variable has on the predictor after controling for the mediator. To find how much effect the mediator has, we do ab/c*100 )(in context of our study b path means the effect of gatekeeping on satisfaction while controlling for housework distribution.We need both a and b paths to claim mediation. )
 
 ```{r, include=FALSE}
 #### Interpretation:    
