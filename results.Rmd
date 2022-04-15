@@ -388,7 +388,10 @@ mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs
 
 
 
+# References
 
+::: {#refs custom-style="Bibliography"}
+:::
 
 
 
