@@ -382,6 +382,7 @@ mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs
 
 The Sobel test measures whether gatekeeping influences how the female partner's gender role beliefs affects her satisfaction. Looking at the p-value from results table above, the data are not statistic. Gatekeeping doesn't have a significant influence on this relationship.
 
+
 # References
 
 ::: {#refs custom-style="Bibliography"}
