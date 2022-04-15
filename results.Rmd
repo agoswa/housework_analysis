@@ -332,8 +332,12 @@ apim_stp1 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_
 
 summary(apim_stp1)
 ```
+```{r}
+p_val<-p_format(coef(summary(apim_stp1))[2,4],accuracy = .01)
 
-The summary table above shows us that all paths are statistically significant (*p*<=`r coef(summary(apim_stp1))[2,4]`). Not all the paths are positive, the effect of the partner gender role beliefs on the actor's satisfaction is negative. So, the partner's gender role beliefs could negatively impact the actor's satisfaction. The effect of the actor's gender role beliefs on the actor's satisfaction is `r coef(summary(apim_stp1))[2,1]` which means that the actor's gender role beliefs could positively impact the actor's satisfaction.
+```
+
+The summary table above shows us that all paths are statistically significant (*p* `r p_val`). Not all the paths are positive, the effect of the partner gender role beliefs on the actor's satisfaction is negative. So, the partner's gender role beliefs could negatively impact the actor's satisfaction. The effect of the actor's gender role beliefs on the actor's satisfaction is `r coef(summary(apim_stp1))[2,1]` which means that the actor's gender role beliefs could positively impact the actor's satisfaction.
 
 ```{r, include=FALSE}
 #### Interpretation: 
@@ -351,8 +355,12 @@ apim_stp2 <- gls(avg_gatekeeping_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs
 
 summary(apim_stp2)
 ```
+```{r}
+p_val2<-p_format(coef(summary(apim_stp2))[2,4],accuracy = .01)
+p_val2
+```
 
-The summary table above shows us that not all paths are statistically significant. The effect of the actor's gender role beliefs on the actor's gatekeeping behaviors could be potentially mediated (*p* =`r coef(summary(apim_stp2))[2,4]`). This path is also positive, so the actor's gender role beliefs could positively impact the actor's gatekeeping behaviors.
+The summary table above shows us that not all paths are statistically significant. The effect of the actor's gender role beliefs on the actor's gatekeeping behaviors could be potentially mediated (*p* =`r p_val2`). This path is also positive, so the actor's gender role beliefs could positively impact the actor's gatekeeping behaviors.
 
 ```{r, include=FALSE}
 #### Interpretation: 
