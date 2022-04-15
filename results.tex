@@ -3,12 +3,11 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  english,
   man,floatsintext]{apa6}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -43,7 +42,8 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -52,7 +52,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -78,6 +78,15 @@
   \let\oldsubparagraph\subparagraph
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
 % Manuscript styling
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
@@ -93,9 +102,9 @@
 
 % Create new environments so endfloat can handle them
 % \newenvironment{ltable}
-%   {\begin{landscape}\begin{center}\begin{threeparttable}}
-%   {\end{threeparttable}\end{center}\end{landscape}}
-\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
 
 % Enables adjusting longtable caption width to table width
 % Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
@@ -159,12 +168,8 @@
 \setlength{\cfttabindent}{0pt}
 \setlength{\cftafterloftitleskip}{0pt}
 \settowidth{\cfttabnumwidth}{Table 10.\qquad}
-\ifxetex
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[]{english}
-\else
-  \usepackage[shorthands=off,main=english]{babel}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
 \title{Satisfying housework division? Gender role beliefs and religion as moderators of housework division and satisfaction}
@@ -188,9 +193,7 @@ In order to calculate our APIM's we had to put our data into a paired data struc
 
 
 \begin{figure}
-\centering
-\includegraphics{APIM_Housework_Distribution.pdf}
-\caption{\label{fig:my-figure}Actor Partner Effects in the APIM}
+\includegraphics[width=3.83in]{APIM} \caption{Actor Partner Effects in the APIM.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 \hypertarget{main-results}{%
@@ -205,6 +208,12 @@ as.factor(genderE\_A)0:Cavg\_housework\_female\_A:Cavg\_grbs\_P = For men, keepi
 
 For women, gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was 0.07 (\emph{p} = 0.00, \emph{se} = 0.02). For every one unit increase in her gender role beliefs, her satisfaction increases by 0.07 while keeping housework distribution constant. Again for women, her partners gender role beliefs significantly moderated the relationship between her own housework distribution and her satisfaction with the housework distribution. The moderation effect was -0.06 (\emph{p} = 0.01,se = 0.02). For every one unit increase in her partners gender role beliefs, her own satisfaction increased by -0.06 while keeping housework distribution constant.
 
+
+
+\begin{figure}
+\includegraphics[width=4.25in]{moderation} \caption{Moderation effects in the APIM.}\label{fig:unnamed-chunk-8}
+\end{figure}
+
 Looking at the summary table above, these are the relationships that are statistically significant:
 as.factor(genderE\_A)1:Cavg\_housework\_female\_A:Cavg\_grbs\_P, 8.742833e-03
 as.factor(genderE\_A)1:Cavg\_housework\_female\_A:Cavg\_grbs\_A, 8.408625e-04
@@ -214,12 +223,31 @@ Only looking at the three way interactions with gender we found two significant 
 
 In addition the interaction between actors housework distribution and their partners gender role beliefs was significantly different for husbands and wives with an estimate of -0.08(\emph{p}=0.01,\emph{se} = 0.03).The moderation effect of ones partners gender role beliefs was -0.08 units lower for women than men meaning the moderation effect of her husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how her gender role beliefs effected the relationship between housework distribution and satisfaction for her husband.
 
+\begin{verbatim}
+wife_plot<- ggplot(wives,aes(
+                x = avg_housework_female_A,
+                y = housework_satisfied_A, 
+                color = grbs_hl_A,  na.rm = TRUE)
+                )+
+  geom_point(na.rm = TRUE)+
+  geom_smooth(method = "lm")+
+  labs(x = "Housework distribution", y = "Satisfaction", title ="Relationship of wive's housework distribution and gender role beliefs")
+\end{verbatim}
 
+
+
+\begin{verbatim}
+## $title
+## [1] "Relationship of wive's housework distribution and gender role beliefs"
+## 
+## attr(,"class")
+## [1] "labels"
+\end{verbatim}
 
 \begin{figure}
 \centering
-\includegraphics{results_files/figure-latex/unnamed-chunk-11-1.pdf}
-\caption{\label{fig:unnamed-chunk-11}caption for graph}
+\includegraphics{results_files/figure-latex/unnamed-chunk-12-1.pdf}
+\caption{\label{fig:unnamed-chunk-12}caption for graph}
 \end{figure}
 
 
@@ -228,8 +256,8 @@ As the housework distribution increases for wives with low gender role beliefs, 
 
 \begin{figure}
 \centering
-\includegraphics{results_files/figure-latex/unnamed-chunk-13-1.pdf}
-\caption{\label{fig:unnamed-chunk-13}caption for graph}
+\includegraphics{results_files/figure-latex/unnamed-chunk-14-1.pdf}
+\caption{\label{fig:unnamed-chunk-14}caption for graph}
 \end{figure}
 
 As the housework distribution increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. As the housework distribution increases for wives whose husbands have high gender role beliefs, their satisfaction decreases.
@@ -239,7 +267,7 @@ As the housework distribution increases for wives whose husbands have low gender
 
 The two intercept model gives us the two coefficients for men and women.
 
-None of the interactions between actors housework distribution and their religion was significantly different for husbands or wives. 0.10 (\emph{p}=0.19,\emph{se}=0.08)
+None of the interactions between actors housework distribution and their religion was significantly different for husbands or wives. (\emph{p}\textgreater=0.19,\emph{se}=0.08). None of the results illustrate that the average female-typed tasks completed by the actor or partner from the husband and wife's perspective was related to their religion.
 
 \hypertarget{exploratory-results}{%
 \subsection{Exploratory Results}\label{exploratory-results}}
@@ -248,16 +276,17 @@ Mediation is a way for researchers to explain the process of one variable affect
 
 Based on our primary analysis so far, we are interested in further exploring how to concept of gatekeeping fits into our research. We want to explore whether gatekeeping is a mediator variable in our relationship between the partners' gender role beliefs and housework tasks. Are women with higher gender role beliefs more likely to gatekeep housework tasks?
 
-\#\#\#\#Interpretation:
+\hypertarget{interpretation}{%
+\paragraph{Interpretation:}\label{interpretation}}
 
 All four paths are positive and statistically significant: Seeing your partner positively leads you and your partner to be more satisfied. All four of these paths could potentially be mediated.
 
 \#\#\#Step 2: Testing the effects of the grbs (X) on the mediators of Wife and Husband gatekeeping (M).
 
-\hypertarget{interpretation}{%
-\paragraph{Interpretation:}\label{interpretation}}
+\hypertarget{interpretation-1}{%
+\paragraph{Interpretation:}\label{interpretation-1}}
 
-All four paths of the \enquote{a} paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
+All four paths of the ``a'' paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
 
 \hypertarget{steps-3-and-4-testing-the-effects-of-the-tension-m-and-other-positivity-x-on-the-satisfaction-y.}{%
 \subsubsection{Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y).}\label{steps-3-and-4-testing-the-effects-of-the-tension-m-and-other-positivity-x-on-the-satisfaction-y.}}
@@ -265,10 +294,10 @@ All four paths of the \enquote{a} paths are negative and statistically significa
 \hypertarget{i-didnt-change-anything-from-here-on-yet}{%
 \paragraph{I didn't change anything from here on yet!}\label{i-didnt-change-anything-from-here-on-yet}}
 
-\hypertarget{interpretation-1}{%
-\paragraph{Interpretation:}\label{interpretation-1}}
+\hypertarget{interpretation-2}{%
+\paragraph{Interpretation:}\label{interpretation-2}}
 
-\textbf{Step 3}: All four \enquote{b} paths from Tension to Satisfaction are negative and three are statistically significant: Seeing more tension in the relationship leads to less satisfaction for you and your partner, even after controlling for how positively you and your partner see each other. The one effect that is not statistically significant is the effect of male's level of tension on his wife's level of satisfaction.\\
+\textbf{Step 3}: All four ``b'' paths from Tension to Satisfaction are negative and three are statistically significant: Seeing more tension in the relationship leads to less satisfaction for you and your partner, even after controlling for how positively you and your partner see each other. The one effect that is not statistically significant is the effect of male's level of tension on his wife's level of satisfaction.\\
 \textbf{Step 4}: All paths from Other Positivity to Satisfaction, the direct of c', are positive and statistically significant: Seeing your partner positively leads you and your partner to have higher levels of satisfaction, even after controlling for yours and your partner's tension.
 
 \hypertarget{testing-indirect-effects-using-multilevel-modeling}{%
@@ -323,93 +352,68 @@ All four paths of the \enquote{a} paths are negative and statistically significa
 \hypertarget{sobel-test}{%
 \subsection{Sobel Test}\label{sobel-test}}
 
-``\{r\}
-sobel \textless- function(aval, bval, seA, seB)\{
-
-ab \textless- aval\emph{bval
-ab\_se \textless- sqrt(aval\textsuperscript{2\emph{seB\textsuperscript{2+bval}2}seA}2)
-z \textless- ab/ab\_se
-p \textless- 2}pnorm(z, lower.tail=FALSE)
-
-return(data.frame(indirect\_effect = ab, z\_value = z, p\_value = p))
-
-\}
-
-\begin{verbatim}
-
-``{r}
-#act_H_a <- coef(summary(apim_stp2))[3,1] #this is the a coefficient extracted from the table apim_stp2 
-#act_H_a_se <- coef(summary(apim_stp2))[3,2] # standard error 
-#act_H_b <- coef(summary(apim_stp3))[7,1] # b coeff
-#act_H_b_se <- coef(summary(apim_stp3))[7,2]
-
-#sobel(act_H_a, act_H_b, act_H_a_se, act_H_b_se)
-\end{verbatim}
-
 \hypertarget{mcmam-selig-preacher-2008}{%
 \subsection{\texorpdfstring{MCMAM \href{http://www.quantpsy.org/medmc/medmc.htm}{Selig \& Preacher, 2008}}{MCMAM Selig \& Preacher, 2008}}\label{mcmam-selig-preacher-2008}}
 
-``\{r\}
-\#Function that returns mcmc CI.
-\#mcmamCI \textless- function(aval, bval, varA, varB, n)\{
-
-\#code (Selig \& Preacher, 2008).
-\#require(MASS)
-
-a=aval
-b=bval
-rep=n
-conf=95
-pest=c(a,b)
-acov \textless- matrix(c(varA, 0, 0, varB),2,2)
-
-mcmc \textless- mvrnorm(rep,pest,acov,empirical=FALSE)
-
-ab \textless- mcmc{[},1{]}*mcmc{[},2{]}
-
-low=(1-conf/100)/2
-upp=((1-conf/100)/2)+(conf/100)
-
-LL=quantile(ab,low)
-UL=quantile(ab,upp)
-LL=format(LL,digits=3)
-UL=format(UL,digits=3)
-
-CI \textless- cbind.data.frame(LL, UL)
-return(CI)
-
-\}
-
 \begin{verbatim}
+# Function that returns mcmc CI. 
+# mcmamCI <- function(aval, bval, varA, varB, n){
 
-For example, we can find the MCMC 95% CI for the **Actor-Actor: Husband** indirect effect like this.
+# code (Selig & Preacher, 2008).
+  #require(MASS)
+  
+  a=aval
+  b=bval
+  rep=n
+  conf=95
+  pest=c(a,b)
+  acov <- matrix(c(varA, 0, 0, varB),2,2)
 
+  mcmc <- mvrnorm(rep,pest,acov,empirical=FALSE)
 
-act_H_a <- coef(summary(apim_stp2))[3,1]
-act_H_a_se <- coef(summary(apim_stp2))[3,2]
-act_H_b <- coef(summary(apim_stp3))[7,1]
-act_H_b_se <- coef(summary(apim_stp3))[7,2]
+  ab <- mcmc[,1]*mcmc[,2]
 
-mcmamCI(act_H_a, act_H_b, act_H_a_se^2, act_H_b_se^2, 3000)
-#confidence intervals > does it include 0?
+  low=(1-conf/100)/2
+  upp=((1-conf/100)/2)+(conf/100)
+
+  LL=quantile(ab,low)
+  UL=quantile(ab,upp)
+  LL=format(LL,digits=3)
+  UL=format(UL,digits=3)
+
+  CI <- cbind.data.frame(LL, UL)
+  return(CI)
+
 \end{verbatim}
+
+For example, we can find the MCMC 95\% CI for the \textbf{Actor-Actor: Husband} indirect effect like this.
+
+act\_H\_a \textless- coef(summary(apim\_stp2)){[}3,1{]}
+act\_H\_a\_se \textless- coef(summary(apim\_stp2)){[}3,2{]}
+act\_H\_b \textless- coef(summary(apim\_stp3)){[}7,1{]}
+act\_H\_b\_se \textless- coef(summary(apim\_stp3)){[}7,2{]}
+
+mcmamCI(act\_H\_a, act\_H\_b, act\_H\_a\_se\^{}2, act\_H\_b\_se\^{}2, 3000)
+\#confidence intervals \textgreater{} does it include 0?
+
+```
 
 \hypertarget{summary-of-indirect-effects}{%
 \subsection{Summary of Indirect Effects}\label{summary-of-indirect-effects}}
 
 \begin{longtable}[]{@{}cccccc@{}}
 \toprule
-Name & Indirect Effects & Estim. & p & 95\% CI\textsuperscript{a} Lower & Upper\tabularnewline
+Name & Indirect Effects & Estim. & p & 95\% CI\textsuperscript{a} Lower & Upper \\
 \midrule
 \endhead
-Actor-Actor: W & Xw -\textgreater{} Mw -\textgreater{} Yw & 0.165 & \textless.001 & 0.086 & 0.257\tabularnewline
-Actor-Actor: H & Xh -\textgreater{} Mh -\textgreater{} Yh & 0.099 & \textless.001 & 0.042 & 0.172\tabularnewline
-Partner-Partner: W & Xw -\textgreater{} Mh -\textgreater{} Yw & 0.027 & .090 & -0.003 & 0.070\tabularnewline
-Partner-Partner: H & Xh -\textgreater{} Mw -\textgreater{} Yh & 0.034 & .024 & 0.003 & 0.079\tabularnewline
-Actor-Partner: W & Xh -\textgreater{} Mh -\textgreater{} Yw & 0.038 & .086 & -0.005 & 0.092\tabularnewline
-Actor-Partner: H & Xw -\textgreater{} Mw -\textgreater{} Yh & 0.060 & .004 & 0.017 & 0.115\tabularnewline
-Partner-Actor: W & Xh -\textgreater{} Mw -\textgreater{} Yw & 0.094 & .023 & 0.013 & 0.186\tabularnewline
-Partner-Actor: H & Xw -\textgreater{} Mh -\textgreater{} Yh & 0.072 & .003 & 0.023 & 0.134\tabularnewline
+Actor-Actor: W & Xw -\textgreater{} Mw -\textgreater{} Yw & 0.165 & \textless.001 & 0.086 & 0.257 \\
+Actor-Actor: H & Xh -\textgreater{} Mh -\textgreater{} Yh & 0.099 & \textless.001 & 0.042 & 0.172 \\
+Partner-Partner: W & Xw -\textgreater{} Mh -\textgreater{} Yw & 0.027 & .090 & -0.003 & 0.070 \\
+Partner-Partner: H & Xh -\textgreater{} Mw -\textgreater{} Yh & 0.034 & .024 & 0.003 & 0.079 \\
+Actor-Partner: W & Xh -\textgreater{} Mh -\textgreater{} Yw & 0.038 & .086 & -0.005 & 0.092 \\
+Actor-Partner: H & Xw -\textgreater{} Mw -\textgreater{} Yh & 0.060 & .004 & 0.017 & 0.115 \\
+Partner-Actor: W & Xh -\textgreater{} Mw -\textgreater{} Yw & 0.094 & .023 & 0.013 & 0.186 \\
+Partner-Actor: H & Xw -\textgreater{} Mh -\textgreater{} Yh & 0.072 & .003 & 0.023 & 0.134 \\
 \bottomrule
 \end{longtable}
 
@@ -421,19 +425,19 @@ Partner-Actor: H & Xw -\textgreater{} Mh -\textgreater{} Yh & 0.072 & .003 & 0.0
 
 \begin{longtable}[]{@{}cccccc@{}}
 \toprule
-Name & Direct Effects & Direct & p & Total\textsuperscript{a} & \% Mediated\tabularnewline
+Name & Direct Effects & Direct & p & Total\textsuperscript{a} & \% Mediated \\
 \midrule
 \endhead
-Actor: Wife & Xw -\textgreater{} Yw & 0.185 & .007 & 0.378 & 50.9\tabularnewline
-Actor: Husband & Xh -\textgreater{} Yh & 0.291 & \textless.001 & 0.424 & 31.5\tabularnewline
-Partner: Wife & Xh -\textgreater{} Yw & 0.190 & .010 & 0.321 & 40.9\tabularnewline
-Partner: Husband & Xw -\textgreater{} Yh & 0.129 & .028 & 0.262 & 50.8\tabularnewline
+Actor: Wife & Xw -\textgreater{} Yw & 0.185 & .007 & 0.378 & 50.9 \\
+Actor: Husband & Xh -\textgreater{} Yh & 0.291 & \textless.001 & 0.424 & 31.5 \\
+Partner: Wife & Xh -\textgreater{} Yw & 0.190 & .010 & 0.321 & 40.9 \\
+Partner: Husband & Xw -\textgreater{} Yh & 0.129 & .028 & 0.262 & 50.8 \\
 \bottomrule
 \end{longtable}
 
 \textsuperscript{a}Computed as \texttt{ab\ +\ c\textquotesingle{}} and \texttt{c} with results agreeing.
 
-Note that \texttt{\%\ Mediated} equals \texttt{ab/c} or equivalently \texttt{1\ -\ c\textquotesingle{}/c}. This value can be larger than one or negative. First, make sure that \texttt{c} is substantial. If it is, then if \texttt{\%\ Mediated} is greater than 100 or negative, you have \enquote{inconsistent mediation}: the direct and indirect effects are of opposite signs.
+Note that \texttt{\%\ Mediated} equals \texttt{ab/c} or equivalently \texttt{1\ -\ c\textquotesingle{}/c}. This value can be larger than one or negative. First, make sure that \texttt{c} is substantial. If it is, then if \texttt{\%\ Mediated} is greater than 100 or negative, you have ``inconsistent mediation'': the direct and indirect effects are of opposite signs.
 
 
 \clearpage
