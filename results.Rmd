@@ -45,6 +45,7 @@ library(nlme)
 library(dplyr)
 library(ggplot2)
 library(rstatix)
+library(bda)
 ```
 
 ```{r, include = FALSE}
@@ -365,7 +366,17 @@ summary(apim_stp3)
 
 ## Sobel Test
 
-``{r}
+```{r}
+# just for female partners
+
+female_gatekeeping <- dat_dyad %>%
+  dplyr::filter(genderE_A = 1)
+
+mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs_A, female_gatekeeping$housework_satisfied_A)
+```
+
+
+```{r}
 sobel <- function(aval, bval, seA, seB){
   
   ab <- aval*bval
@@ -378,7 +389,7 @@ sobel <- function(aval, bval, seA, seB){
 }
 ```
 
-``{r}
+```{r}
 #act_H_a <- coef(summary(apim_stp2))[3,1] #this is the a coefficient extracted from the table apim_stp2 
 #act_H_a_se <- coef(summary(apim_stp2))[3,2] # standard error 
 #act_H_b <- coef(summary(apim_stp3))[7,1] # b coeff
@@ -390,7 +401,7 @@ sobel <- function(aval, bval, seA, seB){
 
 ## MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
 
-``{r}
+```{r}
 # Function that returns mcmc CI. 
 # mcmamCI <- function(aval, bval, varA, varB, n){
 
