@@ -55,12 +55,12 @@ dat_dyad <- read.csv("dyadic.csv")
 dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 head(dat_dyad)
 ```
+# Results
 
 ## Analysis Strategy  
 
-To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time. This way we get both the actor and partner effects. We will be able to see how one partner's housework distribution effects both their own satisfaction with the housework distribution and their partners satisfaction with the housework distribution. In terms of moderation, we will get an actor effect moderated by each members gender role beliefs and a partner effect moderated by each members gender role beliefs and religion. The APIM measures proportion of variance in satisfaction that occurs between dyads vs the total variation present. In other words, how much of the variation in satisfaction is caused by the dyad. This allows us to estimate satisfaction with the distribution of housework is a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the non-independent data. 
+To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (APIM; Kenny, Kashy, & Cook, 2006). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time, so actor as well as partner effects could be considered in our analysis. This way, it is possible to see how one partner's housework distribution effects both their own satisfaction with the housework distribution (actor effect) and their partner's satisfaction with the housework distribution (partner effect). In this analysis, we will further look at the moderating effect of each partner's gender role beliefs on the two actor effects (shown in figure 1) as well as on the partner effects. (THIS FOLLOWING SENTENCE CONFUSES ME!) The APIM measures proportion of variance in satisfaction that occurs between dyads vs. the total variation present. In other words, the model considers how much of the variation in satisfaction is caused by the dyad. This allows to estimate satisfaction with the distribution of housework as a function of both housework distribution and the the random errors at both the individual and dyad level. This accounts for the non-independent data. 
 
-In order to calculate our APIM's we had to put our data into a paired data structure, where both the actor and the partner's data was all contained in one line. This way we could calculate the actor and partner effects for both the husbands and wives. 
 (ref:my-figure-caption) Actor Partner Effects in the APIM.
 
 ```{r, fig.cap = "(ref:my-figure-caption)", include=TRUE}
@@ -69,7 +69,7 @@ knitr::include_graphics("APIM.png")
 
 ## Main Results
 
-### Gender Role Beliefs
+### Gender Role Beliefs as a mediator 
 
 ```{r, include=FALSE}
 ## centering moderator and predictor
@@ -99,10 +99,10 @@ basic_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
                   weights = varIdent(form=~1|as.factor(genderE_A)), 
                   na.action = na.omit)
 summary(basic_mod)
+
+
+#The summary table above is just of the actor partner effects with no moderation. The only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for `as.factor(genderE_A)1:Cavg_housework_female_A` is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
 ```
-
-The summary table above is just of the actor partner effects with no moderation. The only relationship that is statistically significant is the one between the wife's satisfaction level and her average housework. We know this because the p-value for `as.factor(genderE_A)1:Cavg_housework_female_A` is 0.0041, which is less than 0.05. Since the value for this relationship is -0.029132, it signifies that as the wife's average housework increases, her satisfaction level decreases.
-
 
 ```{r, include=FALSE}
 ## two intercept model gives us the two coefficients for men and women
@@ -128,7 +128,9 @@ two_int_mod<- gls(housework_satisfied_A~as.factor(genderE_A)+
 coef(summary(two_int_mod))
 ```
 
-as.factor(genderE_A)0:Cavg_housework_female_A:Cavg_grbs_P = For men, keeping their average female-typed housework tasks constant, for every one unit increase in avg grbs, their housework satisfaction increases by 0.02. 
+```{r, include=FALSE}
+#as.factor(genderE_A)0:Cavg_housework_female_A:Cavg_grbs_P = For men, keeping their average female-typed housework tasks constant, for every one unit increase in avg grbs, their housework satisfaction increases by 0.02. 
+```
 
 ```{r, include=FALSE}
 #hd_grbA_p_val<-p_format(coef(summary(two_int_mod))[12,4],accuracy = .05)
