@@ -376,33 +376,12 @@ summary(apim_stp3)
 # just for female partners
 
 female_gatekeeping <- dat_dyad %>%
-  dplyr::filter(genderE_A = 1)
+  dplyr::filter(genderE_A == 1)
 
 mediation.test(female_gatekeeping$avg_gatekeeping_A, female_gatekeeping$avg_grbs_A, female_gatekeeping$housework_satisfied_A)
 ```
 
 
-```{r}
-sobel <- function(aval, bval, seA, seB){
-  
-  ab <- aval*bval
-  ab_se <- sqrt(aval^2*seB^2+bval^2*seA^2)
-  z <- ab/ab_se
-  p <- 2*pnorm(z, lower.tail=FALSE)
-  
-  return(data.frame(indirect_effect = ab, z_value = z, p_value = p))
-   
-}
-```
-
-```{r}
-#act_H_a <- coef(summary(apim_stp2))[3,1] #this is the a coefficient extracted from the table apim_stp2 
-#act_H_a_se <- coef(summary(apim_stp2))[3,2] # standard error 
-#act_H_b <- coef(summary(apim_stp3))[7,1] # b coeff
-#act_H_b_se <- coef(summary(apim_stp3))[7,2]
-
-#sobel(act_H_a, act_H_b, act_H_a_se, act_H_b_se)
-```
 
 
 ## MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
@@ -436,7 +415,7 @@ sobel <- function(aval, bval, seA, seB){
   CI <- cbind.data.frame(LL, UL)
   return(CI)
 
-}
+
 ```
 
 For example, we can find the MCMC 95% CI for the **Actor-Actor: Husband** indirect effect like this.
