@@ -188,11 +188,8 @@ wife_plot<- ggplot(wives,aes(
   labs(x = "Housework distribution", y = "Satisfaction", title ="Relationship of wive's housework distribution and gender role beliefs", caption = "Caption should start on the left")
 ```
 
-<<<<<<< HEAD
 
-=======
 ```{r}
->>>>>>> 668b74891a87888b2b58e62416201ae4645f0010
 wife_plot <- ggplot(wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
