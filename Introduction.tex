@@ -1,0 +1,281 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  english,
+  man]{apa6}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Introduction},
+  pdfauthor={Carlotta Reinhardt1, Margaret Bassney1, \& Anushree Goswami1},
+  pdflang={en-EN},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\begin{center}\begin{threeparttable}}
+%   {\end{threeparttable}\end{center}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\DeclareDelayedFloatFlavor{ThreePartTable}{table}
+\DeclareDelayedFloatFlavor{lltable}{table}
+\DeclareDelayedFloatFlavor*{longtable}{table}
+\makeatletter
+\renewcommand{\efloat@iwrite}[1]{\immediate\expandafter\protected@write\csname efloat@post#1\endcsname{}}
+\makeatother
+\usepackage{lineno}
+
+\linenumbers
+\usepackage{csquotes}
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
+  \usepackage{polyglossia}
+  \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,main=english]{babel}
+\fi
+
+\title{Introduction}
+\author{Carlotta Reinhardt\textsuperscript{1}, Margaret Bassney\textsuperscript{1}, \& Anushree Goswami\textsuperscript{1}}
+\date{}
+
+
+\shorttitle{housework and satisfaction}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} Smith College}
+
+\begin{document}
+\maketitle
+
+\hypertarget{housework-distribution-and-satisfaction-the-moderating-role-of-gender-role-beliefs-and-religion}{%
+\subsection{Housework distribution and satisfaction: The moderating role of gender role beliefs and religion}\label{housework-distribution-and-satisfaction-the-moderating-role-of-gender-role-beliefs-and-religion}}
+
+Gender role beliefs are subject to debate in our society. One audible voice in this discourse is the voice of the Church. Pope Francis, for example, recently described gender theory as evil and dangerous because \enquote{{[}i{]}t would make everything homogenous, neutral. It is an attack on difference, on the creativity of God and on men and women} (Catholic League, 2020).
+
+Traditionally, the majority of housework has been done by women while their male partners have been involved with paid labor. This distinction of gendered labor has been subject to social change of the past few decades, and although most women in heterosexual couples are as equally involved in paid labor as their male counterparts, they often still do the majority of the housework {[}Forste and Fox (2008); Leopold (2019); Mikula et al., 1997{]}. These relationship trends illustrate how traditional and conservative gender role beliefs have influenced women's role in society, such as women's job prospects and gender-based income inequalities. Even though men are now doing more housework than before the \enquote{gender revolution}, an unequal housework distribution has been found to be related to low satisfaction (Leopold, 2019). However, since research has shown that this relationship is more complex, two moderators that will be used to analyze this relationship are religion and gender role beliefs. This will be done using a dyadic approach. This is important to prevent relationship conflicts and housework-related stress, which can influence health outcomes such as depressive symptoms, as well as divorce rates (Bird, 1999; Glass \& Fujimoto, 1994; Ruppanner, 2012).
+
+\hypertarget{housework-distribution-and-satisfaction.}{%
+\subsubsection{Housework distribution and satisfaction.}\label{housework-distribution-and-satisfaction.}}
+
+Numerous studies have analyzed the relationship between housework distribution and satisfaction in the past, which depict how this relationship has evolved over time. Nelson (1977) found that almost half of the housewives in the sample were intrinsically satisfied, without giving an explanation as to why the satisfaction differed between these women. Using data from the late 1900's, Baxter and Western (1998) found that regardless of an extremely uneven distribution of housework labor, only 13-14\% women were dissatisfied. Mikula, Freudenthaler, Brennacher-Kroll, and Brunschko (1997) concluded that women did more housework than men and were significantly less satisfied. Their partners who performed less housework showed a higher satisfaction. More recent studies have found that women were more unsatisfied with the housework distribution than men and equal housework distribution was related to subjective marital equity (Charbonneau, Lachance-Grzela1, \& Bouchard1, 2019; Spitze \& Loscocco, 2000). Therefore, it is not appropriate to assume that an equal distribution of housework labor is the only predictor for partner satisfaction (Thébaud \& Pedulla, 2016). Specifically examining housework tasks, Ellison and Bartkowski (2002) suggested that traditionally \enquote{female-typed} housework tasks have to be differentiated from \enquote{male-typed} tasks for a more accurate analysis of this relationship. \enquote{Female-typed} housework tasks include everyday chores such as laundry and cleaning. In most articles, the \enquote{female-typed} housework tasks were seen as prototypical housework tasks that significantly affected satisfaction levels (Benin \& Agostinelli, 1988).
+
+\hypertarget{the-moderating-role-of-gender-role-beliefs.}{%
+\subsubsection{The moderating role of gender role beliefs.}\label{the-moderating-role-of-gender-role-beliefs.}}
+
+As outlined before, although past research has shown contradictory findings regarding the relationship between housework distribution and satisfaction, the overall trend has been that women were mostly found to be happier when they partook in housework. Okulicz-Kozaryn and Rocha Valente (2018) proposed that this is currently changing because of the changing gender role beliefs and the \enquote{gender revolution}. Greater underbenefit, the act of one partner doing more housework than the other resulting in negative emotions, has been shown to relate to lower marital quality. This notion of underbenefit contradicts past research in which female partners evaluated their uneven housework distribution in a positive way. A moderator that can explain these inconsistent findings concerning housework distribution and satisfaction are gender role beliefs. This theory is supported in research by Buunk, Kluwer, Schuurman, and Siero (2000), who showed that egalitarian women tended to be more dissatisfied with an unequal distribution of housework in comparison to traditional women. Evertsson (2014) reported that people who held egalitarian gender role beliefs were more satisfied with a more equal distribution of housework. For egalitarian couples, it was generally observed that housework was more equally distributed while in households that held value traditional views, women still do the majority of the housework (Greenstein, 1996). This shows that couples generally strived towards a distribution of housework that would satisfy them the most although this does not always succeed as satisfaction levels greatly differed among couples (Benin \& Agostinelli, 1988). Researchers found the highest satisfaction in traditional couples was when both partners had varying involvements in household tasks and the subjective incongruence between attitudes and behaviors regarding family roles was low (Forste \& Fox, 2012). It is therefore necessary to include gender role beliefs as a moderator when analyzing the relationship between housework distribution and satisfaction, as prior research suggests that this relationship could be reversed when comparing traditional and egalitarian couples.
+
+Men who were married to women with traditional views performed less housework than men who were married to women with egalitarian views (Greenstein, 1996). This provides further evidence that gender role beliefs moderate the relationship between housework distribution and satisfaction. However, prior research often did not provide a dyadic analysis and focused either on male or female partners which led to incomplete results and did not reveal all information needed to fully understand underlying dynamics.
+
+\hypertarget{the-moderating-role-of-religion.}{%
+\subsubsection{The moderating role of religion.}\label{the-moderating-role-of-religion.}}
+
+Religion has been an important factor in relationship dynamics for decades and provides a powerful framework for gender norms and beliefs that are sanctified and therefore qualitatively different from non-religious norms (Hunt \& Jung, 2009). As shown in the quote by pope Francis, religion and religious institutions are still powerful societal actors that influence intrinsic values and beliefs (Musek, 2017). Therefore, religion still continues to deeply impact the distribution of housework roles between heterosexual couples since certain religions carry various gender role beliefs that shape the expectations of female and male responsibilities. However, while many couples are starting to defy these stereotypes, some still follow this structure, especially if one partner strongly believes in them (Blair \& Lichter, 1999).
+For most religious denominations, religiosity was connected to patriarchal gender role attitudes at home Goldscheider and Rico-Gonzalez3 (2014). Even a small contribution from men towards housework in religious couples was found to lead to higher female partner satisfaction (DeMaris, Mahoney, \& Pargament, 2013).
+Gull and Geist (2020) found that religion had a moderating effect on the type of housework task that religious men engage in. Ellison and Bartkowski (2002) found religion to be a moderator on the amount of housework that the wife performs. Although previous studies suggested that religion, like gender role beliefs, has a moderating role, the actual impact of religion on the relationship between housework distribution and satisfaction has not been sufficiently investigated.
+
+\hypertarget{current-research}{%
+\subsection{Current research}\label{current-research}}
+
+In our study, we will examine the relationship between housework distribution and satisfaction in a way past research has not done yet. This includes a more detailed investigation of the impact of the moderating factors, gender role beliefs and religion, and satisfaction of both partners. We will conduct a questionnaire-based study that investigates the subjective housework distribution, satisfaction, religion, and gender role beliefs in heterosexual couples in a dyadic setting. We are interested in finding whether the relationship between housework distribution and satisfaction is moderated by gender role beliefs and religion, and whether there are specific partner and actor effects related to gender.
+Based on prior research, we expect that the relationship between housework distribution and satisfaction is moderated by gender role beliefs. We hypothesize that the higher the amount of housework of an egalitarian partner, the lower the satisfaction with an unequal housework distribution (Hypothesis 1a). For females with more traditional gender role beliefs, a reversed relationship is hypothesized. A higher amount of housework is therefore associated with a higher level of satisfaction (Hypothesis 1b). Male partners with traditional gender role beliefs would be more satisfied if their wife did more housework (Hypothesis 1c). Because prior research lacks dyadic analyses, specifying the effects of each partners' gender role beliefs on the relationship of interest will strengthen the current study.
+Similar to the moderating role of gender role beliefs, it is expected that because religion is connected to more traditional relationship ideals, it can be another moderator for the relationship between housework distribution and satisfaction. It is hypothesized that in non-religious couples, a higher amount of housework is related to a lower satisfaction with housework distribution (Hypothesis 2a). For religious women, it is expected that a higher amount of housework is connected to greater satisfaction (Hypothesis 2b) and religious male partners are more satisfied if their wife does a greater amount of housework (Hypothesis 2c).
+Besides the hypothesized relationships described before, we will include an exploratory analysis and investigate whether gatekeeping in females is related to gender role beliefs and therefore mediates the relationship between housework distribution and satisfaction. Gatekeeping is defined as behaviors that prevent equal work performed by both partners in a relationship (Allen \& Hawkins, 1999). Gatekeeping behaviors by one partner can shut out the other partner from performing a household task.
+
+This introduction was written in R (R Core Team, 2020) with the papaja package (Aust \& Barth, 2020).
+
+\newpage
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-hawkins_1999}{}%
+Allen, S. M., \& Hawkins, A. J. (1999). \emph{Maternal gatekeeping: Mothers' beliefs and behaviors that inhibit greater father involvement in family work}. Retrieved from \url{https://doi.org/10.2307/353894}
+
+\leavevmode\hypertarget{ref-R-papaja}{}%
+Aust, F., \& Barth, M. (2020). \emph{papaja: Create APA manuscripts with R Markdown}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\hypertarget{ref-baxter_western_1998}{}%
+Baxter, J., \& Western, M. (1998). \emph{Satisfaction with housework: Examining the paradox.} Retrieved from \url{https://doi.org/10.1177/0038038598032001007}
+
+\leavevmode\hypertarget{ref-benin_agostinelli_1988}{}%
+Benin, M. H., \& Agostinelli, J. (1988). \emph{Husbands' and wives satisfaction with the division of labor}. Retrieved from \url{https://doi.org/10.2307/352002}
+
+\leavevmode\hypertarget{ref-blair_lichter_1999}{}%
+Blair, S., \& Lichter, D. (1999). \emph{Measuring the division of household labor: Gender segregation of housework among american couples}. Retrieved from \url{https://doi.org/10.1177/019251391012001007}
+
+\leavevmode\hypertarget{ref-buunk_2000}{}%
+Buunk, B. P., Kluwer, E. S., Schuurman, M. K., \& Siero, F. W. (2000). The division of labor among egalitarian and traditional women: Differences in discontent, social comparison, and false consensus. In \emph{Journal of Applied Social Psychology} (No. 4; Vol. 30, pp. 759--779). Wiley Online Library.
+
+\leavevmode\hypertarget{ref-catholic_league_pope_2020}{}%
+Catholic League. (2020). Pope brands transgender theory as evil. Retrieved from \url{https://www.catholicleague.org/pope-brands-transgender-theory-as-evil-2/}
+
+\leavevmode\hypertarget{ref-charbonneau_2019}{}%
+Charbonneau, A., Lachance-Grzela1, M., \& Bouchard1, G. (2019). \emph{Housework allocation, negotiation strategies, and relationship satisfaction in cohabiting emerging adult heterosexual couples}. Retrieved from \url{https://doi.org/10.1007/s11199-018-0998-1}
+
+\leavevmode\hypertarget{ref-demaris_2013}{}%
+DeMaris, A., Mahoney, A., \& Pargament, K. (2013). \emph{Fathers' contributions to housework and childcare and parental aggravation amongst first-time parents}. Retrieved from \url{https://doi.org/10.3149/fth.1102.179}
+
+\leavevmode\hypertarget{ref-ellison_bartkowski_2002}{}%
+Ellison, C., \& Bartkowski, J. (2002). \emph{Conservative protestantism and the division of household labor among married couples}. Retrieved from \url{https://doi.org/10.1177/019251302237299}
+
+\leavevmode\hypertarget{ref-evertson_2014}{}%
+Evertsson, M. (2014). Gender ideology and the sharing of housework and child care in sweden. In \emph{Journal of Family Issues} (No. 7; Vol. 35, pp. 927--949). Sage Publications Sage CA: Los Angeles, CA.
+
+\leavevmode\hypertarget{ref-forste_fox_2008}{}%
+Forste, R., \& Fox, K. (2008). \emph{Household labor, gender roles, and family satisfaction: A cross-national comparison}. Retrieved from \url{https://www.jstor.org/stable/23267837}
+
+\leavevmode\hypertarget{ref-forste_fox_2012}{}%
+Forste, \& Fox. (2012). \emph{Household labor, gender roles, and family satisfaction: A cross-national comparison}. Retrieved from \url{https://www.jstor.org/stable/23267837}
+
+\leavevmode\hypertarget{ref-goldschneider_2014}{}%
+Goldscheider, F. G. C., \& Rico-Gonzalez3, A. (2014). \emph{Gender equality in sweden: Are the religious more patriarchal?} Retrieved from \url{https://doi.org/10.1177/0192513X14522236}
+
+\leavevmode\hypertarget{ref-greenstein_1996}{}%
+Greenstein, T. N. (1996). \emph{Husbands' participation in domestic labor: Interactive effects of wives' and husbands' gender ideologies}. Retrieved from \url{https://doi.org/10.2307/353719}
+
+\leavevmode\hypertarget{ref-gull_geist_2020}{}%
+Gull, B., \& Geist, C. (2020). \emph{Godly husbands and housework: A global examination of the association between religion and men's housework participation.}
+
+\leavevmode\hypertarget{ref-hunt_jung_2009}{}%
+Hunt, M., \& Jung, P. (2009). \emph{'Good sex' and religion: A feminist overview}. Retrieved from \url{https://www.jstor.org/stable/20620412}
+
+\leavevmode\hypertarget{ref-leopold_2019}{}%
+Leopold. (2019). \emph{Diverging trends in satisfaction with housework: Declines in women, increases in men}. Retrieved from \url{http://dx.doi.org/10.1111/jomf.12520}
+
+\leavevmode\hypertarget{ref-mikula_1997}{}%
+Mikula, G., Freudenthaler, H. H., Brennacher-Kroll, S., \& Brunschko, B. (1997). Division of labor in student households: Gender inequality, perceived justice, and satisfaction. In \emph{Basic and Applied Social Psychology} (No. 3; Vol. 19, pp. 275--289). Taylor \& Francis.
+
+\leavevmode\hypertarget{ref-musek_2017}{}%
+Musek, J. (2017). \emph{Values related to the religious adherence}. Retrieved from \url{https://doi.org/10.31820/pt.26.2.10}
+
+\leavevmode\hypertarget{ref-okulicz_valente_2018}{}%
+Okulicz-Kozaryn, A., \& Rocha Valente, R. da. (2018). \emph{Life satisfaction of career women and housewives}. Retrieved from \url{https://doi.org/10.1007/s11482-017-9547-2}
+
+\leavevmode\hypertarget{ref-R-base}{}%
+R Core Team. (2020). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\leavevmode\hypertarget{ref-spitze_loscocco_2000}{}%
+Spitze, G., \& Loscocco, K. A. (2000). \emph{The labor of sisyphus? Women's and men's reactions to housework}. Retrieved from \url{https://www.jstor.org/stable/42864042}
+
+\leavevmode\hypertarget{ref-thebaud_pedulla_2016}{}%
+Thébaud, S., \& Pedulla, D. S. (2016). \emph{Masculinity and the stalled revolution: How gender ideologies and norms shape young men's responses to work--family policies}. Retrieved from \url{https://doi.org/10.1177/0891243216649946}
+
+
+\end{document}

@@ -1,0 +1,199 @@
+@Manual{R-base,
+  title = {R: A Language and Environment for Statistical Computing},
+  author = {{R Core Team}},
+  organization = {R Foundation for Statistical Computing},
+  address = {Vienna, Austria},
+  year = {2020},
+  url = {https://www.R-project.org/},
+}
+@Manual{R-papaja,
+  author = {Frederik Aust and Marius Barth},
+  title = {{papaja}: {Create} {APA} manuscripts with {R Markdown}},
+  year = {2020},
+  note = {R package version 0.1.0.9997},
+  url = {https://github.com/crsh/papaja},
+}
+
+@Manual{gull_geist_2020,
+  title = {Godly husbands and housework: A global examination of the association between religion and men’s housework participation.},
+  author = {Bethany Gull and Claudia Geist},
+  year = {2020},
+}
+
+@Manual{baxter_western_1998,
+  title = {Satisfaction with housework: Examining the paradox.},
+  author = {Janeen Baxter and Mark Western},
+  year = {1998},
+  url = {https://doi.org/10.1177/0038038598032001007},
+}
+
+
+@Manual{forste_fox_2008,
+  title = {Household Labor, Gender Roles, and Family Satisfaction: A Cross-National Comparison},
+  author = {Renata Forste and Kiira Fox},
+  year = {2008},
+  url = {https://www.jstor.org/stable/23267837},
+}
+
+@Manual{leopold_2019,
+  title = {Diverging Trends in Satisfaction With Housework: Declines in Women, Increases in Men},
+  author = {Leopold},
+  year = {2019},
+  url = {http://dx.doi.org/10.1111/jomf.12520},
+}
+
+@Manual{mikula_1997,
+  title={Division of labor in student households: Gender inequality, perceived justice, and satisfaction},
+  author={Mikula, Gerold and Freudenthaler, Heribert H and Brennacher-Kroll, Sigrun and Brunschko, Beatrix},
+  journal={Basic and Applied Social Psychology},
+  volume={19},
+  number={3},
+  pages={275--289},
+  year={1997},
+  publisher={Taylor \& Francis},
+}
+
+@Manual{charbonneau_2019,
+  title = {Housework Allocation, Negotiation Strategies, and Relationship Satisfaction in Cohabiting Emerging Adult Heterosexual Couples},
+  author = {Andréanne Charbonneau and Mylène Lachance-Grzela1 and Geneviève Bouchard1},
+  year = {2019},
+  url = {https://doi.org/10.1007/s11199-018-0998-1},
+}
+
+@Manual{spitze_loscocco_2000,
+  title = {The Labor of Sisyphus? Women's and Men's Reactions to Housework},
+  author = {Glenna Spitze and Karyn A. Loscocco},
+  year = {2000},
+  url = {https://www.jstor.org/stable/42864042},
+}
+
+@Manual{thebaud_pedulla_2016,
+  title = {Masculinity and the Stalled Revolution: How Gender Ideologies and Norms Shape Young Men’s Responses to Work–Family Policies},
+  author = {Sarah Thébaud and David S. Pedulla},
+  year = {2016},
+  url = {https://doi.org/10.1177/0891243216649946},
+}
+
+
+@Manual{ellison_bartkowski_2002,
+  title = {Conservative Protestantism and the Division of Household Labor Among Married Couples},
+  author = {Christopher Ellison and John Bartkowski},
+  year = {2002},
+  url = {https://doi.org/10.1177/019251302237299},
+}
+
+@Manual{benin_agostinelli_1988,
+  title = {Husbands’ and wives satisfaction with the division of labor},
+  author = {Mary Holland Benin and Joan Agostinelli},
+  year = {1988},
+  url = {https://doi.org/10.2307/352002},
+}
+
+@Manual{okulicz_valente_2018,
+  title = {Life Satisfaction of Career Women and Housewives},
+  author = {Adam Okulicz-Kozaryn and Rubia da Rocha Valente},
+  year = {2018},
+  url = {https://doi.org/10.1007/s11482-017-9547-2},
+}
+
+
+@Manual{buunk_2000,
+  title = {The division of labor among egalitarian and traditional women: Differences in discontent, social comparison, and false consensus},
+  author = {Buunk, Bram P and Kluwer, Esther S and Schuurman, Mieke K and Siero, Frans W},
+  year = {2000},
+  journal={Journal of Applied Social Psychology},
+  volume={30},
+  number={4},
+  pages={759--779},
+  year={2000},
+  publisher={Wiley Online Library}
+}
+
+@Manual{evertson_2014,
+  title = {Gender ideology and the sharing of housework and child care in Sweden},
+  author = {Evertsson, Marie},
+  year = {2014},
+  journal={Journal of Family Issues},
+  volume={35},
+  number={7},
+  pages={927--949},
+  year={2014},
+  publisher={Sage Publications Sage CA: Los Angeles, CA}
+}
+
+
+@Manual{greenstein_1996,
+  title = {Husbands' Participation in Domestic Labor: Interactive Effects of Wives' and Husbands' Gender Ideologies},
+  author = {Theodore N. Greenstein},
+  year = {1996},
+  url = {https://doi.org/10.2307/353719},
+}
+
+
+@Manual{forste_fox_2012,
+  title = {Household Labor, Gender Roles, and Family Satisfaction: A Cross-National Comparison},
+  author = {Forste and Fox},
+  year = {2012},
+  url = {https://www.jstor.org/stable/23267837},
+}
+
+@Manual{hunt_jung_2009,
+  title = {'Good Sex’ and Religion: A Feminist Overview},
+  author = {Mary Hunt and Patricia Jung},
+  year = {2009},
+  url = {https://www.jstor.org/stable/20620412},
+}
+
+@Manual{musek_2017,
+  title = {Values related to the religious adherence},
+  author = {Janek Musek},
+  year = {2017},
+  url = {https://doi.org/10.31820/pt.26.2.10},
+}
+
+
+@Manual{blair_lichter_1999,
+  title = {Measuring the division of household labor: Gender segregation of housework among American couples},
+  author = {Sampson Blair and Daniel Lichter},
+  year = {1999},
+  url = {https://doi.org/10.1177/019251391012001007},
+}
+
+@Manual{goldschneider_2014,
+  title = {Gender Equality in Sweden: Are the Religious More Patriarchal?},
+  author = {Frances Goldscheider Calvin Goldscheider and Antonio Rico-Gonzalez3},
+  year = {2014},
+  url = {https://doi.org/10.1177/0192513X14522236},
+}
+
+
+@Manual{demaris_2013,
+  title = {Fathers' Contributions To Housework And Childcare And Parental Aggravation Amongst First-time Parents},
+  author = {Alfred DeMaris and Annette Mahoney and Kenneth Pargament},
+  year = {2013},
+  url = {https://doi.org/10.3149/fth.1102.179},
+}
+
+@Manual{hawkins_1999,
+  title = {Maternal gatekeeping: Mothers’ beliefs and behaviors that inhibit greater father involvement in family work},
+  author = {Sarah M. Allen and Alan J. Hawkins},
+  year = {1999},
+  url = {https://doi.org/10.2307/353894},
+}
+
+@online{catholic_league_pope_2020,
+    title = {Pope brands transgender theory as evil},
+    url = {https://www.catholicleague.org/pope-brands-transgender-theory-as-evil-2/},
+    author = {Catholic League, },
+    date = {2020},
+}
+
+
+
+@Manual{R-tinylabels,
+  title = {{tinylabels}: Lightweight Variable Labels},
+  author = {Marius Barth},
+  year = {2022},
+  note = {R package version 0.2.3},
+  url = {https://cran.r-project.org/package=tinylabels},
+}

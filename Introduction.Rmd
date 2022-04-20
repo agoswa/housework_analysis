@@ -1,0 +1,81 @@
+---
+title             : "Introduction"
+shorttitle        : "housework and satisfaction"
+
+author: 
+  - name          : "Carlotta Reinhardt"
+    affiliation   : "1"
+
+  - name          : "Margaret Bassney"
+    affiliation   : "1"
+
+  - name          : "Anushree Goswami"
+    affiliation   : "1"
+
+
+
+affiliation:
+  - id            : "1"
+    institution   : "Smith College"
+
+
+bibliography      : ["r-references.bib2"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+r_refs("r-references.bib")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+## Housework distribution and satisfaction: The moderating role of gender role beliefs and religion
+
+Gender role beliefs are subject to debate in our society. One audible voice in this discourse is the voice of the Church. Pope Francis, for example, recently described gender theory as evil and dangerous because “[i]t would make everything homogenous, neutral. It is an attack on difference, on the creativity of God and on men and women” [@catholic_league_pope_2020]. 
+
+Traditionally, the majority of housework has been done by women while their male partners have been involved with paid labor. This distinction of gendered labor has been subject to social change of the past few decades, and although most women in heterosexual couples are as equally involved in paid labor as their male counterparts, they often still do the majority of the housework [@forste_fox_2008; @leopold_2019; Mikula et al., 1997]. These relationship trends illustrate how traditional and conservative gender role beliefs have influenced women's role in society, such as women's job prospects and gender-based income inequalities. Even though men are now doing more housework than before the “gender revolution”, an unequal housework distribution has been found to be related to low satisfaction [@leopold_2019]. However, since research has shown that this relationship is more complex, two moderators that will be used to analyze this relationship are religion and gender role beliefs. This will be done using a dyadic approach. This is important to prevent relationship conflicts and housework-related stress, which can influence health outcomes such as depressive symptoms, as well as divorce rates (Bird, 1999; Glass & Fujimoto, 1994; Ruppanner, 2012). 
+
+### Housework distribution and satisfaction. 
+Numerous studies have analyzed the relationship between housework distribution and satisfaction in the past, which depict how this relationship has evolved over time. Nelson (1977) found that almost half of the housewives in the sample were intrinsically satisfied, without giving an explanation as to why the satisfaction differed between these women. Using data from the late 1900's, @baxter_western_1998 found that regardless of an extremely uneven distribution of housework labor, only 13-14% women were dissatisfied. @mikula_1997 concluded that women did more housework than men and were significantly less satisfied. Their partners who performed less housework showed a higher satisfaction. More recent studies have found that women were more unsatisfied with the housework distribution than men and equal housework distribution was related to subjective marital equity [@charbonneau_2019; @spitze_loscocco_2000]. Therefore, it is not appropriate to assume that an equal distribution of housework labor is the only predictor for partner satisfaction [@thebaud_pedulla_2016]. Specifically examining housework tasks, @ellison_bartkowski_2002 suggested that traditionally “female-typed” housework tasks have to be differentiated from “male-typed” tasks for a more accurate analysis of this relationship. “Female-typed” housework tasks include everyday chores such as laundry and cleaning. In most articles, the “female-typed” housework tasks were seen as prototypical housework tasks that significantly affected satisfaction levels [@benin_agostinelli_1988].
+
+### The moderating role of gender role beliefs. 
+As outlined before, although past research has shown contradictory findings regarding the relationship between housework distribution and satisfaction, the overall trend has been that women were mostly found to be happier when they partook in housework. @okulicz_valente_2018 proposed that this is currently changing because of the changing gender role beliefs and the “gender revolution”. Greater underbenefit, the act of one partner doing more housework than the other resulting in negative emotions, has been shown to relate to lower marital quality. This notion of underbenefit contradicts past research in which female partners evaluated their uneven housework distribution in a positive way. A moderator that can explain these inconsistent findings concerning housework distribution and satisfaction are gender role beliefs. This theory is supported in research by @buunk_2000, who showed that egalitarian women tended to be more dissatisfied with an unequal distribution of housework in comparison to traditional women. @evertson_2014 reported that people who held egalitarian gender role beliefs were more satisfied with a more equal distribution of housework. For egalitarian couples, it was generally observed that housework was more equally distributed while in households that held value traditional views, women still do the majority of the housework [@greenstein_1996]. This shows that couples generally strived towards a distribution of housework that would satisfy them the most although this does not always succeed as satisfaction levels greatly differed among couples [@benin_agostinelli_1988]. Researchers found the highest satisfaction in traditional couples was when both partners had varying involvements in household tasks and the subjective incongruence between attitudes and behaviors regarding family roles was low [@forste_fox_2012]. It is therefore necessary to include gender role beliefs as a moderator when analyzing the relationship between housework distribution and satisfaction, as prior research suggests that this relationship could be reversed when comparing traditional and egalitarian couples.  
+
+Men who were married to women with traditional views performed less housework than men who were married to women with egalitarian views [@greenstein_1996]. This provides further evidence that gender role beliefs moderate the relationship between housework distribution and satisfaction. However, prior research often did not provide a dyadic analysis and focused either on male or female partners which led to incomplete results and did not reveal all information needed to fully understand underlying dynamics. 
+
+### The moderating role of religion. 
+Religion has been an important factor in relationship dynamics for decades and provides a powerful framework for gender norms and beliefs that are sanctified and therefore qualitatively different from non-religious norms [@hunt_jung_2009]. As shown in the quote by pope Francis, religion and religious institutions are still powerful societal actors that influence intrinsic values and beliefs [@musek_2017]. Therefore, religion still continues to deeply impact the distribution of housework roles between heterosexual couples since certain religions carry various gender role beliefs that shape the expectations of female and male responsibilities. However, while many couples are starting to defy these stereotypes, some still follow this structure, especially if one partner strongly believes in them [@blair_lichter_1999].
+For most religious denominations, religiosity was connected to patriarchal gender role attitudes at home @goldschneider_2014. Even a small contribution from men towards housework in religious couples was found to lead to higher female partner satisfaction [@demaris_2013]. 
+@gull_geist_2020 found that religion had a moderating effect on the type of housework task that religious men engage in. @ellison_bartkowski_2002 found religion to be a moderator on the amount of housework that the wife performs. Although previous studies suggested that religion, like gender role beliefs, has a moderating role, the actual impact of religion on the relationship between housework distribution and satisfaction has not been sufficiently investigated. 
+
+## Current research
+In our study, we will examine the relationship between housework distribution and satisfaction in a way past research has not done yet.  This includes a more detailed investigation of the impact of the moderating factors, gender role beliefs and religion, and satisfaction of both partners. We will conduct a questionnaire-based study that investigates the subjective housework distribution, satisfaction, religion, and gender role beliefs in heterosexual couples in a dyadic setting. We are interested in finding whether the relationship between housework distribution and satisfaction is moderated by gender role beliefs and religion, and whether there are specific partner and actor effects related to gender. 
+Based on prior research, we expect that the relationship between housework distribution and satisfaction is moderated by gender role beliefs. We hypothesize that the higher the amount of housework of an egalitarian partner, the lower the satisfaction with an unequal housework distribution (Hypothesis 1a). For females with more traditional gender role beliefs, a reversed relationship is hypothesized. A higher amount of housework is therefore associated with a higher level of satisfaction (Hypothesis 1b). Male partners with traditional gender role beliefs would be more satisfied if their wife did more housework (Hypothesis 1c). Because prior research lacks dyadic analyses, specifying the effects of each partners’ gender role beliefs on the relationship of interest will strengthen the current study. 
+Similar to the moderating role of gender role beliefs, it is expected that because religion is connected to more traditional relationship ideals, it can be another moderator for the relationship between housework distribution and satisfaction. It is hypothesized that in non-religious couples, a higher amount of housework is related to a lower satisfaction with housework distribution (Hypothesis 2a). For religious women, it is expected that a higher amount of housework is connected to greater satisfaction (Hypothesis 2b) and religious male partners are more satisfied if their wife does a greater amount of housework (Hypothesis 2c). 
+Besides the hypothesized relationships described before, we will include an exploratory analysis and investigate whether gatekeeping in females is related to gender role beliefs and therefore mediates the relationship between housework distribution and satisfaction. Gatekeeping is defined as behaviors that prevent equal work performed by both partners in a relationship [@hawkins_1999]. Gatekeeping behaviors by one partner can shut out the other partner from performing a household task. 
+
+This introduction was written in R [@R-base] with the papaja package [@R-papaja].
+
+
+\newpage
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::
