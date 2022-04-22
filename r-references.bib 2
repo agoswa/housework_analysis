@@ -182,13 +182,11 @@
 }
 
 @online{catholic_league_pope_2020,
-    title = {Pope brands transgender theory as evil},
-    url = {https://www.catholicleague.org/pope-brands-transgender-theory-as-evil-2/},
-    author = {Catholic League, },
-    date = {2020},
+  title = {Pope brands transgender theory as evil},
+  url = {https://www.catholicleague.org/pope-brands-transgender-theory-as-evil-2/},
+  author = {Catholic League},
+  date = {2020},
 }
-
-
 
 @Manual{R-tinylabels,
   title = {{tinylabels}: Lightweight Variable Labels},
@@ -197,3 +195,40 @@
   note = {R package version 0.2.3},
   url = {https://cran.r-project.org/package=tinylabels},
 }
+
+@Manual{ruppanner_2012,
+  title = {Housework conflict and divorce: a multi-level analysis},
+  author = {Leah Ruppanner},
+  year = {2012},
+  url = {https://www.jstor.org/stable/43497126},
+}
+
+@Manual{glass_fujimoto_94,
+  title = {Housework, Paid Work, and Depression Among Husbands and Wives},
+  author = {Jennifer Glass and Tetsushi Fujimoto},
+  year = {1994},
+  url = {https://www.jstor.org/stable/2137364},
+}
+
+@Manual{bird_99,
+  title = {Gender, household labor, and psychological distress: The impact of the amount and division of housework},
+  author = {Chloe E. Bird},
+  year = {1999},
+  url = {https://doi.org/10.2307/2676377},
+}
+
+@Manual{nelson_1977,
+  title = {Women's Work -- Housework Alientation},
+  author = {Elizabeth Ness Nelson},
+  year = {1977},
+  url = {https://www.jstor.org/stable/23261802},
+}
+
+@Manual{nelson_1977,
+  title = {Women's Work -- Housework Alientation},
+  author = {Elizabeth Ness Nelson},
+  year = {1977},
+  url = {https://www.jstor.org/stable/23261802},
+}
+
+
