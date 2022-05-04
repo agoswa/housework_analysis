@@ -425,6 +425,13 @@ dat_dyad_relY <-filter(dat_dyad, religionYN_A == "Y")
 dat_dyad_relN <-filter(dat_dyad, religionYN_A == "N")
 
 t.test(dat_dyad_relY$avg_grbs_A, dat_dyad_relN$avg_grbs_A)
+
+dat_highgrbs<-filter(dat_dyad, dat_dyad$grbs_hl_A == "High")
+dat_lowgrbs<-filter(dat_dyad, dat_dyad$grbs_hl_A == "Low")
+t.test(dat_lowgrbs$avg_grbs_A, dat_highgrbs$avg_grbs_A)
+mean(dat_highgrbs$avg_gatekeeping_A, na.rm=TRUE)
+mean(dat_lowgrbs$avg_gatekeeping_A, na.rm = TRUE)
+
 ```
 
 # References
