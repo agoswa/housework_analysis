@@ -62,8 +62,8 @@ set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
-## Housework distribution and satisfaction: The moderating role of gender role beliefs and religion
-
+# Housework distribution and satisfaction: The moderating role of gender role beliefs and religion
+## Introduction
 Gender role beliefs have been widely debated in society for decades, as this controversial concept subjects men and women to gender-specific roles. One audible voice in this discourse is the voice of the Church. Pope Francis, for example, recently described gender theory as evil and dangerous because “[i]t would make everything homogeneous, neutral. It is an attack on difference, on the creativity of God and on men and women” [@catholic_league_pope_2020]. 
 
 Traditionally, the majority of housework has been done by women while their male partners have been involved with paid labor. This distinction of gendered labor has been subject to the social change of the past few decades. Although most women in heterosexual couples are now as equally involved in paid labor as their male counterparts, they often still do the majority of the housework [@forste_fox_2008; @leopold_2019; @mikula_199]. 
