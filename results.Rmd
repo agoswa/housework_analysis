@@ -323,9 +323,9 @@ apim_stp1 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_
 summary(apim_stp1)
 
 ```
+
 ```{r}
 p_val<-p_format(coef(summary(apim_stp1))[2,4],accuracy = .01)
-
 ```
 
 ```{r, include=FALSE}
