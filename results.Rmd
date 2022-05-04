@@ -435,7 +435,6 @@ mean(dat_lowgrbs$avg_gatekeeping_A, na.rm = TRUE)
 ```
 
 # References
-
 ::: {#refs custom-style="Bibliography"}
 :::
 
