@@ -203,7 +203,8 @@
 \hypertarget{analysis-strategy}{%
 \subsection{Analysis Strategy}\label{analysis-strategy}}
 
-To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (Kenny, Kashy, \& Cook, 2020). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time, so actor as well as partner effects could be considered in our analysis. This way, it is possible to see how one partner's housework distribution affects both their own satisfaction with the housework distribution (actor effect) and their partner's satisfaction with the housework distribution (partner effect). In this analysis, we will look at the moderating effect of each partner's gender role beliefs on the two actor effects (shown in figure 1) as well as on the partner effects.Our research studied people in relationships, where each pair in a relationship is refered to as a dyad. Since we were working with dyadic data, our data was not independent. For example the amount of housework one partner does, will be correlated with how much housework the other partner does.This will result in correlated residuals. To account for the nonindependence, the APIM considered how much of the variation in satisfaction was caused by the dyad compared to housework distribution and gender role beleifs. To account for the correlated errors, we weighted each dyad so that the residuals of each individual were constant.
+p\textsubscript{all}
+To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model (Kenny, Kashy, \& Cook, 2020)). The APIM measures the effect of the explanatory variables for both members in a dyad at the same time, so actor as well as partner effects could be considered in our analysis. This way, it is possible to see how one partner's housework distribution affects both their own satisfaction with the housework distribution (actor effect) and their partner's satisfaction with the housework distribution (partner effect). In this analysis, we will look at the moderating effect of each partner's gender role beliefs on the two actor effects (shown in figure 1) as well as on the partner effects.Our research studied people in relationships, where each pair in a relationship is refered to as a dyad. Since we were working with dyadic data, our data was not independent. For example the amount of housework one partner does, will be correlated with how much housework the other partner does.This will result in correlated residuals. To account for the nonindependence, the APIM considered how much of the variation in satisfaction was caused by the dyad compared to housework distribution and gender role beleifs. To account for the correlated errors, we weighted each dyad so that the residuals of each individual were constant.
 
 
 
@@ -230,18 +231,42 @@ For the female partners, their own gender role beliefs significantly moderated t
 
 
 
+``\{r,include = TRUE,fig.cap = ``Moderation of wife's housework distribution and satisfaction by gender role beliefs. Housework distribution in \%, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).'',fig.width=8,fig.height=4,fig.cap=\}
+wife\_plot \textless- ggplot(wives, aes(
+x = avg\_housework\_female\_A,
+y = housework\_satisfied\_A,
+color = grbs\_hl\_A, na.rm = TRUE)
+)+
+geom\_point(na.rm = TRUE)+
+geom\_smooth(method = ``lm'')+
+xlab(``Housework Distribution (Wife)'')+
+ylab(``Satisfaction (Wife)'')+
+scale\_x\_continuous(breaks = c(20, 40, 60,80,100), labels = c(`up to 20\%', `up to 40\%', `up to 60\%',`up to 80\%',`up to 100\%'))+
+labs(title =``Moderation of Wife's Housework Distribution and Satisfaction \nby Gender Role Beliefs'',color = ``Gender Role Beliefs \n(Wife)'')+
+theme\_bw()
+\#theme(text = element\_text(family = ``Times New Roman''),
+\#axis.title = element\_text(size=12),
+\#axis.text = element\_text(size=10),
+\#legend.title= element\_text(size=12),
+\# legend.text = element\_text(size=10),
+\#strip.text = element\_text(size=12))
+
+\#ggtitle(``Relationship of wife's housework distribution and gender role beliefs'')\#+
+\#theme(text=element\_text( family=``TT Times New Roman'', size=16))
+
+\#ggtitle(``Relationship of wive's housework distribution and gender role beliefs'')
+\#theme(text=element\_text(size=12, family=``Tinos''))
+\#apa\_theme()
+
+wife\_plot
+```
+
+
+
 \begin{figure}
 \centering
 \includegraphics{results_files/figure-latex/unnamed-chunk-12-1.pdf}
-\caption{\label{fig:unnamed-chunk-12}Moderation of wife's housework distribution and satisfaction by gender role beliefs. Housework distribution in \%, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).}
-\end{figure}
-
-
-
-\begin{figure}
-\centering
-\includegraphics{results_files/figure-latex/unnamed-chunk-13-1.pdf}
-\caption{\label{fig:unnamed-chunk-13}Moderation of wife's housework distribution and her satisfaction by their husbands gender role beliefs. Housework distribution in \%, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).}
+\caption{\label{fig:unnamed-chunk-12}Moderation of wife's housework distribution and her satisfaction by their husbands gender role beliefs. Housework distribution in \%, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).}
 \end{figure}
 
 Wives who have low gender role beliefs, which means they are more liberal, reported a lower satisfaction with an increasing amount of housework they had to do. Women with more conservative gender role beliefs (high value) did not show a significant decrease in satisfaction with an increasing amount of housework (figure 3).
@@ -266,10 +291,11 @@ Linear models will be calculated for all paths to see whether all paths are sign
 
 \begin{figure}
 \includegraphics[width=3.69in]{mediation} \caption{Proposed mediation model with wife's gatekeeping as the mediator of the wife's gender role beliefs and satisfaction. Values shown in the figure are \(\beta\) coefficients.
-* \emph{p} \textless{} .05, ** \emph{p} \textless{} .01, *** \emph{p} \textless{} .001.}\label{fig:unnamed-chunk-19}
+* \emph{p} \textless{} .05, ** \emph{p} \textless{} .01, *** \emph{p} \textless{} .001.}\label{fig:unnamed-chunk-18}
 \end{figure}
 
-As seen in figure 5, no significant relationship between gender role beliefs and satisfaction has been found, despite the moderating effect of gender role beliefs that has been found before.
+As seen in figure 5, no significant relationship between gender role beliefs and satisfaction has been found, despite the moderating effect of gender role beliefs that has been found before. Because only the relationship between gender role beliefs and gatekeeping has been significant, a full mediation analysis was no longer appropriate to conduct.
+Instead, we conducted post-hoc t tests to get a better sense of the relationship between gender role beliefs and gatekeeping. INCLUDE T TESTS HERE.
 
 \hypertarget{references}{%
 \section{References}\label{references}}

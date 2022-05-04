@@ -36,7 +36,7 @@ output            : papaja::apa6_pdf
 
 ```{r setup, include = FALSE}
 library("papaja")
-r_refs("r-references.bib")
+r_refs("r-references.bib2")
 ```
 
 ```{r analysis-preferences}
@@ -75,7 +75,7 @@ Based on prior research, we expect that the relationship between housework distr
 Besides the hypothesized relationships described above, we will include an exploratory analysis on partner gatekeeping behaviors. Gatekeeping is defined as behaviors that prevent equal work performed by both partners in a relationship [@hawkins_1999]. According to @hawkins_1999, a mother's reluctance to share familial responsibility inhibits greater father involvement in family work, resulting in an unequal housework distribution. We will investigate whether gatekeeping in females is related to gender role beliefs and therefore mediates the relationship between housework distribution and satisfaction. Gatekeeping behaviors by one partner can shut out the other partner from performing a household task. 
 
 This introduction was written in R [@R-base] with the papaja package [@R-papaja].
-
+p~all~
 
 \newpage
 

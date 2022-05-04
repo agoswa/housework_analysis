@@ -58,6 +58,7 @@ dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 
 # Results
 ## Analysis Strategy  
+p~all~
 To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model [@kenny2020dyadic)]. The APIM measures the effect of the explanatory variables for both members in a dyad at the same time, so actor as well as partner effects could be considered in our analysis. This way, it is possible to see how one partner's housework distribution affects both their own satisfaction with the housework distribution (actor effect) and their partner's satisfaction with the housework distribution (partner effect). In this analysis, we will look at the moderating effect of each partner's gender role beliefs on the two actor effects (shown in figure 1) as well as on the partner effects.Our research studied people in relationships, where each pair in a relationship is refered to as a dyad. Since we were working with dyadic data, our data was not independent. For example the amount of housework one partner does, will be correlated with how much housework the other partner does.This will result in correlated residuals. To account for the nonindependence, the APIM considered how much of the variation in satisfaction was caused by the dyad compared to housework distribution and gender role beleifs. To account for the correlated errors, we weighted each dyad so that the residuals of each individual were constant.
 
 (ref:my-figure-caption) Schematic representation of actor and partner effects in the APIM moderated by gender role beliefs.
@@ -66,8 +67,6 @@ To test our hypotheses that gender role beliefs and religion moderate the relati
 knitr::include_graphics("APIM.png")
 ```
 
-## Main Results
-#### Gender Role Beliefs
 ```{r, include=FALSE}
 ## centering moderator and predictor
 ## calculate difference between each individual's score and the grand mean of the entire sample
@@ -131,7 +130,8 @@ coef(summary(two_int_mod))
 ```{r, include=FALSE}
 hd_grbA_p_val<-p_format(coef(summary(two_int_mod))[12,4],accuracy = .01)
 ```
-
+## Main Results
+#### Gender Role Beliefs
 All relevant results of the moderation analysis in the APIM are shown in figure 2. It was shown that for husbands and wives, a higher amount of housework was significantly related to a lower satisfaction. For wives we found $\beta$ =`r coef(summary(two_int_mod))[3,1]`, *p* = `r coef(summary(two_int_mod))[3,4]`, and  SE =`r coef(summary(two_int_mod))[3,2]`. For husbands we found $\beta$ =`r coef(summary(two_int_mod))[4,1]`, *p* = `r coef(summary(two_int_mod))[4,4]` and SE = `r coef(summary(two_int_mod))[4,2]`.
 For the female partners, their own gender role beliefs significantly moderated the relationship between their housework distribution and their satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[12,1]` (*p* = `r hd_grbA_p_val`, SE = `r coef(summary(two_int_mod))[12,2]`). When the wives had higher gender role beliefs, which means more conservative, their satisfaction with the housework distribution tended to be higher, while keeping their own housework distribution constant at the mean. The husband's gender role beliefs significantly moderated the relationship between the wife's housework distribution and the wife's satisfaction with the housework distribution. The moderation effect was `r coef(summary(two_int_mod))[16,1]` (*p* = `r coef(summary(two_int_mod))[16,4]`, SE = `r coef(summary(two_int_mod))[16,2]`). When the husbands had more conservative gender role beliefs, the wife's satisfaction decreased by `r coef(summary(two_int_mod))[16,1]` while keeping the wives housework distribution constant at the mean. Moreover, a marginally significant moderation effect was found for the relationship between the husbands amount of housework and the wife's satisfaction which was moderated by the wife's gender role beliefs ($\beta$ = `r coef(summary(two_int_mod))[18,1]`, *p* =`r coef(summary(two_int_mod))[18,4]`, SE = `r coef(summary(two_int_mod))[18,2]`). When wives had more conservative gender role beliefs, their satisfaction tended to be higher, while their husbands housework distribution was held constant at the mean.
 
@@ -158,8 +158,8 @@ wives <- dat_dyad %>%
 
 (ref:my-figure-caption2) Moderation of wife's housework distribution and satisfaction by gender role beliefs. Housework distribution in %, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).
 
-```{r,include = TRUE,fig.cap = "(ref:my-figure-caption2)",fig.width=8,fig.height=4,fig.cap=}
-wife_plot <- ggplot(wives,aes(
+``{r,include = TRUE,fig.cap = "(ref:my-figure-caption2)",fig.width=8,fig.height=4,fig.cap=}
+wife_plot <- ggplot(wives, aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
                 color = grbs_hl_A,  na.rm = TRUE)

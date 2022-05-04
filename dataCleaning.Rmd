@@ -18,7 +18,7 @@ dat <- read.csv("TeleCom_Dyad_premeasures.csv")
 
 head(dat)
 ```
-
+r~sh~
 ```{r}
 # selecting the variables we need
 dat <- dat %>%
