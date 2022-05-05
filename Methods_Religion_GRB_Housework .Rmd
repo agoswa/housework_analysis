@@ -330,6 +330,17 @@ apim_hdM <- gls(avg_housework_male_A~1,
 summary(apim_hdM)
 rhoHWM = -.71
 ```
+
+```{r, include = FALSE}
+## calculating ICC
+apim_GRBS <- gls(avg_grbs_A~1,
+               data = dat_dyad,
+               correlation = corCompSymm(form=~1|dyadID),
+               na.action = na.omit)
+summary(apim_GRBS)
+
+rhoGrbs = .64
+```
 ### Demographic Variables 
 Participants were asked to report several demographic data. We were interested in the participants gender, the couples' relationship length, the yearly income of each partner, their work from home status, religion affiliation, and race. 
 
@@ -337,7 +348,7 @@ Participants were asked to report several demographic data. We were interested i
 The scale *Who does what?*, developed by @cowan_when_1992, measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = *0 - 20 %* to 5 = *80 - 100 %*). Example questions include "make beds or change bed linens" and "take out garbage, recycling". Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of `r female_tasks_alpha` for female tasks and `r male_tasks_alpha` for male tasks. The ICC was `r rhoHWF` for female tasks and `r rhoHWM` for male tasks.
 
 ### Gender Role Beliefs 
-Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed a high reliability with a Cronbachs Alpha of `r grb_alpha`.
+Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr_development_1996-1. This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed a high reliability with a Cronbachs Alpha of `r grb_alpha` and an ICC of `r rhoGrbs`. 
 
 ### Housework Satisfaction
 Within the questionnaire, the question "How satisfied are you with the division of household tasks?" was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = "very dissatisfied" to 5 = "very satisfied"). The ICC was `r rho`
@@ -383,11 +394,11 @@ age_t_test<-t.test(dat_reverse_m$age,dat_reverse_w$age, paired = TRUE, alternati
 ```
 
 ```{r}
-p_vals<-rbind(hwm_t_test$p.value,hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value)
+p_vals<-rbind(hwf_t_test$p.value,grbs_t_test$p.value,sat_t_test$p.value)
 ```
 
 ```{r}
-t_stat<-rbind(hwm_t_test$statistic,hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic)
+t_stat<-rbind(hwf_t_test$statistic,grbs_t_test$statistic,sat_t_test$statistic)
 ```
 
 ```{r}
@@ -403,7 +414,7 @@ p_stat_vals<-p_stat_vals%>%
 ```
 
 ```{r}
-rownames(p_stat_vals) <- c("Typically Male Housework","Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework")
+rownames(p_stat_vals) <- c("Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework")
 ```
 
 
@@ -426,7 +437,7 @@ GenderDifferences <- dat_predyad%>%group_by(gender) %>%
 
 ```{r}
 SD<-GenderDifferences%>%
-  select(sdMHW,sdHWF,sdGRB,sdSat)
+  select(sdHWF,sdGRB,sdSat)
 ```
 
 ```{r}
@@ -452,7 +463,7 @@ SD <- SD %>%
 
 ```{r}
 GenderDifferences<-GenderDifferences%>%
-  select(mean_housework_male,mean_housework_female,mean_grbs,meanSatisfaction)
+  select(mean_housework_female,mean_grbs,meanSatisfaction)
 ```
 
 
@@ -497,7 +508,7 @@ GenderDifferences<-cbind(GenderDifferences1,SD1,GenderDifferences2,SD2)
 
 ```{r}
 p_stat_vals<-p_stat_vals%>%
-  mutate(P_value = ifelse(P_value<.005,"<.005",round(P_value,2)))
+  mutate(P_value = ifelse(P_value<.001,"<.001",round(P_value,2)))
 ```
 
 
@@ -508,11 +519,11 @@ GenderDifferences<-cbind(GenderDifferences,p_stat_vals)
 
 ```{r}
 GenderDifferences <- GenderDifferences %>%
-  rename("Means (Female)" = V1,"Means (Male)" = V2, "T Statistic" = T_Statistic,"P Value" = P_value)
+  rename("Means (Female)" = V1,"Means (Male)" = V2, "t Statistic" = T_Statistic,"p Value" = P_value)
 ```
 
 ```{r}
-rownames(GenderDifferences) <- c("Housework Distribution (Male Tasks)","Housework Distribution (Female Tasks)","Gender Role Beliefs","Housework Satisfaction")
+rownames(GenderDifferences) <- c("Housework Distribution (Female Tasks)","Gender Role Beliefs","Housework Satisfaction")
 ```
 
 ```{r}
