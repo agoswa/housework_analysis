@@ -1,0 +1,302 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  man]{apa6}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Satisfying housework division? Gender role beliefs and religion as moderators of housework division and satisfaction},
+  pdfauthor={Carlotta Reinhardt1, Margaret Bassney1, \& Anushree Goswami1},
+  pdflang={en-EN},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\DeclareDelayedFloatFlavor{ThreePartTable}{table}
+\DeclareDelayedFloatFlavor{lltable}{table}
+\DeclareDelayedFloatFlavor*{longtable}{table}
+\makeatletter
+\renewcommand{\efloat@iwrite}[1]{\immediate\expandafter\protected@write\csname efloat@post#1\endcsname{}}
+\makeatother
+\usepackage{lineno}
+
+\linenumbers
+\usepackage{csquotes}
+\usepackage[titles]{tocloft}
+\cftpagenumbersoff{table}
+\renewcommand{\cfttabpresnum}{\itshape\tablename\enspace}
+\renewcommand{\cfttabaftersnum}{.\space}
+\setlength{\cfttabindent}{0pt}
+\setlength{\cftafterloftitleskip}{0pt}
+\settowidth{\cfttabnumwidth}{Table 10.\qquad}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Satisfying housework division? Gender role beliefs and religion as moderators of housework division and satisfaction}
+\author{Carlotta Reinhardt\textsuperscript{1}, Margaret Bassney\textsuperscript{1}, \& Anushree Goswami\textsuperscript{1}}
+\date{}
+
+
+\shorttitle{gender roles, housework and satisfaction}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} Smith College}
+
+\begin{document}
+\maketitle
+
+\hypertarget{method}{%
+\section{Method}\label{method}}
+
+\hypertarget{participants}{%
+\subsection{Participants}\label{participants}}
+
+Originally, 364 individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N = 166 couples (N = 332 individuals) have been included in the analysis. Women and men from the final sample of 166 adult couples were 44.83 (SD = 7.73, range = 26-74) and 46.85 (SD = 8.90, range = 30-65) years old, respectively.
+
+The relationships, at the time of the study, have been between 1.33 and 41.25 years long, with an average of 18.47 years (SD = 9.51). The average yearly income was 66362 USD (SD = 76599 USD) for men and 76363 USD (SD = 57133 USD) for women. 29.5 \% of the women and 12.7 \% of the men worked from home, 59.6 \% of the women and 64.5 \% of the men did not work from home. No answer to this question was given by the remaining participants (22.9 \% of the men and 10.8 \% of the women).
+
+We further looked at men and women based on their religion and race.70 is the \% of the sample that identified as Christian, 4 \% as Athiest, 4 \% as Agnostic, 5 \% as Jewish, 5 \% as Hindu and 2 \% as Muslim. 5 \% identified had a religious orientation apart from the mentioned ones and 4 \% preferred not to answer this question.
+74 \% of the sample were White, 1 \% Hispanic and White, 7 \% Black, 11 \% were Asian, 6 \% were Hispanic and 1 \% were Middle Eastern.0 \% of the participants were another race and 1 \% of the participants preferred not to answer the question.
+
+\hypertarget{procedure-and-measures}{%
+\subsection{Procedure and Measures}\label{procedure-and-measures}}
+
+Participating couples for this study were recruited online. The study was conducted in 2020 by Randi Garcia and contained two parts: The first part included a batterie of questionnaires that included all variables used in this study. In a second part, both partners were asked to fill out a daily survey for two weeks. Participants were instructed to not share their responses with their partner. Participants were compensated for the study if both, they and their partner, completed the questionnaires. For the second part, the daily measures, each participant received \$2 per day. All participants gave their informed consent to participate in this study.
+In this analysis, selected data from the first batterie of questionnaires were used. The measures of interest are introduced below.
+A multivariate analysis of variances (MANOVA) has been conducted. T-tests were used to assess gender differences in relevant outcome variables.
+The analysis was conducted in R (R Core Team, 2020) and written with the R papaja package (Aust \& Barth, 2020).
+
+\hypertarget{demographic-variables}{%
+\subsubsection{Demographic Variables}\label{demographic-variables}}
+
+Participants were asked to report several demographic data. We were interested in the participants gender, the couples' relationship length, the yearly income of each partner, their work from home status, religion affiliation, and race.
+
+\hypertarget{housework-distribution}{%
+\subsubsection{Housework Distribution}\label{housework-distribution}}
+
+The scale \emph{Who does what?}, developed by (\textbf{cowan\_when\_1992?}), measures the percentages of who performs which chores and household activities through 14 statements that participants have to rate on a five point Likert Scale according to how often they do the chore mentioned in the statement (1 = \emph{0 - 20 \%} to 5 = \emph{80 - 100 \%}). Example questions include ``make beds or change bed linens'' and ``take out garbage, recycling''. Based on prior research and correlation analyses, we decided to split this scale into typically male and typically female tasks. The scale was reliable with a Cronbachs Alpha of 0.90 for female tasks and 0.83 for male tasks. The ICC was -0.84 for female tasks and -0.71 for male tasks.
+
+\hypertarget{gender-role-beliefs}{%
+\subsubsection{Gender Role Beliefs}\label{gender-role-beliefs}}
+
+Gender Role Beliefs are quantified through the \emph{Gender Role Belief Scale} (GRBS) developed by (\textbf{kerr\_development\_1996-1?}). This self report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include ``women should not expect men to offer them seats on buses'' and ``the husband should be regarded as the legal representative of the family in all matters of law''. Participants rated how much they agreed on these sentences on a 5 point Likert Scale (1 = \emph{Strongly Disagree} to 5 = \emph{Strongly Agree}). The scale showed a high reliability with a Cronbachs Alpha of 0.89.
+
+\hypertarget{housework-satisfaction}{%
+\subsubsection{Housework Satisfaction}\label{housework-satisfaction}}
+
+Within the questionnaire, the question ``How satisfied are you with the division of household tasks?'' was included to quantify the satisfaction with the division of housework tasks between the two partners. Participants responded on a 5 point Likert scale (1 = ``very dissatisfied'' to 5 = ``very satisfied''). The ICC was 0.27
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{preliminary-analysis}{%
+\subsection{Preliminary Analysis}\label{preliminary-analysis}}
+
+Results of the preliminary analysis are shown in Table 1. T-tests showed that men are doing significantly more male housework tasks than women while women perform significantly more typically female tasks around the house. Satisfaction with the distribution of housework did not differ significantly between male and female partners.
+
+\newpage
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:unnamed-chunk-46}Gender Differences in Outcome Variables}
+
+\tiny{
+
+\begin{tabular}{lllllll}
+\toprule
+ & \multicolumn{1}{c}{M (Female)} & \multicolumn{1}{c}{SD (Female)} & \multicolumn{1}{c}{M (Male)} & \multicolumn{1}{c}{SD (Male)} & \multicolumn{1}{c}{t Statistic} & \multicolumn{1}{c}{p Value}\\
+\midrule
+Housework Distribution (Male Tasks) & 49.60 & 18.38 & 77.34 & 17.00 & -11.38 & <.001\\
+Housework Distribution (Female Tasks) & 75.46 & 13.49 & 50.73 & 16.46 & 11.49 & <.001\\
+Gender Role Beliefs & 2.64 & 0.70 & 2.89 & 0.67 & -5.63 & <.001\\
+Housework Satisfaction & 3.79 & 1.16 & 3.95 & 0.94 & -1.63 & 0.11\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} This table was created with apa\_table().  
+  The Housework Distribution indicates percentages. Gender Role Beliefs and Housework Satisfaction have been reported on a 1-5 Likert Scale.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
+Aust, F., \& Barth, M. (2020). \emph{{papaja}: {Prepare} reproducible {APA} journal articles with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-base}{}}%
+R Core Team. (2020). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\end{CSLReferences}
+
+
+\clearpage
+\renewcommand{\listtablename}{Table captions}
+
+
+\end{document}

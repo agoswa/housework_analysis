@@ -16,44 +16,38 @@ affiliation:
    
 # authornote: 
 
-abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
-  
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  
-  One or two sentences to put the results into a more **general context**.
-  
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-  
-  <!-- https://tinyurl.com/ybremelq -->
-  
+
+abstract          : "Traditionally, women did most of the housework labor while men were involved in paid labor. This role-understanding changed, so today a more equal housework distribution is commonly associated with higher satisfaction. Nevertheless, past research has shown that this might only be partly true as gender role beliefs could significantly influence the satisfaction based on housework distribution between male and female partners. In our research, we aim to further analyze the relationships between housework distribution and satisfaction using a dyadic approach. Participants were 166  heterosexual married couples living in the US. We found that gender role beliefs but not religion moderated the relationship between females’ perceived amount of housework and their satisfaction. While satisfaction declined for liberal female partners who did more housework, it remained on a constant level for females with traditional gender role beliefs, regardless of the amount of housework they did. Our results support past research and suggest that females who are doing the major amount of housework to this day, are also still seen as the main actors when it comes to housework. They also  and show greater variability in satisfaction levels. Our findings will be relevant to consider in the context of couples therapy and might be related to other health-related outcomes connected to satisfaction and overall health issues. "
 keywords          : "keywords"
 wordcount         : "X"
+bibliography      : ["r-references.bib","r-references2.bib","references_results.bib"]
 
-bibliography      : ["r-references.bib","r-references.bib 2", "references_results.bib"]
 
-floatsintext      : no
-linenumbers       : yes
-draft             : no
-mask              : no
-
-figurelist        : no
-tablelist         : no
+floatsintext      : yes
+figurelist        : yes
+tablelist         : yes
 footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
 
+documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_pdf
 ---
 
 ```{r setup, include = FALSE}
 library("papaja")
+library(tidyverse)
+library(nlme)
+library(dplyr)
+library(ggplot2)
+library(rstatix)
+library(bda)
+library(psych)
+library(lubridate)
 r_refs("r-references.bib")
+
 ```
 
 ```{r analysis-preferences}
@@ -85,21 +79,6 @@ In our study, we examined the relationship between housework distribution and sa
 
 Besides the hypothesized relationships described above, we will include an exploratory analysis on partner gatekeeping behaviors. Gatekeeping is defined as behaviors that prevent equal work performed by both partners in a relationship [@hawkins_1999]. According to @hawkins_1999, a mother's reluctance to share familial responsibility inhibits greater father involvement in family work, resulting in an unequal housework distribution. We will investigate whether gatekeeping in females is related to gender role beliefs and therefore mediates the relationship between housework distribution and satisfaction. Gatekeeping behaviors by one partner can shut out the other partner from performing a household task. 
 
-
-```{r setup, include = FALSE}
-library("papaja")
-library(tidyverse)
-library(nlme)
-library(dplyr)
-r_refs("r-references.bib")
-
-```
-
-```{r analysis-preferences}
-# Seed for random number generation
-set.seed(42)
-knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
-```
 
 ```{r, include = FALSE}
 dat_reverse <- read.csv("dat_reverse.csv")
@@ -577,30 +556,6 @@ stats_table <- apa_table(
 ```
 
 
-```{r analysis-preferences}
-# Seed for random number generation
-set.seed(42)
-knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
-knitr::opts_chunk$set(include = FALSE)
-```
-
-```{r}
-library(tidyverse)
-library(nlme)
-library(dplyr)
-library(ggplot2)
-library(rstatix)
-library(bda)
-
-```
-
-```{r, include = FALSE}
-dat_reverse <- read.csv("dat_reverse.csv")
-dat_predyad <- read.csv("predyaddata.csv")
-dat_dyad <- read.csv("dyadic.csv")
-dat <- read.csv("TeleCom_Dyad_premeasures.csv")
-```
-
 
 ## Analysis Strategy  
 To test our hypotheses that gender role beliefs and religion moderate the relationship between housework distribution and satisfaction, we used multilevel modeling and the Actor-Partner Interdependence Model [@kenny2020dyadic)]. The APIM measures the effect of the explanatory variables for both members in a dyad at the same time, so actor as well as partner effects could be considered in our analysis. This way, it is possible to see how one partner's housework distribution affects both their own satisfaction with the housework distribution (actor effect) and their partner's satisfaction with the housework distribution (partner effect). In this analysis, we will look at the moderating effect of each partner's gender role beliefs on the two actor effects (shown in figure 1) as well as on the partner effects.Our research studied people in relationships, where each pair in a relationship is refered to as a dyad. Since we were working with dyadic data, our data was not independent. For example the amount of housework one partner does, will be correlated with how much housework the other partner does.This will result in correlated residuals. To account for the nonindependence, the APIM considered how much of the variation in satisfaction was caused by the dyad compared to housework distribution and gender role beleifs. To account for the correlated errors, we weighted each dyad so that the residuals of each individual were constant.
@@ -702,8 +657,8 @@ wives <- dat_dyad %>%
 
 (ref:my-figure-caption2) Moderation of wife's housework distribution and satisfaction by gender role beliefs. Housework distribution in %, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).
 
-```{r,include = TRUE,fig.cap = "(ref:my-figure-caption2)",fig.width=8,fig.height=4,fig.cap=}
-wife_plot <- ggplot(wives,aes(
+```{r,include = TRUE,fig.cap = "(ref:my-figure-caption2)",fig.width=8,fig.height=4}
+wife_plot <- ggplot(data = wives,aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
                 color = grbs_hl_A,  na.rm = TRUE)
@@ -713,7 +668,7 @@ wife_plot <- ggplot(wives,aes(
   xlab("Housework Distribution (Wife)")+
   ylab("Satisfaction (Wife)")+
   scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
-  labs(title ="Moderation of Wife's Housework Distribution and Satisfaction \nby Gender Role Beliefs",color = "Gender Role Beliefs \n(Wife)")+
+  labs(title ="Moderation of Wife's Housework Distribution and Satisfaction by Gender Role Beliefs",color = "Gender Role Beliefs (Wife)")+
   theme_bw()
   #theme(text = element_text(family = "Times New Roman"),
           #axis.title = element_text(size=12), 
@@ -744,7 +699,7 @@ wife_plot2<- ggplot(wives, aes(
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
   scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
-  labs(x = "Housework Distribution (Wife)", y = "Satisfaction (Wife)", title ="Moderation of Wife's Housework Distribution and her Satisfaction by \nher Husbands Gender Role Beliefs",color = "Gender Role Beliefs \n(Husband)")+
+  labs(x = "Housework Distribution (Wife)", y = "Satisfaction (Wife)", title ="Moderation of Wife's Housework Distribution and her Satisfaction by her Husbands Gender Role Beliefs",color = "Gender Role Beliefs (Husband)")+
   theme_bw()
  # theme(text = element_text(family = "Times New Roman"),
          # axis.title = element_text(size=12), 
@@ -877,9 +832,7 @@ p_val<-p_format(coef(summary(apim_stp1))[2,4],accuracy = .01)
 ```
 
 ```{r}
-library(tidyverse)
-library(psych)
-library(lubridate)
+
 dat_dyad_f <- filter(dat_dyad,genderE_A == 1)
 model1 <- lm (housework_satisfied_A ~ avg_grbs_A, dat_dyad)
 summary(model1)
