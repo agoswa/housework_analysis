@@ -18,8 +18,7 @@ affiliation:
 
 
 abstract          : "Traditionally, women did most of the housework labor while men were involved in paid labor. This role-understanding changed, so today a more equal housework distribution is commonly associated with higher satisfaction. Nevertheless, past research has shown that this might only be partly true as gender role beliefs could significantly influence the satisfaction based on housework distribution between male and female partners. In our research, we aim to further analyze the relationships between housework distribution and satisfaction using a dyadic approach. Participants were 166  heterosexual married couples living in the US. We found that gender role beliefs but not religion moderated the relationship between females’ perceived amount of housework and their satisfaction. While satisfaction declined for liberal female partners who did more housework, it remained on a constant level for females with traditional gender role beliefs, regardless of the amount of housework they did. Our results support past research and suggest that females who are doing the major amount of housework to this day, are also still seen as the main actors when it comes to housework. They also  and show greater variability in satisfaction levels. Our findings will be relevant to consider in the context of couples therapy and might be related to other health-related outcomes connected to satisfaction and overall health issues. "
-keywords          : "keywords"
-wordcount         : "X"
+keywords          : "housework distribution, satisfaction, gender role beliefs, religion, APIM"
 bibliography      : ["r-references.bib","r-references2.bib","references_results.bib"]
 
 
@@ -61,7 +60,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 Gender role beliefs have been widely debated in society for decades, as this controversial concept subjects men and women to gender-specific roles. One audible voice in this discourse is the voice of the Church. Pope Francis, for example, recently described gender theory as evil and dangerous because “[i]t would make everything homogeneous, neutral. It is an attack on difference, on the creativity of God and on men and women” [@catholic_league_pope_2020]. 
 
-Traditionally, the majority of housework has been done by women while their male partners have been involved with paid labor. This distinction of gendered labor has been subject to the social change of the past few decades. Although most women in heterosexual couples are now as equally involved in paid labor as their male counterparts, they often still do the majority of the housework [@forste_fox_2008; @leopold_2019; @mikula_199]. These evolving trends illustrate how traditional and conservative gender role beliefs are slowly becoming more liberal. Gender role beliefs still heavily influence women's role in society, from their job prospects to gender-based income inequalities. Even though men are now doing more housework than before the “gender revolution” [@goldschneider_2014], there is still an unequal housework distribution which has been found to result in lower satisfaction levels [@leopold_2019]. However, since past research [@forste_fox_2012; @baxter_western_1998] has shown that this relationship between housework distribution and satisfaction is complex, we will assess the extent to which two variables, religion and gender role beliefs, strengthen or dampen this relationship. 
+Traditionally, the majority of housework has been done by women while their male partners have been involved with paid labor. This distinction of gendered labor has been subject to the social change of the past few decades. Although most women in heterosexual couples are now as equally involved in paid labor as their male counterparts, they often still do the majority of the housework [@forste_fox_2008; @leopold_2019; @mikula_1997]. These evolving trends illustrate how traditional and conservative gender role beliefs are slowly becoming more liberal. Gender role beliefs still heavily influence women's role in society, from their job prospects to gender-based income inequalities. Even though men are now doing more housework than before the “gender revolution” [@goldschneider_2014], there is still an unequal housework distribution which has been found to result in lower satisfaction levels [@leopold_2019]. However, since past research [@forste_fox_2012; @baxter_western_1998] has shown that this relationship between housework distribution and satisfaction is complex, we will assess the extent to which two variables, religion and gender role beliefs, strengthen or dampen this relationship. 
 (This will be done using a dyadic approach, which has not done before when assessing partner relationships. This approach will strengthen this study through specifying the effects of each partners’ gender role beliefs and religion on the relationship between housework distribution and satisfaction.)
 This research topic is important to investigate as it can help prevent future relationship conflicts and housework-related stress, which could impact negative health outcomes such as depressive symptoms, as well as divorce rates [@bird_99, @glass_fujimoto_94; @ruppanner_2012].
  
@@ -756,7 +755,7 @@ Since we used distinguishable dyads, gender was a built in moderator. To see if 
 In addition, the interaction between the actor's amount of housework and their partners gender role beliefs was significantly different for husbands and wives with an estimate of `r coef(summary(mod))[16,1]`(*p* = `r coef(summary(mod))[16,4]`, SE = `r coef(summary(mod))[16,2]`).The moderation effect of the partners gender role beliefs was `r coef(summary(mod))[16,1]` units lower for women than men which means that the moderation effect of the husbands gender role beliefs had a significantly larger negative effect on satisfaction compared to how the wifes gender role beliefs effected the relationship between housework distribution and satisfaction for her husband.
 
 #### Religion
-```{r}
+```{r, include=FALSE}
 ## two intercept model
 #this model removes the grand mean
 ## using religion and gender as  moderators
@@ -779,7 +778,7 @@ coef(summary(two_int_mod_religion))
 No significant relationships between any of the variables have been found in the APIM model including the moderator religion (*p* > `r coef(summary(two_int_mod_religion))[16,4]`). Religion did therefore not moderate the relationship between housework distribution and satisfaction for wives and husbands. 
 
 
-```{r}
+```{r, include=FALSE}
 # moderation approach
 # check for gender interactions
  int_mod_religion<- gls(housework_satisfied_A ~
@@ -823,7 +822,7 @@ summary(apim_stp1)
 
 ```
 
-```{r}
+```{r, include=FALSE}
 p_val<-p_format(coef(summary(apim_stp1))[2,4],accuracy = .01)
 ```
 
@@ -831,7 +830,7 @@ p_val<-p_format(coef(summary(apim_stp1))[2,4],accuracy = .01)
 #The summary table above shows us that all paths are statistically significant (*p* `r p_val`). Not all the paths are positive, the effect of the partner gender role beliefs on the actor's satisfaction is negative. So, the partner's gender role beliefs could negatively impact the actor's satisfaction. The effect of the actor's gender role beliefs on the actor's satisfaction is `r coef(summary(apim_stp1))[2,1]` which means that the actor's gender role beliefs could positively impact the actor's satisfaction.
 ```
 
-```{r}
+```{r, include=FALSE}
 
 dat_dyad_f <- filter(dat_dyad,genderE_A == 1)
 model1 <- lm (housework_satisfied_A ~ avg_grbs_A, dat_dyad)
@@ -865,7 +864,7 @@ summary(model2)
 #The summary table above shows us that not all paths are statistically significant. The effect of the actor's gender role beliefs on the actor's gatekeeping behaviors could be potentially mediated (*p* =`r coef(summary(apim_stp2))[2,4]`). This path is also positive, so the actor's gender role beliefs could positively impact the actor's gatekeeping behaviors.
 ```
 
-```{r}
+```{r, include=FALSE}
 p_val2<-p_format(coef(summary(apim_stp2))[2,4],accuracy = .01)
 p_val2
 ```
@@ -882,7 +881,7 @@ p_val2
 ### Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y). 
 ```
 
-```{r}
+```{r, include=FALSE}
 apim_stp3 <- gls(housework_satisfied_A ~ genderE_A + avg_grbs_A:genderE_A + avg_grbs_P:genderE_A 
                  + avg_gatekeeping_A:genderE_A + avg_gatekeeping_P:genderE_A - 1,
                  data = dat_dyad,
