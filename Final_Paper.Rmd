@@ -55,9 +55,6 @@ set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
-# Housework distribution and satisfaction: The moderating role of gender role beliefs and religion
-## Introduction
-
 Gender role beliefs have been widely debated in society for decades, as this controversial concept subjects men and women to gender-specific roles. One audible voice in this discourse is the voice of the Church. Pope Francis, for example, recently described gender theory as evil and dangerous because “[i]t would make everything homogeneous, neutral. It is an attack on difference, on the creativity of God and on men and women” [@catholic_league_pope_2020]. 
 
 Traditionally, the majority of housework has been done by women while their male partners have been involved with paid labor. This distinction of gendered labor has been subject to change over the past few decades. Although most women in heterosexual couples are now as equally involved in paid labor as their male counterparts are, they often still do the majority of the housework [@forste_fox_2008; @leopold_2019; @mikula_1997]. These evolving trends illustrate how traditional and conservative gender role beliefs are slowly becoming more liberal and less stringent in everyday life. Gender role beliefs still heavily influence women's role in society, from their job prospects to gender-based income inequalities. Even though men are now doing more housework than before the “gender revolution” [@goldschneider_2014], the unequal distribution of housework has been found to result in lower satisfaction levels in female partners [@leopold_2019]. However, since past research [@forste_fox_2012; @baxter_western_1998] has shown that this relationship between housework distribution and satisfaction is complex, we will assess the extent to which two variables, religion and gender role beliefs, strengthen or dampen this relationship. 
@@ -299,11 +296,11 @@ tapply(dat_predyad$housework_satisfied, dat_predyad$gender, summary)
 ```
 # Method
 ## Participants 
-Originally, `r n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N = `r n` couples (N = `r n_indiv` individuals) have been included in the analysis. Women and men from the final sample of `r n`  adult couples were `r womenmean` (SD = `r womensd`, range = `r womenrangelow`-`r womenrangehigh`) and `r menmean` (SD = `r mensd`, range = `r menrangelow`-`r menrangehigh`) years old, respectively.
+Originally, `r n2` individuals in a partnership living in the United States of America participated in the study. In our analysis, we excluded all non-heterosexual couples and participants that did not have any partner variables available. In the end, N = `r n` couples (N = `r n_indiv` individuals) have been included in the analysis. Women and men from the final sample of `r n`  adult couples were `r womenmean` (*SD* = `r womensd`, range = `r womenrangelow`-`r womenrangehigh`) and `r menmean` (*SD* = `r mensd`, range = `r menrangelow`-`r menrangehigh`) years old, respectively.
 
-The relationships, at the time of the study, have been between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthmean` years (SD = `r lengthsd`). The average yearly income was `r menincmean` USD (SD = `r menincsd` USD) for men and `r womenincmean` USD (SD = `r womenincsd` USD) for women. `r Wperchome` % of the women and `r Mperchome` % of the men worked from home, `r Wpercnohome` % of the women and `r Mpercnohome` % of the men did not work from home. No answer to this question was given by the remaining participants (`r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women). 
+The relationships, at the time of the study, have been between `r lengthrangelow` and `r lengthrangehigh` years long, with an average of `r lengthmean` years (*SD* = `r lengthsd`). The average yearly income was `r menincmean` USD (*SD* = `r menincsd` USD) for men and `r womenincmean` USD (*SD* = `r womenincsd` USD) for women. `r Wperchome` % of the women and `r Mperchome` % of the men worked from home, `r Wpercnohome` % of the women and `r Mpercnohome` % of the men did not work from home. No answer to this question was given by the remaining participants (`r MpercnohomeNA` % of the men and `r WpercnohomeNA` % of the women). 
 
-We further looked at men and women based on their religion and race.`r Christian` is the % of the sample that identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question. 
+We further looked at men and women based on their religion and race.`r Christian` % of the sample identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question. 
 `r white` % of the sample were White, `r white_hisp` % Hispanic and White, `r black` % Black, `r asian` % were Asian, `r hisp` % were Hispanic and `r mid_east` % were Middle Eastern.`r other` % of the participants were another race and `r na` % of the participants preferred not to answer the question.
 
 
@@ -384,7 +381,7 @@ The scale *Who does what?*, developed by @cowan1992partners, measures the percen
 
 
 ### Gender Role Beliefs 
-Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr1996development. This self-report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" (reversed) and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed with these sentences on a five-point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed high reliability with a Cronbach’s Alpha of `r grb_alpha`and an ICC of `r rhoGrbs`.
+Gender Role Beliefs are quantified through the *Gender Role Belief Scale* (GRBS) developed by @kerr1996development. This self-report scale measures gender ideology and beliefs about appropriate behavior for men and women. Example ideologies include "women should not expect men to offer them seats on buses" (reversed) and "the husband should be regarded as the legal representative of the family in all matters of law". Participants rated how much they agreed with these sentences on a five-point Likert Scale (1 = *Strongly Disagree* to 5 = *Strongly Agree*). The scale showed high reliability with a Cronbach’s Alpha of `r grb_alpha` and an ICC of `r rhoGrbs`.
 
 
 ### Housework Satisfaction
@@ -648,15 +645,14 @@ hd_grbA_p_val<-p_format(coef(summary(two_int_mod))[12,4],accuracy = .01)
 ```
 ## Main Results
 #### Gender Role Beliefs
-All relevant results of the moderation analysis in the APIM are shown in Figure 2. It was shown that for husbands and wives, a higher amount of housework was significantly related to a lower satisfaction (wives *b* =`r coef(summary(two_int_mod))[3,1]`, *p* = `r coef(summary(two_int_mod))[3,4]`, *SE* =`r coef(summary(two_int_mod))[3,2]`; husbands *b* =`r coef(summary(two_int_mod))[4,1]`, *p* = `r coef(summary(two_int_mod))[4,4]`, *SE* = `r coef(summary(two_int_mod))[4,2]`).
-For the female partners, their own gender role beliefs significantly moderated the relationship between their housework distribution and their satisfaction with the housework distribution, *b* = `r coef(summary(two_int_mod))[12,1]`, *p* = `r hd_grbA_p_val`, *SE* = `r coef(summary(two_int_mod))[12,2]`). When the wives had higher gender role beliefs, which means more conservative, their satisfaction with the housework distribution tended to be higher, while keeping their own housework distribution constant at the mean. Wives who have low gender role beliefs, which means they are more liberal, reported lower satisfaction with an increasing amount of housework they had to do. Women with more conservative gender role beliefs (high value) did not show a significant decrease in satisfaction with an increasing amount of housework (see Figure 3). 
+All relevant results of the moderation analysis in the APIM are shown in Figure 2. It was shown that for husbands and wives, a higher amount of housework was significantly related to a lower satisfaction (wives *b* = `r coef(summary(two_int_mod))[3,1]`, *p* = `r coef(summary(two_int_mod))[3,4]`, *SE* =`r coef(summary(two_int_mod))[3,2]`; husbands *b* =`r coef(summary(two_int_mod))[4,1]`, *p* = `r coef(summary(two_int_mod))[4,4]`, *SE* = `r coef(summary(two_int_mod))[4,2]`).
+For the female partners, their own gender role beliefs significantly moderated the relationship between their housework distribution and their satisfaction with the housework distribution (*b* = `r coef(summary(two_int_mod))[12,1]`, *p* = `r hd_grbA_p_val`, *SE* = `r coef(summary(two_int_mod))[12,2]`). When the wives had higher gender role beliefs, which means more conservative, their satisfaction with the housework distribution tended to be higher, while keeping their own housework distribution constant at the mean. Wives who have low gender role beliefs, which means they are more liberal, reported lower satisfaction with an increasing amount of housework they had to do. Women with more conservative gender role beliefs (high value) did not show a significant decrease in satisfaction with an increasing amount of housework (see Figure 3). 
 The husband's gender role beliefs significantly moderated the relationship between the wife's amount of housework and the wife's satisfaction with the housework distribution (*b* = `r coef(summary(two_int_mod))[16,1]`, *p* = `r coef(summary(two_int_mod))[16,4]`, *SE* = `r coef(summary(two_int_mod))[16,2]`). When the husbands had more conservative gender role beliefs, the wife's satisfaction decreased by `r coef(summary(two_int_mod))[16,1]` while keeping the wives housework distribution constant at the mean. 
 As the amount of housework increases for wives whose husbands have low gender role beliefs, their satisfaction remains constant. When housework increases for wives whose husbands have high gender role beliefs, their satisfaction decreases (see Figure 4).
-Moreover, a marginally significant moderation effect was found for the relationship between the husbands amount of housework and the wife's satisfaction which was moderated by the wife's gender role beliefs (*b* = `r coef(summary(two_int_mod))[18,1]`, *p* =`r coef(summary(two_int_mod))[18,4]`, *SE* = `r coef(summary(two_int_mod))[18,2]`). When wives had more conservative gender role beliefs, their satisfaction tended to be higher, while their husbands housework distribution was held constant at the mean.
+Moreover, a marginally significant moderation effect was found for the relationship between the husbands amount of housework and the wife's satisfaction which was moderated by the wife's gender role beliefs (*b* = `r coef(summary(two_int_mod))[18,1]`, *p* = `r coef(summary(two_int_mod))[18,4]`, *SE* = `r coef(summary(two_int_mod))[18,2]`). When wives had more conservative gender role beliefs, their satisfaction tended to be higher, while their husbands housework distribution was held constant at the mean.
 
 
-(ref:my-figure-caption1) Moderation effects in the APIM. Values shown in the figure are $\beta$ coefficients. 
-* *p* < .05, ** *p* < .01, *** *p* < .001. 
+(ref:my-figure-caption1) Moderation effects in the APIM. Values shown in the figure are *b* coefficients. Bold numbers represent significant results, * *p* < .05, ** *p* < .01, *** *p* < .001. 
 
 ```{r, fig.cap = "(ref:my-figure-caption1)", include=TRUE}
 knitr::include_graphics("moderation.png")
@@ -710,7 +706,7 @@ wife_plot
 (ref:my-figure-caption3) Moderation of wife's housework distribution and her satisfaction by their husbands gender role beliefs. Housework distribution in %, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).
 
 
-```{r,include = TRUE,fig.cap = "(ref:my-figure-caption3)",fig.width=6,fig.height=3}
+```{r,include = TRUE,fig.cap = "(ref:my-figure-caption3)",fig.width=8,fig.height=4}
 wife_plot2<- ggplot(wives, aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -769,7 +765,7 @@ wife_plot2<- ggplot(wives,aes(
                 y = housework_satisfied_A, color = grbs_hl_P))
 ```
 
-Since we used distinguishable dyads, gender was a built-in moderator. To see if the moderation effects differed significantly by gender, we looked at the three-way interactions between gender, housework distribution, and gender role beliefs. We found two significant gender differences in the moderation effects. The interaction between the actor's housework and their own gender role beliefs was significantly different for husbands and wives (*b* =`r coef(summary(mod))[15,1]`,*p* = `r coef(summary(mod))[15,4]`, *SE* = `r coef(summary(mod))[15,2]`). The moderation effect of one’s own gender role beliefs was `r coef(summary(mod))[15,1]` units higher for women than men, meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands. 
+Since we used distinguishable dyads, gender was a built-in moderator. To see if the moderation effects differed significantly by gender, we looked at the three-way interactions between gender, housework distribution, and gender role beliefs. We found two significant gender differences in the moderation effects. The interaction between the actor's housework and their own gender role beliefs was significantly different for husbands and wives (*b* = `r coef(summary(mod))[15,1]`,*p* = `r coef(summary(mod))[15,4]`, *SE* = `r coef(summary(mod))[15,2]`). The moderation effect of one’s own gender role beliefs was `r coef(summary(mod))[15,1]` units higher for women than men, meaning the moderation effect of gender role beliefs had a significantly larger positive effect on satisfaction for wives than for husbands. 
 In addition, the interaction between the actor's amount of housework and their partners gender role beliefs was significantly different for husbands and wives (*b* = `r coef(summary(mod))[16,1]`, *p* = `r coef(summary(mod))[16,4]`, *SE* = `r coef(summary(mod))[16,2]`). The moderation effect of the partner’s gender role beliefs was `r coef(summary(mod))[16,1]` units lower for women than men which means that the moderation effect of the husband’s gender role beliefs had a significantly larger negative effect on her actor effect of housework on satisfaction compared to how the wife’s gender role beliefs affected the relationship between housework distribution and satisfaction for her husband.
 
 
@@ -820,15 +816,12 @@ In order to be able to find possible explanations for the association between ge
 Linear models were calculated for all paths to see whether all paths are significant first before we calculated the mediation effect in a second step.
 
 
-(ref:my-figure-caption5) Proposed mediation model with wife's gatekeeping as the mediator of the wife's gender role beliefs and satisfaction. Values shown in the figure are $\beta$ coefficients. 
+(ref:my-figure-caption5) Proposed mediation model with wife's gatekeeping as the mediator of the wife's gender role beliefs and satisfaction. Values shown in the figure are *b* coefficients. 
 * *p* < .05, ** *p* < .01, *** *p* < .001. 
 
 ```{r, fig.cap = "(ref:my-figure-caption5)", include=TRUE}
 knitr::include_graphics("mediation.png")
 ```
-
-
-
 
 ```{r, include=FALSE}
 ##Step 1: Estimating and testing the total effect (c) of grbs (X) on Satisfaction (Y)
@@ -954,12 +947,12 @@ mean(dat_lowgrbs$avg_gatekeeping_A, na.rm = TRUE)
 gate_t_test
 ```
 
-```{r}
+```{r, include=FALSE}
 t_test_p_val <-p_format(gate_t_test$p.val, accuracy = .01)
 t_test_p_val
 ```
 As seen in Figure 5, no significant relationship between gender role beliefs and satisfaction was found, despite the moderating effect of gender role beliefs that was found previously. Because only the relationship between gender role beliefs and gatekeeping has been significant, a full mediation analysis was no longer appropriate to conduct. 
-Instead, we conducted post-hoc t-tests to get a better sense of the relationship between gender role beliefs and gatekeeping. We found that liberal women gatekeep significantly less than traditional women (*t*(n) = `r gate_t_test$statistic`, *p* = `r t_test_p_val`). 
+Instead, we conducted post-hoc t-tests to get a better sense of the relationship between gender role beliefs and gatekeeping. We found that liberal women gatekeep significantly less than traditional women (*t*(238) = `r gate_t_test$statistic`, *p* = `r t_test_p_val`). 
 
 # Discussion
 ## Summary 
