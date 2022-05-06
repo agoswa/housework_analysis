@@ -16,7 +16,7 @@ affiliation:
    
 # authornote: 
 
-bibliography      : ["r-references.bib", "2articles.bib"]
+bibliography      : ["r-references.bib"]
 
 
 floatsintext      : no
