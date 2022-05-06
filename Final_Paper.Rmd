@@ -709,7 +709,7 @@ wife_plot
 (ref:my-figure-caption3) Moderation of wife's housework distribution and her satisfaction by their husbands gender role beliefs. Housework distribution in %, Satisfaction and gender role beliefs were measured with a 5 point Likert scale (1 = liberal, 5 = conservative).
 
 
-```{r,include = TRUE,fig.cap = "(ref:my-figure-caption3)",fig.width=6,fig.height=3}
+```{r,include = TRUE,fig.cap = "(ref:my-figure-caption3)",fig.width=8,fig.height=4}
 wife_plot2<- ggplot(wives, aes(
                 x = avg_housework_female_A,
                 y = housework_satisfied_A, 
@@ -718,7 +718,7 @@ wife_plot2<- ggplot(wives, aes(
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
   scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
-  labs(x = "Housework Distribution (Wife)", y = "Satisfaction (Wife)", title ="Moderation of Wife's Housework Distribution and her Satisfaction by her Husbands Gender Role Beliefs",color = "Gender Role Beliefs (Husband)")+
+  labs(x = "Housework Distribution (Wife)", y = "Satisfaction (Wife)", title ="Moderation of Wife's Housework Distribution and her Satisfaction \n by her Husbands Gender Role Beliefs",color = "Gender Role Beliefs (Husband)")+
   theme_bw()
  # theme(text = element_text(family = "Times New Roman"),
          # axis.title = element_text(size=12), 
