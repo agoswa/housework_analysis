@@ -56,7 +56,6 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
 # Housework distribution and satisfaction: The moderating role of gender role beliefs and religion
-## Introduction
 
 Gender role beliefs have been widely debated in society for decades, as this controversial concept subjects men and women to gender-specific roles. One audible voice in this discourse is the voice of the Church. Pope Francis, for example, recently described gender theory as evil and dangerous because “[i]t would make everything homogeneous, neutral. It is an attack on difference, on the creativity of God and on men and women” [@catholic_league_pope_2020]. 
 
