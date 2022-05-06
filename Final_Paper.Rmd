@@ -303,8 +303,6 @@ The relationships, at the time of the study, have been between `r lengthrangelow
 We further looked at men and women based on their religion and race.`r Christian` % of the sample identified as Christian, `r Athiest` % as Athiest, `r Agnostic` % as Agnostic, `r Judaism` % as Jewish, `r Hinduism` % as Hindu and `r Islam` % as Muslim. `r other_comb` % identified had a religious orientation apart from the mentioned ones and `r noanswer` % preferred not to answer this question. 
 `r white` % of the sample were White, `r white_hisp` % Hispanic and White, `r black` % Black, `r asian` % were Asian, `r hisp` % were Hispanic and `r mid_east` % were Middle Eastern.`r other` % of the participants were another race and `r na` % of the participants preferred not to answer the question.
 
-
- 
 ## Procedure and Measures
 Participating couples in this study were recruited online. The study was conducted in 2020 by Randi Garcia and contained two parts: The first part included a battery of questionnaires that included all variables used in this study. In a second part, both partners were asked to fill out a daily survey for two weeks.  Participants were instructed to not share their responses with their partners. Participants were compensated for the study if both, they and their partner, completed the questionnaires. For the second part, the daily measures, each participant received $2 per day. All participants gave their informed consent to participate in this study.
 In this analysis, selected data from the first batterie of questionnaires were used. The measures of interest are introduced below. 
@@ -450,10 +448,6 @@ p_stat_vals<-p_stat_vals%>%
 ```{r}
 rownames(p_stat_vals) <- c("Typically Female Housework","Gender Role Beleifs","Satisfaction with Distrubution of Housework")
 ```
-
-
-
-
 
 ```{r}
 GenderDifferences <- dat_predyad%>%group_by(gender) %>%
@@ -715,7 +709,7 @@ wife_plot2<- ggplot(wives, aes(
   geom_point(na.rm = TRUE)+
   geom_smooth(method = "lm")+
   scale_x_continuous(breaks = c(20, 40, 60,80,100), labels = c('up to 20%', 'up to 40%', 'up to 60%','up to 80%','up to 100%'))+
-  labs(x = "Housework Distribution (Wife)", y = "Satisfaction (Wife)", title ="Moderation of Wife's Housework Distribution and her Satisfaction by her Husbands Gender Role Beliefs",color = "Gender Role Beliefs (Husband)")+
+  labs(x = "Housework Distribution (Wife)", y = "Satisfaction (Wife)", title ="Moderation of Wife's Housework Distribution and her Satisfaction \n by her Husbands Gender Role Beliefs",color = "Gender Role Beliefs (Husband)")+
   theme_bw()
  # theme(text = element_text(family = "Times New Roman"),
          # axis.title = element_text(size=12), 
